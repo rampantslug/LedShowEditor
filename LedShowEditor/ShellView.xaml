@@ -1,0 +1,14 @@
+﻿<controls:MetroWindow 
+    x:Class="LedShowEditor.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Width="1600"
+        Height="800"
+        >
+    <Grid>
+        <TextBlock Text="Test Shell View Text"></TextBlock>
+    </Grid>
+
+</controls:MetroWindow>
