@@ -67,8 +67,16 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="LedTree\ILedTree.cs" />
+    <Compile Include="LedTree\LedTreeViewModel.cs" />
+    <Compile Include="Playfield\IPlayfield.cs" />
+    <Compile Include="Playfield\PlayfieldViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="Timeline\ITimeline.cs" />
+    <Compile Include="Timeline\TimelineViewModel.cs" />
+    <Compile Include="Tools\ITools.cs" />
+    <Compile Include="Tools\ToolsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -78,10 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
-    <Folder Include="LedTree\" />
-    <Folder Include="Playfield\" />
-    <Folder Include="Timeline\" />
-    <Folder Include="Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Entypo-license.txt" />
@@ -92,6 +96,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="LedTree\LedTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Playfield\PlayfieldView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +111,14 @@
     <Page Include="ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Timeline\TimelineView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tools\ToolsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
