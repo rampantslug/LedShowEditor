@@ -14,7 +14,8 @@ namespace LedShowEditor.Config
     public class Configuration
     {
         public string PlayfieldImage { get; set; }
-        public List<LedConfig> Leds { get; set; }
+        public IList<LedConfig> Leds { get; set; }
+        public IList<GroupConfig> Groups { get; set; }
 
         /// <summary>
         /// Creates a new Configuration object and initializes all subconfiguration objects

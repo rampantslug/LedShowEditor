@@ -69,6 +69,12 @@ namespace LedShowEditor
 
         }
 
+        protected override void OnDeactivate(bool close)
+        {
+            base.OnDeactivate(close);
+            SaveConfig();
+        }
+
         // TODO: Link this to a button so user can select config file
         // Attempts to load last loaded config file
         private void LoadConfig()
@@ -80,10 +86,19 @@ namespace LedShowEditor
             // Update local information from configuration
             Playfield.PlayfieldImagePath = filePath + @"\Config\" + gameConfiguration.PlayfieldImage;
 
-            foreach (var ledConfig in gameConfiguration.Leds)
+            _ledsViewModel.Import(gameConfiguration.Leds);
+            _ledsViewModel.Import(gameConfiguration.Groups);
+
+        }
+
+        private void SaveConfig()
+        {
+            var config = new Configuration
             {
-                var led = new LedViewModel(ledConfig);
-            }
+                Leds = _ledsViewModel.ExportLeds(),
+                Groups = _ledsViewModel.ExportGroups()
+            };
+            config.ToFile("output.json");
         }
 
 

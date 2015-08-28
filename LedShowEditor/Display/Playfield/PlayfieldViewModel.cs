@@ -133,12 +133,9 @@ namespace LedShowEditor.Display.Playfield
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
 
-            DisplayName = "Playfield";
             PlayfieldWidth = 400;
             PlayfieldHeight = 800;
-           
 
-           // _leds = new ObservableCollection<LedViewModel>();
         }
 
         

@@ -70,7 +70,7 @@
 
         <!-- Container for the Leds -->
         <ItemsControl 
-            x:Name="Leds"
+            ItemsSource="{Binding LedsVm.AllLeds}"
             Visibility="{Binding AllLedsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
             >
             <ItemsControl.ItemsPanel>
@@ -90,7 +90,7 @@
                             <MultiBinding 
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
-                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="LocationX"/>
                                 <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
                             </MultiBinding>
                         </Setter.Value>
@@ -101,7 +101,7 @@
                             <MultiBinding 
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
-                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="LocationY"/>
                                 <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
                             </MultiBinding>
                         </Setter.Value>
@@ -111,18 +111,24 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid
-                        Background="Chartreuse"
                         Width="30" 
                         Height="30" 
-                        Opacity="0.5"
+                        Opacity="0.9"
                         Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         >
-                        <Border
+                        <Ellipse 
+                            Width="30"
+                            Height="30"
+                            Fill="OrangeRed"
+                            Stroke="CadetBlue"
+                            StrokeThickness="2"
+                            />
+                        <!--<Border
                             BorderBrush="CadetBlue"
                             BorderThickness="2"
-                            />
+                            />-->
                         <!-- Highlight for object selection -->
-                        <Grid
+                     <!--   <Grid
                             Width="30" 
                             Height="30"
                             Background="IndianRed"
@@ -142,9 +148,9 @@
                                 >
                                 </DropShadowEffect>
                             </Grid.Effect>
-                        </Grid>
+                        </Grid>-->
                         <Button 
-                            Content="{Binding Number}"
+                            Content="{Binding Id}"
                             Style="{StaticResource FlatButton}"
                             cal:Message.Attach="ActivateDeviceState()"
                             VerticalAlignment="Center"

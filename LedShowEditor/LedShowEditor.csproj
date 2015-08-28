@@ -71,9 +71,12 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\GroupConfig.cs" />
+    <Compile Include="Config\ShowConfig.cs" />
     <Compile Include="Config\LedConfig.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\SizeObserver.cs" />
+    <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\ILeds.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="ViewModels\LedsViewModel.cs" />
