@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="LedShowEditor.Timeline.TimelineView"
+    x:Class="LedShowEditor.Display.Timeline.TimelineView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"

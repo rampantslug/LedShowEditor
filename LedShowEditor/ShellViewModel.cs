@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel.Composition;
+using System.IO;
+using System.Reflection;
 using Caliburn.Micro;
-using LedShowEditor.LedTree;
-using LedShowEditor.Playfield;
-using LedShowEditor.Timeline;
-using LedShowEditor.Tools;
+using LedShowEditor.Config;
+using LedShowEditor.Display.LedTree;
+using LedShowEditor.Display.Playfield;
+using LedShowEditor.Display.Timeline;
+using LedShowEditor.Display.Tools;
+using LedShowEditor.ViewModels;
 
 namespace LedShowEditor
 {
@@ -16,6 +20,7 @@ namespace LedShowEditor
     {
 
         private readonly IEventAggregator _eventAggregator;
+        private ILeds _ledsViewModel;
 
         // Display Modules
         public ILedTree LedTree { get; private set; }    
@@ -36,6 +41,7 @@ namespace LedShowEditor
         [ImportingConstructor]
         public ShellViewModel(
             IEventAggregator eventAggregator,
+            ILeds ledsViewModel,
             ILedTree ledTree,
             IPlayfield playfield,
             ITools tools,
@@ -43,6 +49,7 @@ namespace LedShowEditor
             )
         {
             _eventAggregator = eventAggregator;
+            _ledsViewModel = ledsViewModel;
             LedTree = ledTree;
             Playfield = playfield;
             Timeline = timeline;
@@ -56,13 +63,28 @@ namespace LedShowEditor
         {
 
             base.OnViewLoaded(view);
-
             _eventAggregator.Subscribe(this);
+
+            LoadConfig();
 
         }
 
+        // TODO: Link this to a button so user can select config file
+        // Attempts to load last loaded config file
+        private void LoadConfig()
+        {
+            // Retrieve saved configuration information
+            var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            var gameConfiguration = Configuration.FromFile(filePath + @"\Config\machine.json");
 
+            // Update local information from configuration
+            Playfield.PlayfieldImagePath = filePath + @"\Config\" + gameConfiguration.PlayfieldImage;
 
+            foreach (var ledConfig in gameConfiguration.Leds)
+            {
+                var led = new LedViewModel(ledConfig);
+            }
+        }
 
 
     }

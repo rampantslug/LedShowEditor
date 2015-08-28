@@ -1,0 +1,26 @@
+﻿{
+    "PlayfieldImage": "playfield.jpg",
+    "Leds": [
+        {
+            "Id":  "1",
+            "HardwareAddress": "PLB-101",
+            "Name": "Led 1",
+            "LocationX": 74.0,
+            "LocationY": 57.0
+        },
+        {
+            "Id":  "2",
+            "HardwareAddress": "PLB-102",
+            "Name": "Led 2",
+            "LocationX": 59.0,
+            "LocationY": 57.0
+        },
+        {
+            "Id":  "3",
+            "HardwareAddress": "PLB-104",
+            "Name": "Led 4",
+            "LocationX": 69.0,
+            "LocationY": 51.0
+        }
+    ]
+}

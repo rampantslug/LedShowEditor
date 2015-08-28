@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="LedShowEditor.Tools.ToolsView"
+    x:Class="LedShowEditor.Display.Tools.ToolsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"

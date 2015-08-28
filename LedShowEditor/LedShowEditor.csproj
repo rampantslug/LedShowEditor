@@ -45,6 +45,10 @@
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -66,28 +70,39 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\LedConfig.cs" />
+    <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\SizeObserver.cs" />
+    <Compile Include="ViewModels\ILeds.cs" />
     <Compile Include="IShell.cs" />
-    <Compile Include="LedTree\ILedTree.cs" />
-    <Compile Include="LedTree\LedTreeViewModel.cs" />
-    <Compile Include="Playfield\IPlayfield.cs" />
-    <Compile Include="Playfield\PlayfieldViewModel.cs" />
+    <Compile Include="ViewModels\LedsViewModel.cs" />
+    <Compile Include="Display\LedTree\ILedTree.cs" />
+    <Compile Include="Display\LedTree\LedTreeViewModel.cs" />
+    <Compile Include="ViewModels\LedViewModel.cs" />
+    <Compile Include="Display\Playfield\IPlayfield.cs" />
+    <Compile Include="Display\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellViewModel.cs" />
-    <Compile Include="Timeline\ITimeline.cs" />
-    <Compile Include="Timeline\TimelineViewModel.cs" />
-    <Compile Include="Tools\ITools.cs" />
-    <Compile Include="Tools\ToolsViewModel.cs" />
+    <Compile Include="Display\Timeline\ITimeline.cs" />
+    <Compile Include="Display\Timeline\TimelineViewModel.cs" />
+    <Compile Include="Display\Tools\ITools.cs" />
+    <Compile Include="Display\Tools\ToolsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\machine.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\Entypo.ttf" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Config\playfield.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Entypo-license.txt" />
     <Content Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
@@ -96,11 +111,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="LedTree\LedTreeView.xaml">
+    <Page Include="Display\LedTree\LedTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Playfield\PlayfieldView.xaml">
+    <Page Include="Display\Playfield\PlayfieldView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -112,11 +127,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Timeline\TimelineView.xaml">
+    <Page Include="Display\Timeline\TimelineView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tools\ToolsView.xaml">
+    <Page Include="Display\Tools\ToolsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
