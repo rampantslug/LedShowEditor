@@ -6,7 +6,162 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
     <Grid>
-        <TextBlock Text="Test Tools View"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Led Properties go here -->
+        <Grid
+            Margin="5"> 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="0"
+                Text="Id"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="0"
+                Text="{Binding LedsVm.SelectedLed.Id}"
+                IsReadOnly="True"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Name"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="1"
+                Text="{Binding LedsVm.SelectedLed.Name}"
+                FontSize="24"
+                Foreground="{StaticResource AccentColorBrush}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="2"
+                Text="Hardware Address"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="2"
+                Text="{Binding LedsVm.SelectedLed.HardwareAddress}"
+                IsReadOnly="True"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="3"
+                Text="Type"
+                VerticalAlignment="Center"            
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="3"
+                Text="RGB or single colour"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="4"
+                Text="Group"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="4"
+                Text="{Binding LedsVm.SelectedLed.Id}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="5"
+                Text="Shape"
+                VerticalAlignment="Center"
+                />
+            <ComboBox 
+                Grid.Column="2"
+                Grid.Row="5"
+                Text="{Binding LedsVm.SelectedLed.Shape}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="6"
+                Text="Location"
+                VerticalAlignment="Center"
+                />
+            <TextBlock 
+                Grid.Column="1"
+                Grid.Row="6"
+                Text="x"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="6"
+                Text="{Binding LedsVm.SelectedLed.LocationX}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="1"
+                Grid.Row="7"
+                Text="y"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="7"
+                Text="{Binding LedsVm.SelectedLed.LocationY}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="8"
+                Text="Angle"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="8"
+                Text="{Binding LedsVm.SelectedLed.Angle}"
+                Height="25"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="9"
+                Text="Size"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="9"
+                Text="{Binding LedsVm.SelectedLed.Size}"
+                Height="25"
+                />
+        </Grid>
     </Grid>
 
 </UserControl>

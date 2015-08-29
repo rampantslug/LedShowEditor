@@ -111,14 +111,9 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid
-                        Width="30" 
-                        Height="30" 
                         Opacity="0.9"
                         Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
-                        [Event MouseMove] = [Action MouseMove($source)];
-                        [Event MouseEnter] = [Action MouseEnter($source)];
-                        [Event MouseLeave] = [Action MouseLeave($source)]"
+                        
                         >
                        <!-- <Ellipse 
                             Width="30"
@@ -143,7 +138,12 @@
                             Fill="OrangeRed"
                             Stroke="CadetBlue"
                             StrokeThickness="2"
-                            Data="{Binding LedGeometry}"></Path>
+                            Data="{Binding LedGeometry}"
+                            cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
+                        [Event MouseMove] = [Action MouseMove($source)];
+                        [Event MouseEnter] = [Action MouseEnter($source)];
+                        [Event MouseLeave] = [Action MouseLeave($source)]"
+                            ></Path>
                         <!--<Border
                             BorderBrush="CadetBlue"
                             BorderThickness="2"

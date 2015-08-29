@@ -60,6 +60,36 @@
       "Angle": 0.0,
       "Size": 0.0,
       "Shape": 5
+    },
+    {
+      "Id": 7,
+      "HardwareAddress": "PLB-107",
+      "Name": "Led 7",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 6
+    },
+    {
+      "Id": 8,
+      "HardwareAddress": "PLB-108",
+      "Name": "Led 8",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 7
+    },
+    {
+      "Id": 9,
+      "HardwareAddress": "PLB-109",
+      "Name": "Led 9",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 8
     }
     ],
     "Groups": [ ]

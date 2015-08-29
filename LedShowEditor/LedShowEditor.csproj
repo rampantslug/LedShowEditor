@@ -107,6 +107,8 @@
     <Content Include="Config\playfield.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="LedShapes\AllShapes.svg" />
+    <Content Include="LedShapes\Notes.txt" />
     <Content Include="Resources\Entypo-license.txt" />
     <Content Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
@@ -120,6 +122,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Display\Playfield\PlayfieldView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LedShapes\AllShapes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

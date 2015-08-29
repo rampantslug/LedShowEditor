@@ -2,11 +2,14 @@
 {
     public enum LedShape
     {
-        Circle,
+        CircleLarge,
+        CircleMed,
+        CircleSmall,
         Rectangle,
         Square,
         Arrow,
         Triangle,
-        ThinTriangle
+        ThinTriangleLarge,
+        ThinTriangleSmall
     }
 }
