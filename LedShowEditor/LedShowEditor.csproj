@@ -72,6 +72,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\GroupConfig.cs" />
+    <Compile Include="Config\LedShape.cs" />
     <Compile Include="Config\ShowConfig.cs" />
     <Compile Include="Config\LedConfig.cs" />
     <Compile Include="Converters\MathConverter.cs" />

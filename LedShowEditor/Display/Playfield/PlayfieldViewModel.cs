@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
@@ -116,8 +119,8 @@ namespace LedShowEditor.Display.Playfield
 
 
         public ILeds LedsVm { get; set; }
-      
 
+        public LedViewModel SelectedLed { get; set; }
    
 
         #endregion
@@ -148,6 +151,59 @@ namespace LedShowEditor.Display.Playfield
             _eventAggregator.Subscribe(this);
 
         }
+
+        #region Handle Mouse movement / Dragging of Device
+
+        public void MouseEnter(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        public void MouseLeave(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        public Point StartingPoint { get; set; }
+
+        public void MouseDown(object source)
+        {
+            var myGrid = source as Grid;
+            if (myGrid != null)
+            {           
+                StartingPoint = Mouse.GetPosition(myGrid);
+
+                // Find the Led we are moving and set it to selected device
+                var dataContext = myGrid.DataContext as LedViewModel;
+                if (dataContext != null)
+                {
+                    SelectedLed = dataContext;
+                }
+            }
+            else
+            {
+                SelectedLed = null;                
+            }
+        }
+
+        public void MouseMove(object source)
+        {
+            var myGrid = source as Grid;
+            if (Mouse.LeftButton == MouseButtonState.Pressed && myGrid != null && SelectedLed != null)
+            {
+
+                var currentPoint = Mouse.GetPosition(myGrid);
+                var xDelta = currentPoint.X - StartingPoint.X;
+                var yDelta = currentPoint.Y - StartingPoint.Y;
+
+                SelectedLed.LocationX = SelectedLed.LocationX + (int)(xDelta / ScaleFactorX);
+                SelectedLed.LocationY = SelectedLed.LocationY + (int)(yDelta / ScaleFactorY);
+            }
+        }
+
+        #endregion
 
     }
 }

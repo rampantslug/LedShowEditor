@@ -14,7 +14,13 @@ namespace LedShowEditor.Config
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
         public string Name { get; set; }
+
         public double LocationX { get; set; }
         public double LocationY { get; set; }
+
+        public double Angle { get; set; }
+        public double Size { get; set; }
+
+        public LedShape Shape { get; set; }
     }
 }

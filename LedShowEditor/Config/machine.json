@@ -1,26 +1,66 @@
 ﻿{
     "PlayfieldImage": "playfield.jpg",
-    "Leds": [
-        {
-            "Id":  "1",
-            "HardwareAddress": "PLB-101",
-            "Name": "Led 1",
-            "LocationX": 74.0,
-            "LocationY": 57.0
-        },
-        {
-            "Id":  "2",
-            "HardwareAddress": "PLB-102",
-            "Name": "Led 2",
-            "LocationX": 59.0,
-            "LocationY": 57.0
-        },
-        {
-            "Id":  "3",
-            "HardwareAddress": "PLB-104",
-            "Name": "Led 4",
-            "LocationX": 69.0,
-            "LocationY": 51.0
-        }
-    ]
+     "Leds": [
+    {
+      "Id": 1,
+      "HardwareAddress": "PLB-101",
+      "Name": "Led 1",
+      "LocationX": 71.0,
+      "LocationY": 66.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 0
+    },
+    {
+      "Id": 2,
+      "HardwareAddress": "PLB-102",
+      "Name": "Led 2",
+      "LocationX": 43.0,
+      "LocationY": 57.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 1
+    },
+    {
+      "Id": 3,
+      "HardwareAddress": "PLB-103",
+      "Name": "Led 3",
+      "LocationX": 71.0,
+      "LocationY": 52.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 2
+    },
+    {
+      "Id": 4,
+      "HardwareAddress": "PLB-104",
+      "Name": "Led 4",
+      "LocationX": 66.0,
+      "LocationY": 20.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 3
+    },
+    {
+      "Id": 5,
+      "HardwareAddress": "PLB-105",
+      "Name": "Led 5",
+      "LocationX": 21.0,
+      "LocationY": 34.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 4
+    },
+    {
+      "Id": 6,
+      "HardwareAddress": "PLB-106",
+      "Name": "Led 6",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": 0.0,
+      "Size": 0.0,
+      "Shape": 5
+    }
+    ],
+    "Groups": [ ]
 }
