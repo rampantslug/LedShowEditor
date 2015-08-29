@@ -7,15 +7,33 @@ using LedShowEditor.Config;
 namespace LedShowEditor.ViewModels
 {
     [Export(typeof(ILeds))]
-    public class LedsViewModel: Screen, ILeds
+    public class LedsViewModel: Screen, ILeds, IHandle<LedSelectedEvent>
     {
+        private LedViewModel _selectedLed;
+        private IEventAggregator _eventAggregator;
+
         public IObservableCollection<LedViewModel> AllLeds { get; set; }
-        public IObservableCollection<GroupViewModel> Groups { get; set; } 
+        public IObservableCollection<GroupViewModel> Groups { get; set; }
 
-
-
-        public LedsViewModel()
+        public LedViewModel SelectedLed
         {
+            get
+            {
+                return _selectedLed;
+            }
+            set
+            {
+                _selectedLed = value;
+                NotifyOfPropertyChange(() => SelectedLed);
+            }
+        }
+
+        [ImportingConstructor]
+        public LedsViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+
             AllLeds = new BindableCollection<LedViewModel>();
             Groups = new BindableCollection<GroupViewModel>();
         }
@@ -32,7 +50,7 @@ namespace LedShowEditor.ViewModels
             {
                 foreach (var ledConfig in leds)
                 {
-                    var led = new LedViewModel(ledConfig);
+                    var led = new LedViewModel(_eventAggregator, ledConfig);
                     AllLeds.Add(led);
                 }
             }
@@ -81,6 +99,11 @@ namespace LedShowEditor.ViewModels
                 Name = group.Name,
                 Leds = group.LedIds
             }).ToList();
+        }
+
+        public void Handle(LedSelectedEvent message)
+        {
+            SelectedLed = message.SelectedLed;
         }
     }
 }

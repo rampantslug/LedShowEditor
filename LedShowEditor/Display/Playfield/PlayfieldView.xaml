@@ -110,39 +110,42 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid
-                        Opacity="0.9"
-                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        
+                    <Grid                     
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"                       
                         >
-                       <!-- <Ellipse 
-                            Width="30"
-                            Height="30"
-                            Fill="OrangeRed"
-                            Stroke="CadetBlue"
-                            StrokeThickness="2"
-                            >
-                           
-                            <Ellipse.Effect>
-                                <DropShadowEffect
-                                ShadowDepth="0" 
-                                Color="{DynamicResource AccentColor}" 
-                                BlurRadius="20"
-                               
-                                >
-                                </DropShadowEffect>
-                            </Ellipse.Effect>
-                            
-                        </Ellipse>-->
+                        <!-- Cant easily set the visibility of a dropshadow so create a 2nd path on top of the first only visible if highlighted -->
                         <Path 
-                            Fill="OrangeRed"
+                            Fill="{DynamicResource AccentColorBrush}"
+                            Stroke="CadetBlue"
+                            StrokeThickness="3"
+                            Data="{Binding LedGeometry}"
+                            Visibility="{Binding IsHighlighted, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="{Binding Angle}"/>
+                                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                            <Path.Effect                           
+                                >
+                                <DropShadowEffect                                   
+                                    ShadowDepth="0" 
+                                    Color="{DynamicResource AccentColor}" 
+                                    BlurRadius="20"
+                                />
+                            </Path.Effect>
+                        </Path>
+                        <Path 
+                            Opacity="0.9"
+                            Fill="{Binding CurrentColor}"
                             Stroke="CadetBlue"
                             StrokeThickness="2"
                             Data="{Binding LedGeometry}"
                             cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
-                        [Event MouseMove] = [Action MouseMove($source)];
-                        [Event MouseEnter] = [Action MouseEnter($source)];
-                        [Event MouseLeave] = [Action MouseLeave($source)]"
+                                                [Event MouseMove] = [Action MouseMove($source)];
+                                                [Event MouseEnter] = [Action MouseEnter($source)];
+                                                [Event MouseLeave] = [Action MouseLeave($source)]"
                             >
                             <Path.RenderTransform>
                                 <TransformGroup>
@@ -151,32 +154,7 @@
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
-                        <!--<Border
-                            BorderBrush="CadetBlue"
-                            BorderThickness="2"
-                            />-->
-                        <!-- Highlight for object selection -->
-                     <!--  <Grid
-                            Width="30" 
-                            Height="30"
-                            Background="IndianRed"
-                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Margin="-2"
-                            >
-                            <Border
-                            BorderBrush="{DynamicResource AccentColorBrush}"
-                            BorderThickness="2"
-                            />
-                            <Grid.Effect
-                            >
-                                <DropShadowEffect
-                                ShadowDepth="0" 
-                                Color="{DynamicResource AccentColor}" 
-                                BlurRadius="20"
-                                >
-                                </DropShadowEffect>
-                            </Grid.Effect>
-                        </Grid>-->
+                       
                         <!--<Button 
                             Content="{Binding Id}"
                             Style="{StaticResource FlatButton}"

@@ -75,6 +75,7 @@
     <Compile Include="Config\LedShape.cs" />
     <Compile Include="Config\ShowConfig.cs" />
     <Compile Include="Config\LedConfig.cs" />
+    <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\SizeObserver.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />

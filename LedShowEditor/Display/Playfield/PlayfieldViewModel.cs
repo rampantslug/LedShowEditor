@@ -157,14 +157,28 @@ namespace LedShowEditor.Display.Playfield
 
         public void MouseEnter(object source)
         {
-            // change mouse cursor
-            Mouse.OverrideCursor = Cursors.Hand;
+            var ledGeom = source as Path;
+            if (ledGeom != null)
+            {
+                var activeLed = ledGeom.DataContext as LedViewModel;
+                if (activeLed != null)
+                {
+                    activeLed.IsMouseOver = true;
+                }
+            }
         }
 
         public void MouseLeave(object source)
         {
-            // change mouse cursor
-            Mouse.OverrideCursor = Cursors.Arrow;
+            var ledGeom = source as Path;
+            if (ledGeom != null)
+            {
+                var activeLed = ledGeom.DataContext as LedViewModel;
+                if (activeLed != null)
+                {
+                    activeLed.IsMouseOver = false;
+                }
+            }
         }
 
         public Point StartingPoint { get; set; }
@@ -176,14 +190,13 @@ namespace LedShowEditor.Display.Playfield
             {
                 //var parentGrid = myGrid.GetParentObject() as Grid;
                 StartingPoint = Mouse.GetPosition(ledGeom);
-
                 
-
                 // Find the Led we are moving and set it to selected device
-                var dataContext = ledGeom.DataContext as LedViewModel;
-                if (dataContext != null)
+                var activeLed = ledGeom.DataContext as LedViewModel;
+                if (activeLed != null)
                 {
-                    SelectedLed = dataContext;
+                    SelectedLed = activeLed;
+                    SelectedLed.IsSelected = true;
                 }
             }
             else

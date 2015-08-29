@@ -8,15 +8,98 @@ namespace LedShowEditor.ViewModels
 {
     public class LedViewModel : Screen
     {
+        private IEventAggregator _eventAggregator;
+
         private double _locationX;
         private double _locationY;
         private LedShape _shape;
         private double _angle;
         private Geometry _ledGeometry;
         private double _scale;
+        private string _name;
+        private Brush _currentColor;
+        private bool _isSelected;
+
+        private bool _isMouseOver = false;
+
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
-        public string Name { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyOfPropertyChange(() => Name);
+            }
+        }
+
+        public Brush CurrentColor
+        {
+            get
+            {
+                return _currentColor;
+            }
+            set
+            {
+                _currentColor = value;
+                NotifyOfPropertyChange(() => CurrentColor);
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+                NotifyOfPropertyChange(() => IsSelected);
+                NotifyOfPropertyChange(() => IsHighlighted);
+                
+                // Notify parent container that we are selected
+                _eventAggregator.PublishOnUIThread(new LedSelectedEvent
+                {
+                    SelectedLed = this
+                });
+            }
+        }
+
+        public bool IsHighlighted
+        {
+            get
+            {
+                if (IsSelected || IsMouseOver)
+                {
+                    return true;
+                }
+                return false;
+
+            }
+        }
+
+        public bool IsMouseOver
+        {
+            get
+            {
+                return _isMouseOver;
+            }
+            set
+            {
+                _isMouseOver = value;
+                NotifyOfPropertyChange(() => IsMouseOver);
+                NotifyOfPropertyChange(() => IsHighlighted);
+            }
+        }
+
+        #region Size, Location and Shape Properties
+
         public double LocationX
         {
             get
@@ -97,19 +180,34 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public LedViewModel()
+        
+
+        #endregion
+
+        public LedViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             // Default a bunch of stuff
             Name = "New Led";
+
+            CurrentColor = Brushes.Transparent;
+
             LocationX = 0;
             LocationY = 0;
+            Shape = LedShape.CircleMed;
+            Angle = 0;
+            Scale = 1.0;
         }
 
-        public LedViewModel(LedConfig ledConfig)
+        public LedViewModel(IEventAggregator eventAggregator, LedConfig ledConfig)
         {
+            _eventAggregator = eventAggregator;
             Id = ledConfig.Id;
             HardwareAddress = ledConfig.HardwareAddress;
             Name = ledConfig.Name;
+
+            CurrentColor = Brushes.Transparent;
+
             LocationX = ledConfig.LocationX;
             LocationY = ledConfig.LocationY;
             Shape = ledConfig.Shape;
@@ -184,5 +282,10 @@ namespace LedShowEditor.ViewModels
                 }
             }
         }
+    }
+
+    public class LedSelectedEvent
+    {
+        public LedViewModel SelectedLed { get; set; }
     }
 }

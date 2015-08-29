@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
@@ -54,9 +54,9 @@
                 Grid.Column="2"
                 Grid.Row="1"
                 Text="{Binding LedsVm.SelectedLed.Name}"
-                FontSize="24"
+                FontSize="18"
                 Foreground="{StaticResource AccentColorBrush}"
-                Height="25"
+                Height="35"
                 />
             <TextBlock 
                 Grid.Column="0"
@@ -152,13 +152,13 @@
             <TextBlock 
                 Grid.Column="0"
                 Grid.Row="9"
-                Text="Size"
+                Text="Scale"
                 VerticalAlignment="Center"
                 />
             <TextBox 
                 Grid.Column="2"
                 Grid.Row="9"
-                Text="{Binding LedsVm.SelectedLed.Size}"
+                Text="{Binding LedsVm.SelectedLed.Scale}"
                 Height="25"
                 />
         </Grid>
