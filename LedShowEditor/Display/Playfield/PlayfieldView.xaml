@@ -143,7 +143,14 @@
                         [Event MouseMove] = [Action MouseMove($source)];
                         [Event MouseEnter] = [Action MouseEnter($source)];
                         [Event MouseLeave] = [Action MouseLeave($source)]"
-                            ></Path>
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="{Binding Angle}"/>
+                                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
                         <!--<Border
                             BorderBrush="CadetBlue"
                             BorderThickness="2"

@@ -8,7 +8,7 @@
       "LocationX": 71.0,
       "LocationY": 66.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 0
     },
     {
@@ -18,7 +18,7 @@
       "LocationX": 43.0,
       "LocationY": 57.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 1
     },
     {
@@ -28,7 +28,7 @@
       "LocationX": 71.0,
       "LocationY": 52.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 2
     },
     {
@@ -38,7 +38,7 @@
       "LocationX": 66.0,
       "LocationY": 20.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 3
     },
     {
@@ -48,7 +48,7 @@
       "LocationX": 21.0,
       "LocationY": 34.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 4
     },
     {
@@ -58,7 +58,7 @@
       "LocationX": 46.0,
       "LocationY": 52.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 5
     },
     {
@@ -68,7 +68,7 @@
       "LocationX": 46.0,
       "LocationY": 52.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 6
     },
     {
@@ -78,7 +78,7 @@
       "LocationX": 46.0,
       "LocationY": 52.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
       "Shape": 7
     },
     {
@@ -88,7 +88,27 @@
       "LocationX": 46.0,
       "LocationY": 52.0,
       "Angle": 0.0,
-      "Size": 0.0,
+      "Scale": 1.0,
+      "Shape": 8
+    },
+    {
+      "Id": 10,
+      "HardwareAddress": "PLB-110",
+      "Name": "Led 10",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": 75.0,
+      "Scale": 3.0,
+      "Shape": 8
+    },
+    {
+      "Id": 11,
+      "HardwareAddress": "PLB-111",
+      "Name": "Led 11",
+      "LocationX": 46.0,
+      "LocationY": 52.0,
+      "Angle": -25.0,
+      "Scale": 0.5,
       "Shape": 8
     }
     ],

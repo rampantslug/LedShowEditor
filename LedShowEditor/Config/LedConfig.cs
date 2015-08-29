@@ -19,7 +19,7 @@ namespace LedShowEditor.Config
         public double LocationY { get; set; }
 
         public double Angle { get; set; }
-        public double Size { get; set; }
+        public double Scale { get; set; }
 
         public LedShape Shape { get; set; }
     }

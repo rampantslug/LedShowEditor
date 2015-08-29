@@ -201,8 +201,8 @@ namespace LedShowEditor.Display.Playfield
                 var xDelta = currentPoint.X - StartingPoint.X;
                 var yDelta = currentPoint.Y - StartingPoint.Y;
 
-                SelectedLed.LocationX = SelectedLed.LocationX + (int)(xDelta / ScaleFactorX);
-                SelectedLed.LocationY = SelectedLed.LocationY + (int)(yDelta / ScaleFactorY);
+                SelectedLed.LocationX = SelectedLed.LocationX + (double)(xDelta / ScaleFactorX);
+                SelectedLed.LocationY = SelectedLed.LocationY + (double)(yDelta / ScaleFactorY);
             }
         }
 

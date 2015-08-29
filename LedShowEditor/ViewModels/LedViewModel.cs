@@ -13,7 +13,7 @@ namespace LedShowEditor.ViewModels
         private LedShape _shape;
         private double _angle;
         private Geometry _ledGeometry;
-        private double _size;
+        private double _scale;
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
         public string Name { get; set; }
@@ -84,16 +84,16 @@ namespace LedShowEditor.ViewModels
                 NotifyOfPropertyChange(() => Angle);
             }
         }
-        public double Size
+        public double Scale
         {
             get
             {
-                return _size;
+                return _scale;
             }
             set
             {
-                _size = value;
-                NotifyOfPropertyChange(() => Size);
+                _scale = value;
+                NotifyOfPropertyChange(() => Scale);
             }
         }
 
@@ -114,7 +114,7 @@ namespace LedShowEditor.ViewModels
             LocationY = ledConfig.LocationY;
             Shape = ledConfig.Shape;
             Angle = ledConfig.Angle;
-            Size = ledConfig.Size;
+            Scale = ledConfig.Scale;
         }
 
         // Build what shapes we can from code. Irregular shapes are taken from AllShapes.xaml
