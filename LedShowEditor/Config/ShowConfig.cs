@@ -11,7 +11,6 @@ namespace LedShowEditor.Config
     /// </summary>
     public class ShowConfig
     {
-        public string Name { get; set; }
         public IList<uint> Leds { get; set; }
         public uint Frames { get; set; }
     }

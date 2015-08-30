@@ -6,14 +6,28 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+        <ListView
+            ItemsSource="{Binding LedsVm.Shows}"
+            Background="Transparent"
+            SelectedItem="{Binding LedsVm.SelectedShow}"
+            >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
 
-        <TextBlock 
-            Text="List of shows goes here"
-            TextWrapping="Wrap"/>
+                        <TextBlock 
+                                    Text="{Binding Name}"
+                                    VerticalAlignment="Center"
+                                    />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListView>
     </Grid>
 
 </UserControl>

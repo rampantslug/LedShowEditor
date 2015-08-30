@@ -21,6 +21,7 @@ namespace LedShowEditor.ViewModels
         private bool _isSelected;
 
         private bool _isMouseOver = false;
+        private IObservableCollection<EventViewModel> _events;
 
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
@@ -37,6 +38,20 @@ namespace LedShowEditor.ViewModels
                 NotifyOfPropertyChange(() => Name);
             }
         }
+
+        public IObservableCollection<EventViewModel> Events
+        {
+            get
+            {
+                return _events;
+            }
+            set
+            {
+                _events = value;
+                NotifyOfPropertyChange(() => Events);
+            }
+        } 
+
 
         public Brush CurrentColor
         {
@@ -197,6 +212,8 @@ namespace LedShowEditor.ViewModels
             Shape = LedShape.CircleMed;
             Angle = 0;
             Scale = 1.0;
+
+            _events = new BindableCollection<EventViewModel>();
         }
 
         public LedViewModel(IEventAggregator eventAggregator, LedConfig ledConfig)
@@ -213,6 +230,8 @@ namespace LedShowEditor.ViewModels
             Shape = ledConfig.Shape;
             Angle = ledConfig.Angle;
             Scale = ledConfig.Scale;
+
+            _events = new BindableCollection<EventViewModel>();
         }
 
         // Build what shapes we can from code. Irregular shapes are taken from AllShapes.xaml
@@ -282,10 +301,5 @@ namespace LedShowEditor.ViewModels
                 }
             }
         }
-    }
-
-    public class LedSelectedEvent
-    {
-        public LedViewModel SelectedLed { get; set; }
     }
 }

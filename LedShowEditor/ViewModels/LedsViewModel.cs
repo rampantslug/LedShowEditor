@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using LedShowEditor.Config;
+using LedShowEditor.Display.ShowsList;
 
 namespace LedShowEditor.ViewModels
 {
@@ -11,9 +14,50 @@ namespace LedShowEditor.ViewModels
     {
         private LedViewModel _selectedLed;
         private IEventAggregator _eventAggregator;
+        private uint _currentFrame;
+        private ShowViewModel _selectedShow;
+        private DispatcherTimer _timer;
+        private bool _isPlaying;
+        private IObservableCollection<LedViewModel> _allLeds;
+        private IObservableCollection<GroupViewModel> _groups;
+        private IObservableCollection<ShowViewModel> _shows;
 
-        public IObservableCollection<LedViewModel> AllLeds { get; set; }
-        public IObservableCollection<GroupViewModel> Groups { get; set; }
+        public IObservableCollection<LedViewModel> AllLeds
+        {
+            get
+            {
+                return _allLeds;
+            }
+            set
+            {
+                _allLeds = value;
+                NotifyOfPropertyChange(() => AllLeds);
+            }
+        }
+        public IObservableCollection<GroupViewModel> Groups
+        {
+            get
+            {
+                return _groups;
+            }
+            set
+            {
+                _groups = value;
+                NotifyOfPropertyChange(() => Groups);
+            }
+        }
+        public IObservableCollection<ShowViewModel> Shows
+        {
+            get
+            {
+                return _shows;
+            }
+            set
+            {
+                _shows = value;
+                NotifyOfPropertyChange(() => Shows);
+            }
+        }
 
         public LedViewModel SelectedLed
         {
@@ -28,6 +72,53 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public ShowViewModel SelectedShow
+        {
+            get
+            {
+                return _selectedShow;
+            }
+            set
+            {
+                _selectedShow = value;
+                NotifyOfPropertyChange(() => SelectedShow);
+            }
+        }
+
+        public uint CurrentFrame
+        {
+            get
+            {
+                return _currentFrame;
+            }
+            set
+            {
+                _currentFrame = value;
+                NotifyOfPropertyChange(() => CurrentFrame);
+            }
+        }
+
+        public bool IsPlaying
+        {
+            get
+            {
+                return _isPlaying;
+            }
+            set
+            {
+                _isPlaying = value;
+                if (_isPlaying)
+                {
+                    _timer.Start();
+                }
+                else
+                {
+                    _timer.Stop();
+                }
+                NotifyOfPropertyChange(() => IsPlaying);
+            }
+        }
+
         [ImportingConstructor]
         public LedsViewModel(IEventAggregator eventAggregator)
         {
@@ -36,12 +127,36 @@ namespace LedShowEditor.ViewModels
 
             AllLeds = new BindableCollection<LedViewModel>();
             Groups = new BindableCollection<GroupViewModel>();
+            Shows = new BindableCollection<ShowViewModel>();
+
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.25)
+            };
+            _timer.Tick += TimerOnTick;
         }
 
+        public void Handle(LedSelectedEvent message)
+        {
+            SelectedLed = message.SelectedLed;
+        }
 
+  
 
+        private void TimerOnTick(object sender, EventArgs eventArgs)
+        {
+            if (CurrentFrame < SelectedShow.Frames)
+            {
+                CurrentFrame++;
+            }
+            else
+            {
+                CurrentFrame = 0;
+                _isPlaying = false;
+            }
+        }
 
-
+        #region Import / Export
 
         public void Import(IList<LedConfig> leds)
         {
@@ -54,7 +169,6 @@ namespace LedShowEditor.ViewModels
                     AllLeds.Add(led);
                 }
             }
-            NotifyOfPropertyChange(()=> AllLeds);
         }
 
         public IList<LedConfig> ExportLeds()
@@ -88,7 +202,6 @@ namespace LedShowEditor.ViewModels
                     Groups.Add(group);
                 }
             }
-            NotifyOfPropertyChange(()=> Groups);
         }
 
         public IList<GroupConfig> ExportGroups()
@@ -101,10 +214,9 @@ namespace LedShowEditor.ViewModels
             }).ToList();
         }
 
-        public void Handle(LedSelectedEvent message)
-        {
-            SelectedLed = message.SelectedLed;
-        }
+        #endregion
+
+      
     }
 }
 

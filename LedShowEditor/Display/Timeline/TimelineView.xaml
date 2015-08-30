@@ -6,7 +6,67 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
     <Grid>
-        <TextBlock Text="Test Timeline View Text"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock 
+            Grid.Column="0"
+            Grid.Row="0"
+            Text="{Binding LedsVm.SelectedShow.Name}"
+            VerticalAlignment="Center"
+            />
+
+        <!-- List of Leds used in this show-->
+        <ListView
+            Grid.Column="0"
+            Grid.Row="1"
+            ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
+            Background="Transparent"
+            >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock 
+                                    Text="{Binding Name}"
+                                    VerticalAlignment="Center"
+                                    />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+        </ListView>
+        
+        
+        <!-- Timeline view of led colours -->
+        <ListView
+            Grid.Column="1"
+            Grid.Row="1"
+            ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
+            >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    
+                    <Grid>
+                        <ItemsControl
+                            ItemsSource="{Binding Events}"
+                            >
+                            
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListView>
     </Grid>
 
 </UserControl>

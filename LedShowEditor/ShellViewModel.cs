@@ -91,6 +91,7 @@ namespace LedShowEditor
 
             LoadConfig();
 
+            GetLedShows();
         }
 
         protected override void OnDeactivate(bool close)
@@ -105,10 +106,10 @@ namespace LedShowEditor
         {
             // Retrieve saved configuration information
             var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-            var gameConfiguration = Configuration.FromFile(filePath + @"\Config\machine.json");
+            var gameConfiguration = Configuration.FromFile(filePath + @"\playfieldConfig.json");
 
             // Update local information from configuration
-            Playfield.PlayfieldImagePath = filePath + @"\Config\" + gameConfiguration.PlayfieldImage;
+            Playfield.PlayfieldImagePath = filePath + @"\" + gameConfiguration.PlayfieldImage;
 
             _ledsViewModel.Import(gameConfiguration.Leds);
             _ledsViewModel.Import(gameConfiguration.Groups);
@@ -125,6 +126,29 @@ namespace LedShowEditor
             config.ToFile("output.json");
         }
 
+        private void GetLedShows()
+        {
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\LedShows\";
 
+            var ledShows = Directory.GetFiles(additionalpath, "*.json");
+            foreach (var file in ledShows)
+            {
+                if (File.Exists(file))
+                {
+                    // Load the configuration into viewModels....
+                    var show = new ShowViewModel()
+                    {
+                        Name = "Test Show",
+                        Frames = 100,
+                    };
+                    show.Leds.Add(_ledsViewModel.AllLeds[0]);
+                    show.Leds.Add(_ledsViewModel.AllLeds[1]);
+                    show.Leds.Add(_ledsViewModel.AllLeds[2]);
+
+                    _ledsViewModel.Shows.Add(show);
+                }
+            }
+        }
     }
 }
