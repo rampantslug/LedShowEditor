@@ -1,6 +1,8 @@
-﻿namespace LedShowEditor.Display.LedTree
+﻿using Caliburn.Micro;
+
+namespace LedShowEditor.Display.LedTree
 {
-    public interface ILedTree
+    public interface ILedTree : IScreen
     {
     }
 }

@@ -10,9 +10,7 @@ namespace LedShowEditor.Display.Tools
         private IEventAggregator _eventAggregator;
         public ILeds LedsVm { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         [ImportingConstructor]
         public ToolsViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel)
         {

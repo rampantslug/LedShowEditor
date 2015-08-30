@@ -78,6 +78,10 @@
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\SizeObserver.cs" />
+    <Compile Include="Display\Properties\IProperties.cs" />
+    <Compile Include="Display\Properties\PropertiesViewModel.cs" />
+    <Compile Include="Display\ShowsList\IShowsList.cs" />
+    <Compile Include="Display\ShowsList\ShowsListViewModel.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\ILeds.cs" />
     <Compile Include="IShell.cs" />
@@ -110,6 +114,9 @@
     </Content>
     <Content Include="LedShapes\AllShapes.svg" />
     <Content Include="LedShapes\Notes.txt" />
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Entypo-license.txt" />
     <Content Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
@@ -123,6 +130,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Display\Playfield\PlayfieldView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Properties\PropertiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\ShowsList\ShowsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

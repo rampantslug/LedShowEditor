@@ -20,6 +20,7 @@ namespace LedShowEditor.Display.LedTree
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
 
+             DisplayName = "Leds";
         }
     }
 }

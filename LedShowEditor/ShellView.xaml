@@ -8,15 +8,17 @@
         xmlns:timeline="clr-namespace:LedShowEditor.Display.Timeline"
         xmlns:ledTree="clr-namespace:LedShowEditor.Display.LedTree"
         xmlns:tools="clr-namespace:LedShowEditor.Display.Tools"
-        Width="1600"
-        Height="800"
+        xmlns:properties="clr-namespace:LedShowEditor.Display.Properties"
+        Width="1400"
+        Height="1000"
         >
     <Grid>
         <Grid Background="#FFC1C0C0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="305" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition />
-                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
@@ -24,26 +26,54 @@
             </Grid.RowDefinitions>
 
             <!-- Left Column Area -->
-            <ledTree:LedTreeView 
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="2"
+                Background="#FFECECEC"
+                >
+                <TabControl 
+                    x:Name="LeftTabs"
+                    TabStripPlacement="Top"               
+                    >
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                Text="{Binding DisplayName}" />
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                </TabControl>
+            </Grid>
+          <!--  <ledTree:LedTreeView 
             Grid.Column="0"
             Grid.Row="0"
             Margin="2"
             Background="#FFECECEC"
             cal:View.Model="{Binding LedTree}"          
+            />-->
+
+            <!-- Middle Left Column Area -->
+            <properties:PropertiesView 
+            Grid.Column="1"
+            Grid.Row="0"
+            Margin="2"
+            Background="#FFECECEC"
+            cal:View.Model="{Binding Properties}"          
             />
 
-            <!-- Middle Column Area -->
+
+            <!-- Middle Right Column Area -->
             <playfield:PlayfieldView 
-            Grid.Column="1"
+            Grid.Column="2"
             Grid.Row="0"
             Margin="2"
             Background="#FFECECEC"
             cal:View.Model="{Binding Playfield}"          
             />
 
-            <!-- Right Column Area -->
+            <!-- Far Right Column Area -->
             <tools:ToolsView 
-            Grid.Column="2"
+            Grid.Column="3"
             Grid.Row="0"
             Margin="2"
             Background="#FFECECEC"
@@ -53,7 +83,7 @@
             <!-- Bottom Row Area -->
             <timeline:TimelineView 
             Grid.Column="0"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             Grid.Row="1"
             Margin="2"
             Background="#FFECECEC"

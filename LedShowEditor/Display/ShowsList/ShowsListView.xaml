@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="LedShowEditor.Display.Tools.ToolsView"
+    x:Class="LedShowEditor.Display.ShowsList.ShowsListView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock 
-            Text="Tools like a line or gradient that causes leds to change colour"
+            Text="List of shows goes here"
             TextWrapping="Wrap"/>
     </Grid>
 
