@@ -13,15 +13,9 @@ namespace LedShowEditor.ViewModels
     [Export(typeof(ILeds))]
     public class LedsViewModel: Screen, ILeds, IHandle<LedSelectedEvent>
     {
-        private LedViewModel _selectedLed;
-        private IEventAggregator _eventAggregator;
-        private uint _currentFrame;
-        private ShowViewModel _selectedShow;
-        private DispatcherTimer _timer;
-        private bool _isPlaying;
-        private IObservableCollection<LedViewModel> _allLeds;
-        private IObservableCollection<GroupViewModel> _groups;
-        private IObservableCollection<ShowViewModel> _shows;
+        
+
+        #region Properties
 
         public IObservableCollection<LedViewModel> AllLeds
         {
@@ -29,7 +23,7 @@ namespace LedShowEditor.ViewModels
             {
                 return _allLeds;
             }
-            set
+            private set
             {
                 _allLeds = value;
                 NotifyOfPropertyChange(() => AllLeds);
@@ -41,7 +35,7 @@ namespace LedShowEditor.ViewModels
             {
                 return _groups;
             }
-            set
+            private set
             {
                 _groups = value;
                 NotifyOfPropertyChange(() => Groups);
@@ -53,7 +47,7 @@ namespace LedShowEditor.ViewModels
             {
                 return _shows;
             }
-            set
+            private set
             {
                 _shows = value;
                 NotifyOfPropertyChange(() => Shows);
@@ -122,6 +116,8 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        #endregion
+
         [ImportingConstructor]
         public LedsViewModel(IEventAggregator eventAggregator)
         {
@@ -144,8 +140,6 @@ namespace LedShowEditor.ViewModels
             SelectedLed = message.SelectedLed;
         }
 
-  
-
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
             if (CurrentFrame < SelectedShow.Frames)
@@ -161,6 +155,11 @@ namespace LedShowEditor.ViewModels
 
         private void UpdateColorsOfLeds(uint currentFrame)
         {
+            if (SelectedShow == null)
+            {
+                return;
+            }
+
             // Find each led in the show and set its colour based on the current frame
             foreach (var ledInShow in SelectedShow.Leds)
             {
@@ -178,6 +177,51 @@ namespace LedShowEditor.ViewModels
                 }
                 ledInShow.LinkedLed.CurrentColor = resolvedColor;
             }
+        }
+
+        public void AddLed()
+        {
+            // Get highest Led.Id
+            // This should be fine as most machines have no more than 200 leds
+            // It could eventually fail due to stupid user
+            uint highestId = 1;
+            foreach (var led in AllLeds)
+            {
+                if (led.Id > highestId)
+                {
+                    highestId = led.Id;
+                }
+            }
+            AllLeds.Add(new LedViewModel(_eventAggregator, highestId + 1));
+        }
+
+        public void DeleteLed()
+        {
+            if (SelectedLed != null)
+            {
+                AllLeds.Remove(SelectedLed);
+            }
+        }
+
+        public void AddGroup()
+        {
+            Groups.Add(new GroupViewModel());
+        }
+
+        public void DeleteGroup()
+        {
+            // Todo: Need to figure out how to select a group
+            //Groups.Remove()
+        }
+
+        public void AddShow()
+        {
+
+        }
+
+        public void DeleteShow()
+        {
+
         }
 
 
@@ -241,7 +285,16 @@ namespace LedShowEditor.ViewModels
 
         #endregion
 
-      
+
+        private LedViewModel _selectedLed;
+        private IEventAggregator _eventAggregator;
+        private uint _currentFrame;
+        private ShowViewModel _selectedShow;
+        private DispatcherTimer _timer;
+        private bool _isPlaying;
+        private IObservableCollection<LedViewModel> _allLeds;
+        private IObservableCollection<GroupViewModel> _groups;
+        private IObservableCollection<ShowViewModel> _shows;
     }
 }
 

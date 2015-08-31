@@ -6,6 +6,11 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
         <TreeView 
             BorderThickness="0"
             ItemsSource="{Binding LedsVm.AllLeds}"
@@ -34,7 +39,30 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-
+        <StackPanel 
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <Button 
+                x:Name="DeleteLed"
+                Content="Delete led"
+                />
+            <Button 
+                x:Name="AddLed"
+                Content="Add new led"
+                />
+        </StackPanel>
+        <StackPanel 
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <Button 
+                x:Name="DeleteGroup"
+                Content="Delete group"
+                />
+            <Button 
+                x:Name="AddGroup"
+                Content="Add new group"
+                />
+        </StackPanel>
     </Grid>
 
 </UserControl>

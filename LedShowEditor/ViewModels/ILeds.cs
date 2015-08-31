@@ -6,12 +6,21 @@ namespace LedShowEditor.ViewModels
 {
     public interface ILeds
     {
-        IObservableCollection<LedViewModel> AllLeds { get; set; }
-        IObservableCollection<GroupViewModel> Groups { get; set; }
-        IObservableCollection<ShowViewModel> Shows { get; set; }
+        IObservableCollection<LedViewModel> AllLeds { get; }
+        IObservableCollection<GroupViewModel> Groups { get; }
+        IObservableCollection<ShowViewModel> Shows { get; }
 
         uint CurrentFrame { get; set; }
         bool IsPlaying { get; set; }
+
+
+        void AddLed();
+        void DeleteLed();
+        void AddGroup();
+        void DeleteGroup();
+        void AddShow();
+        void DeleteShow();
+
 
         void Import(IList<LedConfig> leds);
         IList<LedConfig> ExportLeds();

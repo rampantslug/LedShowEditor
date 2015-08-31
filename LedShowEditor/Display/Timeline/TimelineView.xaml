@@ -77,14 +77,14 @@
                             <ItemsControl.ItemContainerStyle>
                                 <Style>
                                     <Setter Property="Canvas.Left" Value="{Binding StartFrame, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"/>
-                                    <Setter Property="Canvas.Top" Value="2" />
+                                    <Setter Property="Canvas.Top" Value="0" />
                                 </Style>
                             </ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                    <Rectangle
                                        Fill="{Binding EventColor}"
-                                       Height="20"
+                                       Height="25"
                                        Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
                                        />
                                 </DataTemplate>
@@ -112,25 +112,94 @@
         <StackPanel 
             Grid.Row="0"
             Grid.Column="1"
-            Orientation="Horizontal">
+            Orientation="Horizontal"
+            Height="30"
+            >
             <Button 
                 x:Name="FirstFrame"
-                Content="FirstFrame"/>
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                >
+              <Rectangle 
+                    Width="10"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_rewind}" />
+                </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
             <Button 
                 x:Name="Pause"
-                Content="Pause"/>
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                >
+                <Rectangle 
+                    Width="8"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_pause}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
             <TextBox 
                 Text="{Binding LedsVm.CurrentFrame}"
+                Height="20"
+                HorizontalContentAlignment="Right"
                 />
             <Button 
                 x:Name="Play"
-                Content="Play"/>
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                 >
+                <Rectangle 
+                    Width="8"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_play}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
             <Button 
                 x:Name="Step"
-                Content="Step"/>
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                 >
+                <Rectangle 
+                    Width="10"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_resume}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
             <Button 
                 x:Name="LastFrame"
-                Content="LastFrame"/>
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                 >
+                <Rectangle 
+                    Width="10"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_fastforward}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
         </StackPanel>
         
     </Grid>

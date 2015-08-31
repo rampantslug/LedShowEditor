@@ -112,5 +112,18 @@
       "Shape": 8
     }
   ],
-    "Groups": [ ]
+     "Groups": [
+    {
+      "Id": 1,
+      "Name": "Global Illumination"
+    },
+    {
+      "Id": 2,
+      "Name": "INDY"
+    },
+    {
+      "Id": 2,
+      "Name": "Adventures"
+    }
+  ]
 }

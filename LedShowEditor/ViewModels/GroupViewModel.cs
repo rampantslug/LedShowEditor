@@ -25,6 +25,12 @@ namespace LedShowEditor.ViewModels
             LedIds = groupConfig.Leds;
 
             Leds = new BindableCollection<LedViewModel>();
+            LedIds = new BindableCollection<uint>();
+        }
+
+        public GroupViewModel()
+        {
+            Name = "Some new group";
         }
     }
 }
