@@ -94,6 +94,20 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListView>
+        <Canvas
+            Grid.Column="1"
+            Grid.Row="1"           
+            >
+            
+            <Rectangle
+                Height="100"
+                Width="1"
+                Fill="{StaticResource AccentColorBrush}"
+                Canvas.Top="0"
+                Canvas.Left="{Binding LedsVm.CurrentFrame, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
+                ></Rectangle>
+        </Canvas>
+        
         
         <StackPanel 
             Grid.Row="0"
