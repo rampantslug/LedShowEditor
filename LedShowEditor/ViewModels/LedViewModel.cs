@@ -8,7 +8,7 @@ namespace LedShowEditor.ViewModels
 {
     public class LedViewModel : Screen
     {
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
         private double _locationX;
         private double _locationY;
@@ -21,7 +21,6 @@ namespace LedShowEditor.ViewModels
         private bool _isSelected;
 
         private bool _isMouseOver = false;
-        private IObservableCollection<EventViewModel> _events;
 
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
@@ -187,39 +186,31 @@ namespace LedShowEditor.ViewModels
 
         #endregion
 
-        public LedViewModel(IEventAggregator eventAggregator)
+        public LedViewModel(IEventAggregator eventAggregator, uint id)
         {
             _eventAggregator = eventAggregator;
+            Id = id;
+
             // Default a bunch of stuff
-            Name = "New Led";
-
+            Name = "New Led " + id;
             CurrentColor = Brushes.Transparent;
-
-            LocationX = 0;
-            LocationY = 0;
+            LocationX = 50;
+            LocationY = 50;
             Shape = LedShape.CircleMed;
             Angle = 0;
-            Scale = 1.0;
-
-            _events = new BindableCollection<EventViewModel>();
+            Scale = 1.0;        
         }
 
-        public LedViewModel(IEventAggregator eventAggregator, LedConfig ledConfig)
+        public LedViewModel(IEventAggregator eventAggregator, LedConfig ledConfig) : this(eventAggregator, ledConfig.Id)
         {
-            _eventAggregator = eventAggregator;
-            Id = ledConfig.Id;
+            // Override defaults with values from config
             HardwareAddress = ledConfig.HardwareAddress;
             Name = ledConfig.Name;
-
-            CurrentColor = Brushes.Transparent;
-
             LocationX = ledConfig.LocationX;
             LocationY = ledConfig.LocationY;
             Shape = ledConfig.Shape;
             Angle = ledConfig.Angle;
             Scale = ledConfig.Scale;
-
-            _events = new BindableCollection<EventViewModel>();
         }
 
         // Build what shapes we can from code. Irregular shapes are taken from AllShapes.xaml
