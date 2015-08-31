@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using LedShowEditor.Config;
@@ -94,10 +95,12 @@ namespace LedShowEditor.ViewModels
             set
             {
                 _currentFrame = value;
+                UpdateColorsOfLeds(_currentFrame);
                 NotifyOfPropertyChange(() => CurrentFrame);
             }
         }
 
+      
         public bool IsPlaying
         {
             get
@@ -131,7 +134,7 @@ namespace LedShowEditor.ViewModels
 
             _timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(0.25)
+                Interval = TimeSpan.FromSeconds(0.05)
             };
             _timer.Tick += TimerOnTick;
         }
@@ -155,6 +158,28 @@ namespace LedShowEditor.ViewModels
                 _isPlaying = false;
             }
         }
+
+        private void UpdateColorsOfLeds(uint currentFrame)
+        {
+            // Find each led in the show and set its colour based on the current frame
+            foreach (var ledInShow in SelectedShow.Leds)
+            {
+                // Default to transparent if there is no event during this frame
+                var resolvedColor = (Brush)Brushes.Transparent;
+                foreach (var ledEvent in ledInShow.Events)
+                {
+                    if (ledEvent.Contains(currentFrame))
+                    {
+                        // TODO: Replace brush with color
+                        resolvedColor = ledEvent.GetColor(currentFrame);
+                        
+                        break;
+                    }
+                }
+                ledInShow.LinkedLed.CurrentColor = resolvedColor;
+            }
+        }
+
 
         #region Import / Export
 

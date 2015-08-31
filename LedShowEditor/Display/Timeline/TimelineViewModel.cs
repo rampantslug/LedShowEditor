@@ -18,5 +18,34 @@ namespace LedShowEditor.Display.Timeline
             LedsVm = ledsViewModel;
 
         }
+
+        public void FirstFrame()
+        {
+            LedsVm.IsPlaying = false;
+            LedsVm.CurrentFrame = 0;
+        }
+
+        public void Pause()
+        {
+            LedsVm.IsPlaying = false;
+        }
+
+        public void Play()
+        {
+            LedsVm.IsPlaying = true;
+        }
+
+        public void Step()
+        {
+            LedsVm.IsPlaying = false;
+            LedsVm.CurrentFrame++;
+        }
+
+        public void LastFrame()
+        {
+            LedsVm.IsPlaying = false;
+            // TODO: Need to replace this with max frames
+            LedsVm.CurrentFrame = 100;
+        }
     }
 }

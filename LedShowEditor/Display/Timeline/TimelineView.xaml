@@ -4,8 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:converters="clr-namespace:LedShowEditor.Converters">
+    <UserControl.Resources>
+        <converters:MathConverter x:Key="MathConverter" />
+    </UserControl.Resources>
+    <Grid
+        Margin="5"
         >
-    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
@@ -20,6 +25,9 @@
             Grid.Row="0"
             Text="{Binding LedsVm.SelectedShow.Name}"
             VerticalAlignment="Center"
+            Margin="20,0,0,0"            
+            Foreground="{StaticResource AccentColorBrush}"
+            FontSize="26"
             />
 
         <!-- List of Leds used in this show-->
@@ -39,7 +47,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock 
-                                    Text="{Binding Name}"
+                                    Text="{Binding LinkedLed.Name}"
                                     VerticalAlignment="Center"
                                     />
                         </Grid>
@@ -53,20 +61,64 @@
             Grid.Column="1"
             Grid.Row="1"
             ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
+            Background="Transparent"
             >
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    
+                <DataTemplate>                   
                     <Grid>
                         <ItemsControl
                             ItemsSource="{Binding Events}"
                             >
-                            
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Canvas.Left" Value="{Binding StartFrame, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"/>
+                                    <Setter Property="Canvas.Top" Value="2" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                   <Rectangle
+                                       Fill="{Binding EventColor}"
+                                       Height="20"
+                                       Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
+                                       />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListView>
+        
+        <StackPanel 
+            Grid.Row="0"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <Button 
+                x:Name="FirstFrame"
+                Content="FirstFrame"/>
+            <Button 
+                x:Name="Pause"
+                Content="Pause"/>
+            <TextBox 
+                Text="{Binding LedsVm.CurrentFrame}"
+                />
+            <Button 
+                x:Name="Play"
+                Content="Play"/>
+            <Button 
+                x:Name="Step"
+                Content="Step"/>
+            <Button 
+                x:Name="LastFrame"
+                Content="LastFrame"/>
+        </StackPanel>
+        
     </Grid>
 
 </UserControl>

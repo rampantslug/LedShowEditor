@@ -10,6 +10,8 @@ namespace LedShowEditor.ViewModels
         IObservableCollection<GroupViewModel> Groups { get; set; }
         IObservableCollection<ShowViewModel> Shows { get; set; }
 
+        uint CurrentFrame { get; set; }
+        bool IsPlaying { get; set; }
 
         void Import(IList<LedConfig> leds);
         IList<LedConfig> ExportLeds();

@@ -39,19 +39,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public IObservableCollection<EventViewModel> Events
-        {
-            get
-            {
-                return _events;
-            }
-            set
-            {
-                _events = value;
-                NotifyOfPropertyChange(() => Events);
-            }
-        } 
-
+       
 
         public Brush CurrentColor
         {

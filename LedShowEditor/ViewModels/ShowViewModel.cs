@@ -5,7 +5,7 @@ namespace LedShowEditor.ViewModels
     public class ShowViewModel: Screen
     {
 
-        private IObservableCollection<LedViewModel> _leds;
+        private IObservableCollection<LedInShowViewModel> _leds;
         private string _name;
 
 
@@ -24,7 +24,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public IObservableCollection<LedViewModel> Leds
+        public IObservableCollection<LedInShowViewModel> Leds
         {
             get
             {
@@ -39,7 +39,7 @@ namespace LedShowEditor.ViewModels
 
         public ShowViewModel()
         {
-            Leds = new BindableCollection<LedViewModel>();
+            Leds = new BindableCollection<LedInShowViewModel>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.IO;
 using System.Reflection;
+using System.Windows.Media;
 using Caliburn.Micro;
 using LedShowEditor.Config;
 using LedShowEditor.Display.LedTree;
@@ -142,11 +143,31 @@ namespace LedShowEditor
                         Name = "Test Show",
                         Frames = 100,
                     };
-                    show.Leds.Add(_ledsViewModel.AllLeds[0]);
-                    show.Leds.Add(_ledsViewModel.AllLeds[1]);
-                    show.Leds.Add(_ledsViewModel.AllLeds[2]);
+                    var ledInShow = new LedInShowViewModel(_ledsViewModel.AllLeds[0]);
+                    ledInShow.Events.Add(new EventViewModel(0, 40, new SolidColorBrush(Colors.BlueViolet)));
+                    ledInShow.Events.Add(new EventViewModel(50, 70, new SolidColorBrush(Colors.Red)));
+                    show.Leds.Add(ledInShow);
+
+                    var ledInShow2 = new LedInShowViewModel(_ledsViewModel.AllLeds[1]);
+                    ledInShow2.Events.Add(new EventViewModel(10, 20, new SolidColorBrush(Colors.ForestGreen)));
+                    ledInShow2.Events.Add(new EventViewModel(20, 50, new SolidColorBrush(Colors.DodgerBlue)));
+                    ledInShow2.Events.Add(new EventViewModel(50, 90, new SolidColorBrush(Colors.DeepPink)));
+                    show.Leds.Add(ledInShow2);
+
+                    show.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[2]));
 
                     _ledsViewModel.Shows.Add(show);
+
+                    var show2 = new ShowViewModel()
+                    {
+                        Name = "Attract",
+                        Frames = 100,
+                    };
+                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[3]));
+                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[4]));
+                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[7]));
+
+                    _ledsViewModel.Shows.Add(show2);
                 }
             }
         }

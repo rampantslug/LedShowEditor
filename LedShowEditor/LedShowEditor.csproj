@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\ILeds.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="ViewModels\LedInShowViewModel.cs" />
     <Compile Include="ViewModels\LedSelectedEvent.cs" />
     <Compile Include="ViewModels\LedsViewModel.cs" />
     <Compile Include="Display\LedTree\ILedTree.cs" />
