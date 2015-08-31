@@ -119,12 +119,14 @@ namespace LedShowEditor
 
         private void SaveConfig()
         {
+            var playfieldImage = Path.GetFileName(Playfield.PlayfieldImagePath);
             var config = new Configuration
             {
                 Leds = _ledsViewModel.GetLedsAsConfigs(),
-                Groups = _ledsViewModel.GetGroupsAsConfigs()
+                Groups = _ledsViewModel.GetGroupsAsConfigs(),
+                PlayfieldImage = playfieldImage
             };
-            config.ToFile("output.json");
+            config.ToFile("playfieldConfig.json");
         }
 
         private void SaveLedShows()
