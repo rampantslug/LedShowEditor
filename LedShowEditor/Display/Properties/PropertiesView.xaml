@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        >
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,7 +23,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                 Text="Playfield"                
                 Foreground="{StaticResource AccentColorBrush}"
                 VerticalAlignment="Center" 
-                FontSize="32"
+                FontSize="24"
                 />
             <TextBlock 
                 Grid.Column="0"
@@ -71,7 +71,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
@@ -91,7 +91,7 @@
                 Text="{Binding LedsVm.SelectedLed.Name}"                
                 Foreground="{StaticResource AccentColorBrush}"
                 VerticalAlignment="Center" 
-                FontSize="32"
+                FontSize="24"
                 />
             <TextBlock 
                 Grid.Column="0"
@@ -233,7 +233,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
@@ -245,7 +248,60 @@
                 Text="Event"                
                 Foreground="{StaticResource AccentColorBrush}"
                 VerticalAlignment="Center" 
-                FontSize="32"
+                FontSize="24"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Start Frame"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="1"
+                Text="{Binding LedsVm.NewEventStartFrame}"
+                Height="25" 
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="2"
+                Text="End Frame"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="2"
+                Text="{Binding LedsVm.NewEventEndFrame}"
+                Height="25" 
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="3"
+                Text=" Start Colour"
+                VerticalAlignment="Center"
+                />
+            <xctk:ColorPicker 
+                Grid.Column="2"
+                Grid.Row="3"
+                SelectedColor="{Binding LedsVm.NewEventStartColor}"
+                />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="4"
+                Text=" End Colour"
+                VerticalAlignment="Center"
+                />
+            <xctk:ColorPicker 
+                Grid.Column="2"
+                Grid.Row="4"
+                SelectedColor="{Binding LedsVm.NewEventStartColor}"
+                IsEnabled="False"
+                />
+            <Button 
+                Grid.Column="2"
+                Grid.Row="5"
+                Content="Add Event"
+                x:Name="AddEvent"
                 />
         </Grid>
 

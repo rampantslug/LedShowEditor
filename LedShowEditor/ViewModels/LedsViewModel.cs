@@ -94,7 +94,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-      
+
         public bool IsPlaying
         {
             get
@@ -113,6 +113,45 @@ namespace LedShowEditor.ViewModels
                     _timer.Stop();
                 }
                 NotifyOfPropertyChange(() => IsPlaying);
+            }
+        }
+
+        public uint NewEventStartFrame
+        {
+            get
+            {
+                return _newEventStartFrame;
+            }
+            set
+            {
+                _newEventStartFrame = value;
+                NotifyOfPropertyChange(() => NewEventStartFrame);
+            }
+        }
+
+        public uint NewEventEndFrame
+        {
+            get
+            {
+                return _newEventEndFrame;
+            }
+            set
+            {
+                _newEventEndFrame = value;
+                NotifyOfPropertyChange(() => NewEventEndFrame);
+            }
+        }
+
+        public Color NewEventStartColor
+        {
+            get
+            {
+                return _newEventStartColor;
+            }
+            set
+            {
+                _newEventStartColor = value;
+                NotifyOfPropertyChange(() => NewEventStartColor);
             }
         }
 
@@ -142,14 +181,17 @@ namespace LedShowEditor.ViewModels
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
-            if (CurrentFrame < SelectedShow.Frames)
+            if (SelectedShow != null)
             {
-                CurrentFrame++;
-            }
-            else
-            {
-                CurrentFrame = 0;
-                _isPlaying = false;
+                if (CurrentFrame < SelectedShow.Frames)
+                {
+                    CurrentFrame++;
+                }
+                else
+                {
+                    CurrentFrame = 0;
+                    _isPlaying = false;
+                }
             }
         }
 
@@ -224,6 +266,28 @@ namespace LedShowEditor.ViewModels
 
         }
 
+        public void AddEvent()
+        {
+            if (SelectedShow != null && SelectedLed != null)
+            {
+                var existingLed = SelectedShow.Leds.FirstOrDefault(led => led.LinkedLed == SelectedLed);
+                if (existingLed == null)
+                {
+                    existingLed = new LedInShowViewModel(SelectedLed);
+                    SelectedShow.Leds.Add(existingLed);
+                }
+
+                // Overwrite any existing event that starts at the same frame (This may or may not be desired behaviour).
+                var eventToReplace = existingLed.Events.FirstOrDefault(showEvent => showEvent.StartFrame == NewEventStartFrame);
+                if (eventToReplace != null)
+                {
+                    existingLed.Events.Remove(eventToReplace);
+                }
+
+                existingLed.Events.Add(new EventViewModel(NewEventStartFrame, 
+                    NewEventEndFrame, new SolidColorBrush(NewEventStartColor)));
+            }
+        }
 
         #region Load / Save
 
@@ -345,6 +409,10 @@ namespace LedShowEditor.ViewModels
         private IObservableCollection<LedViewModel> _allLeds;
         private IObservableCollection<GroupViewModel> _groups;
         private IObservableCollection<ShowViewModel> _shows;
+        
+        private uint _newEventStartFrame;
+        private uint _newEventEndFrame;
+        private Color _newEventStartColor;
     }
 }
 

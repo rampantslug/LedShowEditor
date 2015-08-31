@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Media;
 using Caliburn.Micro;
 using LedShowEditor.Config;
 
@@ -13,6 +14,9 @@ namespace LedShowEditor.ViewModels
         uint CurrentFrame { get; set; }
         bool IsPlaying { get; set; }
 
+        uint NewEventStartFrame { get; set; }
+        uint NewEventEndFrame { get; set; }
+        Color NewEventStartColor { get; set; }
 
         void AddLed();
         void DeleteLed();
@@ -21,6 +25,7 @@ namespace LedShowEditor.ViewModels
         void AddShow();
         void DeleteShow();
 
+        void AddEvent();
 
         void LoadLedsFromConfig(IList<LedConfig> leds);
         IList<LedConfig> GetLedsAsConfigs();
@@ -29,5 +34,6 @@ namespace LedShowEditor.ViewModels
 
         ShowConfig GetShowAsConfig(ShowViewModel show);
         void LoadShowFromConfig(ShowConfig showConfig, string name);
+        
     }
 }

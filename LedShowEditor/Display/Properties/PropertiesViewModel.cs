@@ -15,7 +15,6 @@ namespace LedShowEditor.Display.Properties
         private IEventAggregator _eventAggregator;
         public ILeds LedsVm { get; set; }
 
-
         [ImportingConstructor]
         public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel)
         {
@@ -24,5 +23,9 @@ namespace LedShowEditor.Display.Properties
 
         }
 
+        public void AddEvent()
+        {
+            LedsVm.AddEvent();
+        }
     }
 }
