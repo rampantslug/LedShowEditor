@@ -22,9 +22,12 @@ namespace LedShowEditor.ViewModels
         void DeleteShow();
 
 
-        void Import(IList<LedConfig> leds);
-        IList<LedConfig> ExportLeds();
-        void Import(IList<GroupConfig> groups);
-        IList<GroupConfig> ExportGroups();
+        void LoadLedsFromConfig(IList<LedConfig> leds);
+        IList<LedConfig> GetLedsAsConfigs();
+        void LoadGroupsFromConfig(IList<GroupConfig> groups);
+        IList<GroupConfig> GetGroupsAsConfigs();
+
+        ShowConfig GetShowAsConfig(ShowViewModel show);
+        void LoadShowFromConfig(ShowConfig showConfig, string name);
     }
 }

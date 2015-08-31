@@ -71,7 +71,9 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\EventConfig.cs" />
     <Compile Include="Config\GroupConfig.cs" />
+    <Compile Include="Config\LedInShowConfig.cs" />
     <Compile Include="Config\LedShape.cs" />
     <Compile Include="Config\ShowConfig.cs" />
     <Compile Include="Config\LedConfig.cs" />
@@ -103,6 +105,9 @@
     <Compile Include="ViewModels\ShowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LedShows\Jackpot.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="playfieldConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

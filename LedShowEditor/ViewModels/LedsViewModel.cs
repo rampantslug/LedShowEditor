@@ -225,9 +225,9 @@ namespace LedShowEditor.ViewModels
         }
 
 
-        #region Import / Export
+        #region Load / Save
 
-        public void Import(IList<LedConfig> leds)
+        public void LoadLedsFromConfig(IList<LedConfig> leds)
         {
             AllLeds.Clear();
             if (leds != null)
@@ -240,7 +240,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public IList<LedConfig> ExportLeds()
+        public IList<LedConfig> GetLedsAsConfigs()
         {
             return AllLeds.Select(led => new LedConfig()
             {
@@ -248,7 +248,7 @@ namespace LedShowEditor.ViewModels
             }).ToList();
         }
 
-        public void Import(IList<GroupConfig> groups)
+        public void LoadGroupsFromConfig(IList<GroupConfig> groups)
         {
             Groups.Clear();
             if (groups != null)
@@ -273,7 +273,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public IList<GroupConfig> ExportGroups()
+        public IList<GroupConfig> GetGroupsAsConfigs()
         {
             return Groups.Select(group => new GroupConfig()
             {
@@ -281,6 +281,56 @@ namespace LedShowEditor.ViewModels
                 Name = group.Name,
                 Leds = group.LedIds
             }).ToList();
+        }
+
+        public ShowConfig GetShowAsConfig(ShowViewModel show)
+        {
+            var showConfig = new ShowConfig {Frames = show.Frames};
+            foreach (var ledInShow in show.Leds)
+            {
+                var ledInShowConfig = new LedInShowConfig {LinkedLed = ledInShow.LinkedLed.Id};
+                foreach (var showEvent in ledInShow.Events)
+                {
+                    SolidColorBrush tempBrush = (SolidColorBrush)showEvent.EventColor;
+                    var showEventConfig = new EventConfig
+                    {
+                        StartFrame = showEvent.StartFrame,
+                        EndFrame = showEvent.EndFrame,
+                        EventColor = tempBrush.Color
+                    };
+                    ledInShowConfig.Events.Add(showEventConfig);
+                }
+                showConfig.Leds.Add(ledInShowConfig);               
+            }
+            return showConfig;
+        }
+
+        public void LoadShowFromConfig(ShowConfig showConfig, string name)
+        {
+            if (showConfig != null)
+            {
+                var show = new ShowViewModel()
+                {
+                    Name = name,
+                    Frames = showConfig.Frames
+                };
+                foreach (var ledInShowConfig in showConfig.Leds)
+                {
+                     var matchingLed = AllLeds.FirstOrDefault(led => led.Id == ledInShowConfig.LinkedLed);
+                     if (matchingLed != null)
+                     {
+                         var ledInShow = new LedInShowViewModel(matchingLed);
+                         foreach (var eventConfig in ledInShowConfig.Events)
+                         {
+                             var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame,
+                                 new SolidColorBrush(eventConfig.EventColor));
+                             ledInShow.Events.Add(eventViewModel);
+                         }
+                         show.Leds.Add(ledInShow);
+                     }                   
+                }
+                Shows.Add(show);
+            }
         }
 
         #endregion

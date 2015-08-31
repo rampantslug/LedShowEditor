@@ -91,14 +91,14 @@ namespace LedShowEditor
             LeftTabs.Add(ShowList);
 
             LoadConfig();
-
-            GetLedShows();
+            LoadShows();
         }
 
         protected override void OnDeactivate(bool close)
         {
             base.OnDeactivate(close);
             SaveConfig();
+            SaveLedShows();
         }
 
         // TODO: Link this to a button so user can select config file
@@ -112,8 +112,8 @@ namespace LedShowEditor
             // Update local information from configuration
             Playfield.PlayfieldImagePath = filePath + @"\" + gameConfiguration.PlayfieldImage;
 
-            _ledsViewModel.Import(gameConfiguration.Leds);
-            _ledsViewModel.Import(gameConfiguration.Groups);
+            _ledsViewModel.LoadLedsFromConfig(gameConfiguration.Leds);
+            _ledsViewModel.LoadGroupsFromConfig(gameConfiguration.Groups);
 
         }
 
@@ -121,13 +121,23 @@ namespace LedShowEditor
         {
             var config = new Configuration
             {
-                Leds = _ledsViewModel.ExportLeds(),
-                Groups = _ledsViewModel.ExportGroups()
+                Leds = _ledsViewModel.GetLedsAsConfigs(),
+                Groups = _ledsViewModel.GetGroupsAsConfigs()
             };
             config.ToFile("output.json");
         }
 
-        private void GetLedShows()
+        private void SaveLedShows()
+        {
+            foreach (var showViewModel in _ledsViewModel.Shows)
+            {
+                var showConfig = _ledsViewModel.GetShowAsConfig(showViewModel);
+                var path = Directory.GetCurrentDirectory() + @"\LedShows\";
+                showConfig.ToFile(path + showViewModel.Name + ".json");
+            }
+        }
+
+        private void LoadShows()
         {
             var path = Directory.GetCurrentDirectory();
             var additionalpath = path + @"\LedShows\";
@@ -137,37 +147,10 @@ namespace LedShowEditor
             {
                 if (File.Exists(file))
                 {
-                    // Load the configuration into viewModels....
-                    var show = new ShowViewModel()
-                    {
-                        Name = "Test Show",
-                        Frames = 100,
-                    };
-                    var ledInShow = new LedInShowViewModel(_ledsViewModel.AllLeds[0]);
-                    ledInShow.Events.Add(new EventViewModel(0, 40, new SolidColorBrush(Colors.BlueViolet)));
-                    ledInShow.Events.Add(new EventViewModel(50, 70, new SolidColorBrush(Colors.Red)));
-                    show.Leds.Add(ledInShow);
-
-                    var ledInShow2 = new LedInShowViewModel(_ledsViewModel.AllLeds[1]);
-                    ledInShow2.Events.Add(new EventViewModel(10, 20, new SolidColorBrush(Colors.ForestGreen)));
-                    ledInShow2.Events.Add(new EventViewModel(20, 50, new SolidColorBrush(Colors.DodgerBlue)));
-                    ledInShow2.Events.Add(new EventViewModel(50, 90, new SolidColorBrush(Colors.DeepPink)));
-                    show.Leds.Add(ledInShow2);
-
-                    show.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[2]));
-
-                    _ledsViewModel.Shows.Add(show);
-
-                    var show2 = new ShowViewModel()
-                    {
-                        Name = "Attract",
-                        Frames = 100,
-                    };
-                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[3]));
-                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[4]));
-                    show2.Leds.Add(new LedInShowViewModel(_ledsViewModel.AllLeds[7]));
-
-                    _ledsViewModel.Shows.Add(show2);
+                    var showConfig = ShowConfig.FromFile(file);
+                    var showName = Path.GetFileNameWithoutExtension(file);
+                    
+                    _ledsViewModel.LoadShowFromConfig(showConfig, showName);
                 }
             }
         }

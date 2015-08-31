@@ -110,7 +110,19 @@ namespace LedShowEditor.ViewModels
             }
             set
             {
-                _locationX = value;
+                // Clamp value so that led cant be miles from playfield
+                if (value < -50)
+                {
+                    _locationX = -50;
+                }
+                else if (value > 150)
+                {
+                    _locationX = 150; 
+                }
+                else
+                {
+                    _locationX = value;
+                }                
                 NotifyOfPropertyChange(() => LocationX);
             }
         }
@@ -122,7 +134,19 @@ namespace LedShowEditor.ViewModels
             }
             set
             {
-                _locationY = value;
+                // Clamp value so that led cant be miles from playfield
+                if (value < -50)
+                {
+                    _locationY = -50;
+                }
+                else if (value > 150)
+                {
+                    _locationY = 150;
+                }
+                else
+                {
+                    _locationY = value;
+                }    
                 NotifyOfPropertyChange(() => LocationY);
             }
         }
