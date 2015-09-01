@@ -20,8 +20,11 @@ namespace LedShowEditor.ViewModels
 
         void AddLed();
         void DeleteLed();
+        void DuplicateLed();
+
         void AddGroup();
         void DeleteGroup();
+
         void AddShow();
         void DeleteShow();
 
@@ -34,6 +37,7 @@ namespace LedShowEditor.ViewModels
 
         ShowConfig GetShowAsConfig(ShowViewModel show);
         void LoadShowFromConfig(ShowConfig showConfig, string name);
+
         
     }
 }

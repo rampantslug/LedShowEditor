@@ -14,5 +14,10 @@ namespace LedShowEditor.Config
         public uint Id { get; set; }
         public string Name { get; set; }
         public IList<uint> Leds { get; set; }
+
+        public GroupConfig()
+        {
+            Leds = new List<uint>();
+        }
     }
 }

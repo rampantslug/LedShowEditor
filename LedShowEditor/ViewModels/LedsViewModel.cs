@@ -246,6 +246,17 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public void DuplicateLed()
+        {
+            AddLed();
+            var duplicate = AllLeds.Last();
+
+            duplicate.Shape = SelectedLed.Shape;
+            duplicate.Angle = SelectedLed.Angle;
+            duplicate.Scale = SelectedLed.Scale;
+
+        }
+
         public void AddGroup()
         {
             Groups.Add(new GroupViewModel());
@@ -255,6 +266,8 @@ namespace LedShowEditor.ViewModels
         {
             // Todo: Need to figure out how to select a group
             //Groups.Remove()
+
+            // TODO: Reassign all leds to the unassigned group before deleting this group
         }
 
         public void AddShow()
@@ -262,6 +275,7 @@ namespace LedShowEditor.ViewModels
 
         }
 
+        
         public void DeleteShow()
         {
 
@@ -316,35 +330,58 @@ namespace LedShowEditor.ViewModels
         public void LoadGroupsFromConfig(IList<GroupConfig> groups)
         {
             Groups.Clear();
+            var noGroup = new GroupViewModel { Name = "Unassigned Leds" };
+            Groups.Add(noGroup);
+
             if (groups != null)
             {
                 foreach (var groupConfig in groups)
                 {
                     var group = new GroupViewModel(groupConfig);
-                    if (AllLeds.Any())
-                    {
-                        foreach (var ledId in group.LedIds)
-                        {
-                            var matchingLed = AllLeds.FirstOrDefault(led => led.Id == ledId);
-                            if (matchingLed != null)
-                            {
-                                group.Leds.Add(matchingLed);
-                            }
-                        }
-                    }
-
                     Groups.Add(group);
                 }
             }
+
+            // Go through all the leds and find the first group that it has been assigned to
+            if (AllLeds.Any())
+            {
+                foreach (var ledViewModel in AllLeds)
+                {
+                    var matchFound = false;
+                    if (groups != null)
+                    {
+                        
+                        foreach (var groupConfig in groups)
+                        {
+                            if (groupConfig.Leds.Contains(ledViewModel.Id))
+                            {
+                                matchFound = true;
+                                var groupVm = Groups.FirstOrDefault(match => match.Name == groupConfig.Name);
+                                if (groupVm != null)
+                                {
+                                    groupVm.Leds.Add(ledViewModel);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if(!matchFound)
+                    {
+                        noGroup.Leds.Add(ledViewModel);
+                    }
+                }
+
+            }
+
         }
 
         public IList<GroupConfig> GetGroupsAsConfigs()
         {
             return Groups.Select(group => new GroupConfig()
             {
-                Id = group.Id,
+                //Id = group.Id,
                 Name = group.Name,
-                Leds = group.LedIds
+                Leds = group.Leds.Select(led => led.Id).ToList()
             }).ToList();
         }
 

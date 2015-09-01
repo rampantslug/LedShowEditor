@@ -33,6 +33,11 @@ namespace LedShowEditor.Display.LedTree
             LedsVm.DeleteLed();
         }
 
+        public void DuplicateLed()
+        {
+            LedsVm.DuplicateLed();
+        }
+
         public void AddGroup()
         {
             LedsVm.AddGroup();

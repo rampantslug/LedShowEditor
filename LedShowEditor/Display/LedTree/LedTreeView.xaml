@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        >
+        xmlns:leds="clr-namespace:LedShowEditor.ViewModels">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <TreeView 
             BorderThickness="0"
-            ItemsSource="{Binding LedsVm.AllLeds}"
+            ItemsSource="{Binding LedsVm.Groups}"
             Background="#FFECECEC">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
@@ -27,17 +27,51 @@
                     </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
+            <TreeView.Resources>
 
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate>
-
+                <HierarchicalDataTemplate
+                    DataType="{x:Type leds:GroupViewModel}"
+                    ItemsSource="{Binding Leds}"
+                    >
+                    <Grid>
                         <TextBlock
-                        Margin="2"
-                        Text="{Binding Name}" 
-                            />
+                            Margin="2"
+                            Text="{Binding Name}" 
+                            >
+                        </TextBlock>
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem 
+                                    Header="Delete Group" 
+                                    cal:Message.Attach="DeleteGroup()"                                   
+                                    />
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                    </Grid>
+
+                       
 
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+                <DataTemplate
+                    DataType="{x:Type leds:LedViewModel}"
+                    >
+                    <Grid>
+                        <TextBlock
+                            Margin="2"
+                            Text="{Binding Name}" 
+                            >
+                        </TextBlock>
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem 
+                                    Header="Delete Led" 
+                                    cal:Message.Attach="DeleteLed()"                                   
+                                    />
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                    </Grid>
+                </DataTemplate>
+           </TreeView.Resources>
         </TreeView>
         <StackPanel 
             Grid.Row="1"
