@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using LedShowEditor.Config;
+using LedShowEditor.Display.Playfield;
 using LedShowEditor.ViewModels;
 
 namespace LedShowEditor.Display.Properties
@@ -15,18 +16,20 @@ namespace LedShowEditor.Display.Properties
     {
         private IEventAggregator _eventAggregator;
         public ILeds LedsVm { get; set; }
+        public IPlayfield PlayfieldVm { get; set; }
 
         public IEnumerable<LedShape> AllShapes
         {
-            get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); ; }
+            get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); }
         }
  
         [ImportingConstructor]
-        public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel)
+        public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel, IPlayfield playfieldViewModel)
         {
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
-        }
+            PlayfieldVm = playfieldViewModel;
+        }      
 
         public void AddEvent()
         {

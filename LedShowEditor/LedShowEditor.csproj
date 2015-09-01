@@ -129,6 +129,7 @@
     <Compile Include="ViewModels\ShowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LedShapes\AllShapes.design" />
     <None Include="LedShows\Jackpot.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

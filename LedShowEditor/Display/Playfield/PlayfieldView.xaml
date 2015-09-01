@@ -56,6 +56,7 @@
     <Grid
         Margin="10,20,10,20"
         x:Name="DevicesContainer"
+        cal:Message.Attach="[Event MouseMove] = [Action MouseMove($source)]"
         >
         <Image
             
@@ -124,7 +125,26 @@
                             <Path.RenderTransform>
                                 <TransformGroup>
                                     <RotateTransform Angle="{Binding Angle}"/>
-                                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                                    <ScaleTransform>
+                                        <ScaleTransform.ScaleX>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleX>
+                                        <ScaleTransform.ScaleY>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleY>
+                                    </ScaleTransform>
                                 </TransformGroup>
                             </Path.RenderTransform>
                             <Path.Effect                           
@@ -143,14 +163,34 @@
                             StrokeThickness="2"
                             Data="{Binding LedGeometry}"
                             cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
-                                                [Event MouseMove] = [Action MouseMove($source)];
+                                                [Event MouseUp] = [Action MouseUp($source)];
+                                               
                                                 [Event MouseEnter] = [Action MouseEnter($source)];
                                                 [Event MouseLeave] = [Action MouseLeave($source)]"
                             >
                             <Path.RenderTransform>
                                 <TransformGroup>
                                     <RotateTransform Angle="{Binding Angle}"/>
-                                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                                    <ScaleTransform>
+                                        <ScaleTransform.ScaleX>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleX>
+                                        <ScaleTransform.ScaleY>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleY>
+                                    </ScaleTransform>
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
