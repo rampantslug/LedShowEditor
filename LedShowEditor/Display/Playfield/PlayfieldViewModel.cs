@@ -16,34 +16,23 @@ namespace LedShowEditor.Display.Playfield
     [Export(typeof (IPlayfield))]
     internal class PlayfieldViewModel : Screen, IPlayfield
     {
-        private string _playfieldImagePath;
-        private ImageSource _playfieldImage;
-        private double _playfieldWidth;
-        private double _playfieldHeight;
-        private double _scaleFactorX;
-        private double _scaleFactorY;
-        private readonly IEventAggregator _eventAggregator;
-
-        private bool _beginDrag;
-        private bool _dragging;
-        private bool _endDrag;
-        private double _playfieldToLedsScale;
 
         #region Properties
 
         public string PlayfieldImagePath
         {
-            get { return _playfieldImagePath; }
+            get
+            {
+                return System.IO.Path.GetFileName(_playfieldImagePath);
+            }
             set
             {
-                if (!string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value) && System.IO.File.Exists(value))
                 {
                     _playfieldImagePath = value;
-
-                    if (System.IO.File.Exists(_playfieldImagePath))
-                    {
-                        PlayfieldImage = new BitmapImage(new Uri(_playfieldImagePath));
-                    }
+                    PlayfieldImage = new BitmapImage(new Uri(_playfieldImagePath));
+                    
+                    NotifyOfPropertyChange(() => PlayfieldImagePath);
                 }
             }
         }
@@ -189,8 +178,6 @@ namespace LedShowEditor.Display.Playfield
                 {
                     SelectedLed = activeLed;
                     SelectedLed.IsSelected = true;
-
-                    _beginDrag = true;
                 }
             }
             else
@@ -201,16 +188,13 @@ namespace LedShowEditor.Display.Playfield
 
         public void MouseUp(object source)
         {
-            _beginDrag = false;
-            _dragging = false;
+
         }
 
         public void MouseMove(object source)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && SelectedLed != null)
             {
-                _dragging = true;
-
                 var currentPoint = Mouse.GetPosition(Application.Current.MainWindow);
                 var xDelta = currentPoint.X - StartingPoint.X;
                 var yDelta = currentPoint.Y - StartingPoint.Y;
@@ -224,5 +208,14 @@ namespace LedShowEditor.Display.Playfield
         }
 
         #endregion
+
+        private string _playfieldImagePath;
+        private ImageSource _playfieldImage;
+        private double _playfieldWidth;
+        private double _playfieldHeight;
+        private double _scaleFactorX;
+        private double _scaleFactorY;
+        private readonly IEventAggregator _eventAggregator;
+        private double _playfieldToLedsScale;
     }
 }

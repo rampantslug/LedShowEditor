@@ -18,9 +18,9 @@
             Margin="10"
             >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="80"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -43,11 +43,17 @@
                 Text="Filename"
                 VerticalAlignment="Center"
                 />
-            <TextBox 
+            <TextBlock
+                Grid.Column="1"
+                Grid.Row="1"
+                Text="{Binding PlayfieldVm.PlayfieldImagePath}"
+                />
+            <Button
                 Grid.Column="2"
                 Grid.Row="1"
-                Text="Some Binding here"
-                />
+                Height="28"
+                x:Name="BrowsePlayfieldImage"
+                Content="Browse" />
             <TextBlock 
                 Grid.Column="0"
                 Grid.Row="2"
@@ -55,9 +61,17 @@
                 VerticalAlignment="Center"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="1"
                 Grid.Row="2"
                 Text="{Binding PlayfieldVm.PlayfieldToLedsScale}"
+                />
+            <Slider 
+                Grid.Column="2"
+                Grid.Row="2"
+                Value="{Binding PlayfieldVm.PlayfieldToLedsScale}"
+                Minimum="0"
+                Maximum="1"
+                SmallChange="0.01"
                 />
         </Grid>
 

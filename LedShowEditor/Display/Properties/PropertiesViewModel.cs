@@ -35,5 +35,10 @@ namespace LedShowEditor.Display.Properties
         {
             LedsVm.AddEvent();
         }
+
+        public void BrowsePlayfieldImage()
+        {
+            
+        }
     }
 }
