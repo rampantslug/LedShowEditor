@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using LedShowEditor.Config;
 using LedShowEditor.ViewModels;
 
 namespace LedShowEditor.Display.Properties
@@ -15,12 +16,16 @@ namespace LedShowEditor.Display.Properties
         private IEventAggregator _eventAggregator;
         public ILeds LedsVm { get; set; }
 
+        public IEnumerable<LedShape> AllShapes
+        {
+            get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); ; }
+        }
+ 
         [ImportingConstructor]
         public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel)
         {
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
-
         }
 
         public void AddEvent()
