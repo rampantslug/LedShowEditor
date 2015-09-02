@@ -3,9 +3,7 @@
 namespace LedShowEditor.ViewModels
 {
     public class LedInShowViewModel: Screen
-    {
-        private IObservableCollection<EventViewModel> _events;
-
+    {      
         public IObservableCollection<EventViewModel> Events
         {
             get
@@ -27,5 +25,6 @@ namespace LedShowEditor.ViewModels
             _events = new BindableCollection<EventViewModel>();
         }
 
+        private IObservableCollection<EventViewModel> _events;
     }
 }

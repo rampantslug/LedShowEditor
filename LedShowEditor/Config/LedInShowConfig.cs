@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LedShowEditor.Config
 {
+    /// <summary>
+    /// This class gets serialised to json
+    /// </summary>
     public class LedInShowConfig
     {
         public uint LinkedLed { get; set; }

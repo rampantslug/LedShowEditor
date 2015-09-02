@@ -3,25 +3,13 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Caliburn.Micro;
 using LedShowEditor.Config;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
     public class LedViewModel : Screen
     {
-        private readonly IEventAggregator _eventAggregator;
-
-        private double _locationX;
-        private double _locationY;
-        private LedShape _shape;
-        private double _angle;
-        private Geometry _ledGeometry;
-        private double _scale;
-        private string _name;
-        private Brush _currentColor;
-        private bool _isSelected;
-
-        private bool _isMouseOver = false;
-
+       
         public uint Id { get; set; }
         public string HardwareAddress { get; set; } // Possible support for locating led on physical hardware
 
@@ -66,9 +54,9 @@ namespace LedShowEditor.ViewModels
                 NotifyOfPropertyChange(() => IsHighlighted);
                 
                 // Notify parent container that we are selected
-                _eventAggregator.PublishOnUIThread(new LedSelectedEvent
+                _eventAggregator.PublishOnUIThread(new SelectLedEvent
                 {
-                    SelectedLed = this
+                    Led = this
                 });
             }
         }
@@ -111,13 +99,13 @@ namespace LedShowEditor.ViewModels
             set
             {
                 // Clamp value so that led cant be miles from playfield
-                if (value < -50)
+                if (value < -15)
                 {
-                    _locationX = -50;
+                    _locationX = -15;
                 }
-                else if (value > 150)
+                else if (value > 115)
                 {
-                    _locationX = 150; 
+                    _locationX = 115; 
                 }
                 else
                 {
@@ -135,13 +123,13 @@ namespace LedShowEditor.ViewModels
             set
             {
                 // Clamp value so that led cant be miles from playfield
-                if (value < -50)
+                if (value < -5)
                 {
-                    _locationY = -50;
+                    _locationY = -5;
                 }
-                else if (value > 150)
+                else if (value > 105)
                 {
-                    _locationY = 150;
+                    _locationY = 105;
                 }
                 else
                 {
@@ -237,6 +225,17 @@ namespace LedShowEditor.ViewModels
             Scale = ledConfig.Scale;
         }
 
+        public void DeleteLed()
+        {
+            _eventAggregator.PublishOnUIThread(new DeleteLedEvent{Led = this});
+        }
+
+        public void DuplicateLed()
+        {
+            _eventAggregator.PublishOnUIThread(new DuplicateLedEvent { Led = this });
+        }
+
+
         // Build what shapes we can from code. Irregular shapes are taken from AllShapes.xaml
         private void UpdateGeometry(LedShape shape)
         {
@@ -296,6 +295,18 @@ namespace LedShowEditor.ViewModels
         }
 
 
+        private readonly IEventAggregator _eventAggregator;
 
+        private double _locationX;
+        private double _locationY;
+        private LedShape _shape;
+        private double _angle;
+        private Geometry _ledGeometry;
+        private double _scale;
+        private string _name;
+        private Brush _currentColor;
+        private bool _isSelected;
+
+        private bool _isMouseOver = false;
     }
 }

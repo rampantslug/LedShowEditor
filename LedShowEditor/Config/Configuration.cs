@@ -48,11 +48,11 @@ namespace LedShowEditor.Config
         /// <summary>
         /// Initialize configuration from a Json file on disk
         /// </summary>
-        /// <param name="PathToFile">The file to deserialize</param>
+        /// <param name="pathToFile">The file to deserialize</param>
         /// <returns>A MachineConfiguration object deserialized from the specified Json file</returns>
-        public static Configuration FromFile(string PathToFile)
+        public static Configuration FromFile(string pathToFile)
         {
-            var streamReader = new StreamReader(PathToFile);
+            var streamReader = new StreamReader(pathToFile);
             var text = streamReader.ReadToEnd();
             streamReader.Close();
             return FromJson(text);

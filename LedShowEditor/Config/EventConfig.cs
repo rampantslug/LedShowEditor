@@ -7,13 +7,17 @@ using System.Windows.Media;
 
 namespace LedShowEditor.Config
 {
+    /// <summary>
+    /// This class gets serialised to json
+    /// </summary>
     public class EventConfig
     {
         public uint StartFrame{ get; set; }
 
         public uint EndFrame { get; set; }
 
-        // TODO: this will get more complex as what events can entail icnrease
-        public Color EventColor { get; set; }
+        public Color StartColor { get; set; }
+
+        public Color EndColor { get; set; }
     }
 }

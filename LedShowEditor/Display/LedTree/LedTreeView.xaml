@@ -5,30 +5,32 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:leds="clr-namespace:LedShowEditor.ViewModels">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.treeview.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="AdvancedTreeViewItemStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource MetroTreeViewItem}">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <TreeView 
             BorderThickness="0"
             ItemsSource="{Binding LedsVm.Groups}"
-            Background="#FFECECEC">
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                    <Setter Property="FontWeight" Value="Normal" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="FontWeight" Value="Bold" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TreeView.ItemContainerStyle>
+            Background="#FFECECEC"
+            ItemContainerStyle="{StaticResource AdvancedTreeViewItemStyle}"
+            >
             <TreeView.Resources>
-
                 <HierarchicalDataTemplate
                     DataType="{x:Type leds:GroupViewModel}"
                     ItemsSource="{Binding Leds}"
@@ -67,32 +69,27 @@
                                     Header="Delete Led" 
                                     cal:Message.Attach="DeleteLed()"                                   
                                     />
+                                <MenuItem 
+                                    Header="Duplicate Led" 
+                                    cal:Message.Attach="DuplicateLed()"                                   
+                                    />
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
-           </TreeView.Resources>
+                
+            </TreeView.Resources>
         </TreeView>
         <StackPanel 
             Grid.Row="1"
             Orientation="Horizontal">
             <Button 
-                x:Name="DeleteLed"
-                Content="Delete led"
-                />
-            <Button 
+                Margin="5"
                 x:Name="AddLed"
                 Content="Add new led"
                 />
-        </StackPanel>
-        <StackPanel 
-            Grid.Row="2"
-            Orientation="Horizontal">
             <Button 
-                x:Name="DeleteGroup"
-                Content="Delete group"
-                />
-            <Button 
+                Margin="5"
                 x:Name="AddGroup"
                 Content="Add new group"
                 />

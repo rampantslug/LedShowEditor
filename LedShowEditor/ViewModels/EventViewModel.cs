@@ -10,10 +10,6 @@ namespace LedShowEditor.ViewModels
 {
     public class EventViewModel: Screen
     {
-        private uint _startFrame;
-        private uint _endFrame;
-        private Brush _eventColor;
-
         public uint StartFrame
         {
             get
@@ -80,5 +76,9 @@ namespace LedShowEditor.ViewModels
             // TODO: If single color throughout event then all good. Else if transition need to find the color at specific frame
             return EventColor;
         }
+
+        private uint _startFrame;
+        private uint _endFrame;
+        private Brush _eventColor;
     }
 }

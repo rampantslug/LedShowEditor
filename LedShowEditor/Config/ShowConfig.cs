@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace LedShowEditor.Config
 {
     /// <summary>
-    /// This class gets serialised to machine.json
+    /// This class gets serialised to json
     /// </summary>
     public class ShowConfig
     {
@@ -32,9 +32,9 @@ namespace LedShowEditor.Config
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public static ShowConfig FromFile(string PathToFile)
+        public static ShowConfig FromFile(string pathToFile)
         {
-            var streamReader = new StreamReader(PathToFile);
+            var streamReader = new StreamReader(pathToFile);
             var text = streamReader.ReadToEnd();
             streamReader.Close();
             return FromJson(text);

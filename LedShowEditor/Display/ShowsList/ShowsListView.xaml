@@ -21,9 +21,25 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock 
-                                    Text="{Binding Name}"
-                                    VerticalAlignment="Center"
+                           Text="{Binding Name}"
+                           VerticalAlignment="Center"
+                           />
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem 
+                                    Header="Delete" 
+                                    cal:Message.Attach="DeleteShow()"                                   
                                     />
+                                <MenuItem 
+                                    Header="Duplicate" 
+                                    cal:Message.Attach="DuplicateShow()"                                   
+                                    />
+                                <MenuItem 
+                                    Header="Export to lampshow" 
+                                    cal:Message.Attach="ExportLampShow()"                                   
+                                    />
+                            </ContextMenu>
+                        </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

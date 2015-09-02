@@ -5,17 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using LedShowEditor.Config;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
     public class GroupViewModel : Screen
     {
-        private IObservableCollection<LedViewModel> _leds;
-       // public uint Id { get; set; }
-
         public string Name { get; set; }
-
-        //public IList<uint> LedIds { get; set; }
 
         public IObservableCollection<LedViewModel> Leds
         {
@@ -30,23 +26,26 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public GroupViewModel(GroupConfig groupConfig) : this()
+        public GroupViewModel(IEventAggregator eventAggregator, GroupConfig groupConfig)
+            : this(eventAggregator)
         {
-            //Id = groupConfig.Id;
             Name = groupConfig.Name;
-            //LedIds = groupConfig.Leds;
         }
 
-        public GroupViewModel()
+        public GroupViewModel(IEventAggregator eventAggregator)
         {
-            Name = "Some new group";
+            _eventAggregator = eventAggregator;
+            Name = "New group";
             Leds = new BindableCollection<LedViewModel>();
-            //LedIds = new BindableCollection<uint>();
         }
 
         public void DeleteGroup()
         {
+            _eventAggregator.PublishOnUIThread(new DeleteGroupEvent{Group = this});
         }
+
+        private IObservableCollection<LedViewModel> _leds;
+        private readonly IEventAggregator _eventAggregator;
     }
 }
 

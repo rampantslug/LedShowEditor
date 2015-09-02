@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LedShowEditor.Config
 {
     /// <summary>
-    /// This class gets serialised to machine.json
+    /// This class gets serialised to json
     /// </summary>
     public class LedConfig
     {

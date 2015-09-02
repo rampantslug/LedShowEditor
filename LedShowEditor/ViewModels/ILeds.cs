@@ -19,11 +19,11 @@ namespace LedShowEditor.ViewModels
         Color NewEventStartColor { get; set; }
 
         void AddLed();
-        void DeleteLed();
-        void DuplicateLed();
+        void DeleteLed(LedViewModel led);
+        void DuplicateLed(LedViewModel led);
 
         void AddGroup();
-        void DeleteGroup();
+        void DeleteGroup(GroupViewModel group);
 
         void AddShow();
         void DeleteShow();

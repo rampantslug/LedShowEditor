@@ -1,14 +1,10 @@
 ﻿using Caliburn.Micro;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
     public class ShowViewModel: Screen
     {
-
-        private IObservableCollection<LedInShowViewModel> _leds;
-        private string _name;
-
-
         public uint Frames { get; set; }
 
         public string Name
@@ -37,9 +33,30 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public ShowViewModel()
+        public ShowViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             Leds = new BindableCollection<LedInShowViewModel>();
         }
+
+        public void DeleteShow()
+        {
+            _eventAggregator.PublishOnUIThread(new DeleteShowEvent(){Show = this});
+        }
+
+        public void DuplicateShow()
+        {
+            _eventAggregator.PublishOnUIThread(new DuplicateShowEvent() { Show = this });
+        }
+
+        public void ExportLampShow()
+        {
+            // TODO: Add export lampshow code here...
+        }
+
+
+        private IObservableCollection<LedInShowViewModel> _leds;
+        private string _name;
+        private readonly IEventAggregator _eventAggregator;
     }
 }

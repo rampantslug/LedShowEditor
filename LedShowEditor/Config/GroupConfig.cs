@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace LedShowEditor.Config
 {
     /// <summary>
-    /// This class gets serialised to machine.json
+    /// This class gets serialised to json
     /// </summary>
     public class GroupConfig
     {
-        public uint Id { get; set; }
         public string Name { get; set; }
         public IList<uint> Leds { get; set; }
 

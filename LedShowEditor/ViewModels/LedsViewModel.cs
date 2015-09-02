@@ -7,14 +7,14 @@ using System.Windows.Threading;
 using Caliburn.Micro;
 using LedShowEditor.Config;
 using LedShowEditor.Display.ShowsList;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
     [Export(typeof(ILeds))]
-    public class LedsViewModel: Screen, ILeds, IHandle<LedSelectedEvent>
+    public class LedsViewModel: Screen, ILeds, IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, IHandle<DeleteGroupEvent>
     {
         
-
         #region Properties
 
         public IObservableCollection<LedViewModel> AllLeds
@@ -175,10 +175,26 @@ namespace LedShowEditor.ViewModels
             _timer.Tick += TimerOnTick;
         }
 
-        public void Handle(LedSelectedEvent message)
+        public void Handle(SelectLedEvent message)
         {
-            SelectedLed = message.SelectedLed;
+            SelectedLed = message.Led;
         }
+
+        public void Handle(DeleteLedEvent message)
+        {
+            DeleteLed(message.Led);
+        }
+
+        public void Handle(DuplicateLedEvent message)
+        {
+            DuplicateLed(message.Led);
+        }
+
+        public void Handle(DeleteGroupEvent message)
+        {
+            DeleteGroup(message.Group);
+        }
+
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
@@ -235,50 +251,67 @@ namespace LedShowEditor.ViewModels
                     highestId = led.Id;
                 }
             }
-            AllLeds.Add(new LedViewModel(_eventAggregator, highestId + 1));
+            var ledVm = new LedViewModel(_eventAggregator, highestId + 1);
+            AllLeds.Add(ledVm);
+            _unassignedGroup.Leds.Add(ledVm);
         }
 
-        public void DeleteLed()
+        public void DeleteLed(LedViewModel led)
         {
-            if (SelectedLed != null)
+            if (led != null)
             {
-                AllLeds.Remove(SelectedLed);
+                AllLeds.Remove(led);
+                foreach (var groupViewModel in Groups)
+                {
+                    groupViewModel.Leds.Remove(led);
+                }
             }
         }
 
-        public void DuplicateLed()
+        public void DuplicateLed(LedViewModel led)
         {
-            AddLed();
-            var duplicate = AllLeds.Last();
+            if (led != null)
+            {
+                AddLed();
+                var duplicate = AllLeds.Last();
 
-            duplicate.Shape = SelectedLed.Shape;
-            duplicate.Angle = SelectedLed.Angle;
-            duplicate.Scale = SelectedLed.Scale;
-
+                duplicate.Shape = led.Shape;
+                duplicate.Angle = led.Angle;
+                duplicate.Scale = led.Scale;
+            }
         }
 
         public void AddGroup()
         {
-            Groups.Add(new GroupViewModel());
+            Groups.Add(new GroupViewModel(_eventAggregator));
         }
 
-        public void DeleteGroup()
+        public void DeleteGroup(GroupViewModel group)
         {
-            // Todo: Need to figure out how to select a group
-            //Groups.Remove()
-
-            // TODO: Reassign all leds to the unassigned group before deleting this group
+            if (group != null && group != _unassignedGroup)
+            {               
+                foreach (var led in group.Leds)
+                {
+                    _unassignedGroup.Leds.Add(led);
+                }
+                Groups.Remove(group);
+            }
         }
+
+
 
         public void AddShow()
         {
-
+            Shows.Add(new ShowViewModel(_eventAggregator));
         }
 
         
-        public void DeleteShow()
+        public void DeleteShow(ShowViewModel show)
         {
-
+            if (show != null)
+            {
+                Shows.Remove(show);
+            }
         }
 
         public void AddEvent()
@@ -330,15 +363,19 @@ namespace LedShowEditor.ViewModels
         public void LoadGroupsFromConfig(IList<GroupConfig> groups)
         {
             Groups.Clear();
-            var noGroup = new GroupViewModel { Name = "Unassigned Leds" };
-            Groups.Add(noGroup);
+
+            _unassignedGroup = new GroupViewModel(_eventAggregator) { Name = "Unassigned Leds" };
+            Groups.Add(_unassignedGroup);
 
             if (groups != null)
             {
                 foreach (var groupConfig in groups)
                 {
-                    var group = new GroupViewModel(groupConfig);
-                    Groups.Add(group);
+                    if (groupConfig.Name != _unassignedGroup.Name)
+                    {
+                        var group = new GroupViewModel(_eventAggregator, groupConfig);
+                        Groups.Add(group);
+                    }
                 }
             }
 
@@ -349,8 +386,7 @@ namespace LedShowEditor.ViewModels
                 {
                     var matchFound = false;
                     if (groups != null)
-                    {
-                        
+                    {                        
                         foreach (var groupConfig in groups)
                         {
                             if (groupConfig.Leds.Contains(ledViewModel.Id))
@@ -367,7 +403,7 @@ namespace LedShowEditor.ViewModels
                     }
                     if(!matchFound)
                     {
-                        noGroup.Leds.Add(ledViewModel);
+                        _unassignedGroup.Leds.Add(ledViewModel);
                     }
                 }
 
@@ -398,7 +434,8 @@ namespace LedShowEditor.ViewModels
                     {
                         StartFrame = showEvent.StartFrame,
                         EndFrame = showEvent.EndFrame,
-                        EventColor = tempBrush.Color
+                        StartColor = tempBrush.Color,
+                        EndColor = tempBrush.Color,
                     };
                     ledInShowConfig.Events.Add(showEventConfig);
                 }
@@ -411,7 +448,7 @@ namespace LedShowEditor.ViewModels
         {
             if (showConfig != null)
             {
-                var show = new ShowViewModel()
+                var show = new ShowViewModel(_eventAggregator)
                 {
                     Name = name,
                     Frames = showConfig.Frames
@@ -425,7 +462,7 @@ namespace LedShowEditor.ViewModels
                          foreach (var eventConfig in ledInShowConfig.Events)
                          {
                              var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame,
-                                 new SolidColorBrush(eventConfig.EventColor));
+                                 new SolidColorBrush(eventConfig.StartColor));
                              ledInShow.Events.Add(eventViewModel);
                          }
                          show.Leds.Add(ledInShow);
@@ -451,6 +488,7 @@ namespace LedShowEditor.ViewModels
         private uint _newEventStartFrame;
         private uint _newEventEndFrame;
         private Color _newEventStartColor;
+        private GroupViewModel _unassignedGroup;
     }
 }
 
