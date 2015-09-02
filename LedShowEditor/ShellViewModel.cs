@@ -78,6 +78,8 @@ namespace LedShowEditor
             Tools = tools;
 
             LeftTabs = new BindableCollection<IScreen>();
+
+            DisplayName = "Led Show Editor";
         }
 
 

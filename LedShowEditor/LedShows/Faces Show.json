@@ -1,0 +1,90 @@
+{
+  "Frames": 56,
+  "Leds": [
+    {
+      "LinkedLed": 14,
+      "Events": [
+        {
+          "StartFrame": 4,
+          "EndFrame": 12,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        },
+        {
+          "StartFrame": 40,
+          "EndFrame": 48,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 15,
+      "Events": [
+        {
+          "StartFrame": 8,
+          "EndFrame": 16,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        },
+        {
+          "StartFrame": 36,
+          "EndFrame": 44,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 16,
+      "Events": [
+        {
+          "StartFrame": 12,
+          "EndFrame": 20,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        },
+        {
+          "StartFrame": 32,
+          "EndFrame": 40,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 17,
+      "Events": [
+        {
+          "StartFrame": 16,
+          "EndFrame": 24,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        },
+        {
+          "StartFrame": 28,
+          "EndFrame": 36,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 2,
+      "Events": [
+        {
+          "StartFrame": 0,
+          "EndFrame": 8,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        },
+        {
+          "StartFrame": 44,
+          "EndFrame": 52,
+          "StartColor": "#FFFFFFFF",
+          "EndColor": "#FFFFFFFF"
+        }
+      ]
+    }
+  ]
+}

@@ -141,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LedShapes\AllShapes.design" />
+    <None Include="LedShows\Adventure Chase.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="LedShows\Faces Show.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="LedShows\Jackpot.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
