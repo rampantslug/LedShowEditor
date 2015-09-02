@@ -298,8 +298,6 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-
-
         public void AddShow()
         {
             Shows.Add(new ShowViewModel(_eventAggregator));

@@ -26,7 +26,7 @@ namespace LedShowEditor.ViewModels
         void DeleteGroup(GroupViewModel group);
 
         void AddShow();
-        void DeleteShow();
+        void DeleteShow(ShowViewModel show);
 
         void AddEvent();
 

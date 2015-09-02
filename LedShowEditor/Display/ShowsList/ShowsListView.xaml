@@ -6,6 +6,11 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
         <ListView
             ItemsSource="{Binding LedsVm.Shows}"
             Background="Transparent"
@@ -44,6 +49,20 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListView>
+        <StackPanel 
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <Button 
+                Margin="5"
+                x:Name="AddShow"
+                Content="Add new show"
+                />
+            <Button 
+                Margin="5"
+                x:Name="ImportExistingShow"
+                Content="Import existing show"
+                />
+        </StackPanel>
     </Grid>
 
 </UserControl>

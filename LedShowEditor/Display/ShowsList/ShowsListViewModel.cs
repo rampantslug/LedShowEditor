@@ -18,5 +18,16 @@ namespace LedShowEditor.Display.ShowsList
 
             DisplayName = "Shows";
         }
+
+        public void AddShow()
+        {
+            LedsVm.AddShow();
+        }
+
+        public void ImportExistingShow()
+        {
+            // TODO: open file browser window
+        }
+
     }
 }

@@ -47,6 +47,26 @@
                                     Header="Delete Group" 
                                     cal:Message.Attach="DeleteGroup()"                                   
                                     />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition MinWidth="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock 
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Grid.Row="0"
+                                        Text="Rename Group"
+                                        />
+                                    <TextBox 
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Text="{Binding Name}"/>
+                                </Grid>
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
@@ -72,7 +92,7 @@
                                 <MenuItem 
                                     Header="Duplicate Led" 
                                     cal:Message.Attach="DuplicateLed()"                                   
-                                    />
+                                    />                              
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>

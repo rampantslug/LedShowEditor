@@ -11,7 +11,18 @@ namespace LedShowEditor.ViewModels
 {
     public class GroupViewModel : Screen
     {
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyOfPropertyChange(() => Name);
+            }
+        }
 
         public IObservableCollection<LedViewModel> Leds
         {
@@ -46,6 +57,7 @@ namespace LedShowEditor.ViewModels
 
         private IObservableCollection<LedViewModel> _leds;
         private readonly IEventAggregator _eventAggregator;
+        private string _name    ;
     }
 }
 
