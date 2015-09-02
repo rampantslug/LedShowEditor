@@ -103,6 +103,7 @@
     <Compile Include="Config\LedConfig.cs" />
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\NullVisibilityConverter.cs" />
     <Compile Include="Converters\SizeObserver.cs" />
     <Compile Include="Display\Properties\IProperties.cs" />
     <Compile Include="Display\Properties\PropertiesViewModel.cs" />

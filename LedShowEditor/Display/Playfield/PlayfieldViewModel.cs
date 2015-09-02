@@ -47,6 +47,17 @@ namespace LedShowEditor.Display.Playfield
             }
         }
 
+        public bool IsPlayfieldVisible
+        {
+            get { return _isPlayfieldVisible; }
+            set
+            {
+                _isPlayfieldVisible = value;
+                NotifyOfPropertyChange(() => IsPlayfieldVisible);
+            }
+        }
+
+
         public double PlayfieldWidth
         {
             get { return _playfieldWidth; }
@@ -125,6 +136,7 @@ namespace LedShowEditor.Display.Playfield
             PlayfieldHeight = 800;
 
             _playfieldToLedsScale = 0.25;
+            _isPlayfieldVisible = true;
         }
 
         #endregion
@@ -218,5 +230,6 @@ namespace LedShowEditor.Display.Playfield
         private double _scaleFactorY;
         private readonly IEventAggregator _eventAggregator;
         private double _playfieldToLedsScale;
+        private bool _isPlayfieldVisible;
     }
 }

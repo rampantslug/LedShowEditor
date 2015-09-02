@@ -17,12 +17,47 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             </Style>
+            <Style 
+            x:Key="PlayPauseIcon" 
+            TargetType="{x:Type Rectangle}">
+                <!-- Default (when Playing = False) -->
+                <Style.Triggers>
+                    <DataTrigger 
+                    Binding="{Binding Path=LedsVm.IsPlaying}" Value="False">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <TextBlock Text="Play"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="OpacityMask">
+                            <Setter.Value>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_control_play}" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <!-- When Playing = True -->
+                    <DataTrigger Binding="{Binding Path=LedsVm.IsPlaying}" Value="True">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <TextBlock Text="Pause"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="OpacityMask">
+                            <Setter.Value>
+                                <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_control_pause}" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid
         Margin="5"
         >
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -78,6 +113,7 @@
         <!-- Timeline view of led colours -->
         <ListView
             Grid.Column="1"
+            Grid.ColumnSpan="3"
             Grid.Row="1"
             ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
             Background="Transparent"
@@ -115,6 +151,7 @@
         </ListView>
         <Canvas
             Grid.Column="1"
+            Grid.ColumnSpan="3"
             Grid.Row="1"           
             >
             
@@ -130,7 +167,7 @@
         
         <StackPanel 
             Grid.Row="0"
-            Grid.Column="1"
+            Grid.Column="2"
             Orientation="Horizontal"
             Height="30"
             >
@@ -139,6 +176,7 @@
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"
+                ToolTip="First Frame"
                 >
               <Rectangle 
                     Width="10"
@@ -150,29 +188,15 @@
                 </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <Button 
-                x:Name="Pause"
-                Style="{DynamicResource MetroCircleButtonStyle}"
-                Height="30"
-                Width="30"
-                >
-                <Rectangle 
-                    Width="8"
-                    Height="8"
-                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill"
-                                     Visual="{DynamicResource appbar_control_pause}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Button>
+           
             <TextBox 
                 Text="{Binding LedsVm.CurrentFrame}"
+                Width="50"
                 Height="20"
                 HorizontalContentAlignment="Right"
                 />
             <Button 
-                x:Name="Play"
+                x:Name="PlayPause"
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"
@@ -180,11 +204,8 @@
                 <Rectangle 
                     Width="8"
                     Height="8"
-                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill"
-                                     Visual="{DynamicResource appbar_control_play}" />
-                    </Rectangle.OpacityMask>
+                    Style="{StaticResource PlayPauseIcon}"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">                
                 </Rectangle>
             </Button>
             <Button 
@@ -192,6 +213,7 @@
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"
+                ToolTip="Step 1 Frame"
                  >
                 <Rectangle 
                     Width="10"
@@ -208,6 +230,7 @@
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"
+                ToolTip="Last Frame"
                  >
                 <Rectangle 
                     Width="10"

@@ -53,6 +53,15 @@ namespace LedShowEditor.Converters
             base(Visibility.Visible, Visibility.Collapsed) { }
     }
 
+    /// <summary>
+    /// Convert from Boolean value to Visibility value.
+    /// </summary>
+    public sealed class BooleanToVisibilityNoCollapsedConverter : BooleanConverter<Visibility>
+    {
+        public BooleanToVisibilityNoCollapsedConverter() :
+            base(Visibility.Visible, Visibility.Hidden) { }
+    }
+
     public sealed class InverseBooleanToVisibilityConverter : BooleanConverter<Visibility>
     {
         public InverseBooleanToVisibilityConverter() :

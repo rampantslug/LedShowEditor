@@ -33,9 +33,9 @@ namespace LedShowEditor.Display.Timeline
             LedsVm.IsPlaying = false;
         }
 
-        public void Play()
+        public void PlayPause()
         {
-            LedsVm.IsPlaying = true;
+            LedsVm.IsPlaying = !LedsVm.IsPlaying;
         }
 
         public void Step()

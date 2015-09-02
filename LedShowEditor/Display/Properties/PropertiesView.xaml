@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <converters:BoolToIndexConverter x:Key="BoolToIndexConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -23,11 +24,12 @@
             Margin="10"
             >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition />
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
@@ -53,6 +55,7 @@
                 Grid.Row="1"
                 Text="{Binding PlayfieldVm.PlayfieldImagePath}"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Center"
                 />
             <Button
                 Grid.Column="2"
@@ -78,6 +81,7 @@
                 Maximum="1"
                 SmallChange="0.01"
                 VerticalAlignment="Center"
+                Margin="10,0"
                 />
             <TextBox 
                 Grid.Column="2"
@@ -86,12 +90,28 @@
                 Width="60"
                 HorizontalAlignment="Right"
                 />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="3"
+                Text="Visible"
+                VerticalAlignment="Center"
+                />
+            <CheckBox
+                Grid.Column="2"
+                Grid.Row="3"
+                IsChecked="{Binding PlayfieldVm.IsPlayfieldVisible}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="6,0,0,0"
+                />
         </Grid>
 
         <!-- Led Properties go here -->
         <Grid
             Grid.Row="1"
-            Margin="10">
+            Margin="10"
+            Visibility="{Binding LedsVm.SelectedLed, Converter={StaticResource NullToVisibilityConverter}}"
+            >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="20"/>
@@ -235,9 +255,9 @@
                 Grid.RowSpan="2"
                 >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="60"/>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -257,6 +277,7 @@
                 Maximum="360"
                 SmallChange="1"
                 VerticalAlignment="Center"
+                Margin="10,0"
                 />
                 <TextBox 
                 Grid.Column="2"
@@ -280,6 +301,7 @@
                 Maximum="3"
                 SmallChange="0.1"
                 VerticalAlignment="Center"
+                    Margin="10,0"
                 />
                 <TextBox 
                 Grid.Column="2"
@@ -297,6 +319,7 @@
         <Grid
             Row="2"
             Margin="10"
+            Visibility="{Binding LedsVm.SelectedLed, Converter={StaticResource NullToVisibilityConverter}}"
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -391,7 +414,7 @@
                 Grid.ColumnSpan="3"
                 Row="3"
                 RowSpan="2"
-                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>

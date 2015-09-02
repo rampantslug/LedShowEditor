@@ -8,7 +8,8 @@
         xmlns:playfield="clr-namespace:LedShowEditor.Display.Playfield">
         <UserControl.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <converters:MathConverter x:Key="MathConverter" />
+        <converters:BooleanToVisibilityNoCollapsedConverter x:Key="BooleanToVisibilityNoCollapsedConverter" />
+        <converters:MathConverter x:Key="MathConverter" />
             <Style x:Key="FlatButton" TargetType="Button">
                 <Setter Property="Control.Background" Value="{x:Null}" />
                 <Setter Property="Control.BorderBrush" Value="{x:Null}" />
@@ -66,6 +67,7 @@
             converters:SizeObserver.Observe="True"
             converters:SizeObserver.ObservedHeight="{Binding PlayfieldHeight, Mode=OneWayToSource}"
             converters:SizeObserver.ObservedWidth="{Binding PlayfieldWidth, Mode=OneWayToSource}"
+            Visibility="{Binding IsPlayfieldVisible, Converter={StaticResource BooleanToVisibilityNoCollapsedConverter}}"
             ></Image>
 
 
