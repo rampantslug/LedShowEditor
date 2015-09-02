@@ -160,6 +160,19 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public Color NewEventEndColor
+        {
+            get
+            {
+                return _newEventEndColor;
+            }
+            set
+            {
+                _newEventEndColor = value;
+                NotifyOfPropertyChange(() => NewEventEndColor);
+            }
+        }
+
 
         #endregion
 
@@ -376,21 +389,63 @@ namespace LedShowEditor.ViewModels
             if (SelectedShow != null && SelectedLed != null)
             {
                 var existingLed = SelectedShow.Leds.FirstOrDefault(led => led.LinkedLed == SelectedLed);
+                
+                // Add led to show if required...
                 if (existingLed == null)
                 {
                     existingLed = new LedInShowViewModel(_eventAggregator, SelectedLed);
                     SelectedShow.Leds.Add(existingLed);
                 }
 
-                // Overwrite any existing event that starts at the same frame (This may or may not be desired behaviour).
-                var eventToReplace = existingLed.Events.FirstOrDefault(showEvent => showEvent.StartFrame == NewEventStartFrame);
-                if (eventToReplace != null)
+                // Check for overlap of existing events
+                var removeEvents = new List<EventViewModel>();
+                foreach (var existingEvent in existingLed.Events)
                 {
-                    existingLed.Events.Remove(eventToReplace);
+                    // Does new event completely overlap existing -> delete existing
+                    if (existingEvent.StartFrame >= NewEventStartFrame && existingEvent.EndFrame <= NewEventEndFrame)
+                    {
+                        removeEvents.Add(existingEvent);                       
+                        continue;
+                    }
+
+                    // Does new event start before existing finishes -> update existing finish time
+                    if (existingEvent.EndFrame > NewEventStartFrame && existingEvent.EndFrame < NewEventEndFrame)
+                    {
+                        existingEvent.EndFrame = NewEventStartFrame;
+                        continue;
+                    }
+
+                    // Does new event finish after existing starts -> update existing start time
+                    if (existingEvent.StartFrame > NewEventStartFrame && existingEvent.EndFrame > NewEventEndFrame)
+                    {
+                        existingEvent.StartFrame = NewEventEndFrame;
+                        continue;
+                    }
+
+                    // Does new event sit completely inside existing event -> Chop existing event into 2 events
+                    //TODO: add code here...
+                }
+                // Perform removal in different loop as cannot do it in above loop
+                foreach (var removeEvent in removeEvents)
+                {
+                    existingLed.Events.Remove(removeEvent);
                 }
 
-                existingLed.Events.Add(new EventViewModel(NewEventStartFrame, 
-                    NewEventEndFrame, new SolidColorBrush(NewEventStartColor)));
+
+                // TODO: If blink type of event then need to add multiple events
+                if (SelectedLed.IsSingleColor)
+                {
+                    var eventToAdd = new EventViewModel(NewEventStartFrame, NewEventEndFrame, new SolidColorBrush(SelectedLed.SingleColor));
+                    existingLed.Events.Add(eventToAdd);
+                }
+                else
+                {
+                    var eventToAdd = new EventViewModel(NewEventStartFrame, NewEventEndFrame, new LinearGradientBrush(NewEventStartColor, NewEventEndColor, 0));
+
+                    existingLed.Events.Add(eventToAdd);
+                }
+
+                
             }
         }
 
@@ -547,6 +602,7 @@ namespace LedShowEditor.ViewModels
         private uint _newEventEndFrame;
         private Color _newEventStartColor;
         private GroupViewModel _unassignedGroup;
+        private Color _newEventEndColor;
     }
 }
 

@@ -14,13 +14,26 @@ namespace LedShowEditor.Display.Properties
     [Export(typeof(IProperties))]
     public class PropertiesViewModel : Screen, IProperties
     {
-        private IEventAggregator _eventAggregator;
-        public ILeds LedsVm { get; set; }
-        public IPlayfield PlayfieldVm { get; set; }
+
 
         public IEnumerable<LedShape> AllShapes
         {
             get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); }
+        }
+
+        public IEnumerable<string> SingleLedEventOptions
+        {
+            get { return new BindableCollection<string> {"Solid", "Fade In", "Fade Out", "Blinking"}; }
+        }
+
+        public string SelectedSingleLedEventOption
+        {
+            get { return _selectedSingleLedEventOption; }
+            set 
+            {
+                _selectedSingleLedEventOption = value ;
+                NotifyOfPropertyChange(() => SelectedSingleLedEventOption);
+            }
         }
 
         [ImportingConstructor]
@@ -33,6 +46,11 @@ namespace LedShowEditor.Display.Properties
 
         public void AddEvent()
         {
+            if (LedsVm.SelectedLed.IsSingleColor)
+            {
+                // Check what type of event we want...
+            }
+
             LedsVm.AddEvent();
         }
 
@@ -40,5 +58,10 @@ namespace LedShowEditor.Display.Properties
         {
             
         }
+
+        private IEventAggregator _eventAggregator;
+        private string _selectedSingleLedEventOption;
+        public ILeds LedsVm { get; set; }
+        public IPlayfield PlayfieldVm { get; set; }
     }
 }
