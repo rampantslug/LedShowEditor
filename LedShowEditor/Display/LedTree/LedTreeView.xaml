@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
         xmlns:leds="clr-namespace:LedShowEditor.ViewModels">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -30,13 +31,19 @@
             ItemsSource="{Binding LedsVm.Groups}"
             Background="#FFECECEC"
             ItemContainerStyle="{StaticResource AdvancedTreeViewItemStyle}"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.UseDefaultDragAdorner="True"
+            dd:DragDrop.DropHandler="{Binding}" 
             >
             <TreeView.Resources>
                 <HierarchicalDataTemplate
                     DataType="{x:Type leds:GroupViewModel}"
                     ItemsSource="{Binding Leds}"
+                    
                     >
-                    <Grid>
+                    <Grid
+                        >
                         <TextBlock
                             Margin="2"
                             Text="{Binding Name}" 
@@ -77,8 +84,10 @@
                 </HierarchicalDataTemplate>
                 <DataTemplate
                     DataType="{x:Type leds:LedViewModel}"
+                    
                     >
-                    <Grid>
+                    <Grid
+                        >
                         <TextBlock
                             Margin="2"
                             Text="{Binding Name}" 

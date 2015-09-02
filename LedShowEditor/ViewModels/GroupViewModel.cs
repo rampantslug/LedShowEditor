@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
+using GongSolutions.Wpf.DragDrop;
 using LedShowEditor.Config;
 using LedShowEditor.ViewModels.Events;
 
@@ -55,6 +57,7 @@ namespace LedShowEditor.ViewModels
             _eventAggregator.PublishOnUIThread(new DeleteGroupEvent{Group = this});
         }
 
+     
         private IObservableCollection<LedViewModel> _leds;
         private readonly IEventAggregator _eventAggregator;
         private string _name;
