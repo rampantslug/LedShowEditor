@@ -26,7 +26,31 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-       
+        public bool IsSingleColor
+        {
+            get
+            {
+                return _isSingleColor;
+            }
+            set
+            {
+                _isSingleColor = value;
+                NotifyOfPropertyChange(() => IsSingleColor);
+            }
+        }
+
+        public Color SingleColor
+        {
+            get
+            {
+                return _singleColor;
+            }
+            set
+            {
+                _singleColor = value;
+                NotifyOfPropertyChange(() => SingleColor);
+            }
+        }
 
         public Brush CurrentColor
         {
@@ -206,6 +230,8 @@ namespace LedShowEditor.ViewModels
             // Default a bunch of stuff
             Name = "New Led " + id;
             CurrentColor = Brushes.Transparent;
+            IsSingleColor = false;
+            SingleColor = Colors.White;
             LocationX = 50;
             LocationY = 50;
             Shape = LedShape.CircleMed;
@@ -218,6 +244,8 @@ namespace LedShowEditor.ViewModels
             // Override defaults with values from config
             HardwareAddress = ledConfig.HardwareAddress;
             Name = ledConfig.Name;
+            IsSingleColor = ledConfig.IsSingleColor;
+            SingleColor = ledConfig.SingleColor;
             LocationX = ledConfig.LocationX;
             LocationY = ledConfig.LocationY;
             Shape = ledConfig.Shape;
@@ -308,5 +336,7 @@ namespace LedShowEditor.ViewModels
         private bool _isSelected;
 
         private bool _isMouseOver = false;
+        private bool _isSingleColor;
+        private Color _singleColor;
     }
 }

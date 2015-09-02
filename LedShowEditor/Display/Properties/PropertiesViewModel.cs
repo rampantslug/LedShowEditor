@@ -22,7 +22,7 @@ namespace LedShowEditor.Display.Properties
         {
             get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); }
         }
- 
+
         [ImportingConstructor]
         public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel, IPlayfield playfieldViewModel)
         {

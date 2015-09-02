@@ -4,7 +4,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:converters="clr-namespace:LedShowEditor.Converters">
+    <UserControl.Resources>
+        <converters:BoolToIndexConverter x:Key="BoolToIndexConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -158,24 +163,28 @@
                 Text="Type"
                 VerticalAlignment="Center"           
                 />
-            <TextBox 
-                Grid.Column="2"
-                Grid.Row="4"
-                Text="RGB or single colour"
-                Height="25" 
-                />
-            <!--<TextBlock 
-                Grid.Column="0"
-                Grid.Row="5"
-                Text="Group"
-                VerticalAlignment="Center"
-                />
             <ComboBox 
                 Grid.Column="2"
-                Grid.Row="5"
-                ItemsSource="{Binding LedsVm.Groups}"
+                Grid.Row="4"
                 Height="25" 
-                />-->
+                SelectedIndex="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BoolToIndexConverter}}"
+                >                   
+                    <ComboBoxItem Content="Single Colour"/>
+                    <ComboBoxItem Content="RGB"/>
+                </ComboBox>
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="5"
+                Text="Colour"
+                VerticalAlignment="Center"
+                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}}"
+                />
+            <xctk:ColorPicker 
+                Grid.Column="2"
+                Grid.Row="5"
+                SelectedColor="{Binding LedsVm.SelectedLed.SingleColor}"
+                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}}"
+                />
             <TextBlock 
                 Grid.Column="0"
                 Grid.Row="6"
@@ -255,6 +264,7 @@
                 Text="{Binding LedsVm.SelectedLed.Angle}"
                 Height="25" 
                 Width="60"
+                HorizontalAlignment="Right"
                 />
                 <TextBlock 
                 Grid.Column="0"
@@ -276,7 +286,8 @@
                 Grid.Row="1"
                 Text="{Binding LedsVm.SelectedLed.Scale}"
                 Height="25" 
-                    Width="60"
+                Width="60"
+                HorizontalAlignment="Right"
                 />
             </Grid>
           
@@ -334,29 +345,89 @@
                 Text="{Binding LedsVm.NewEventEndFrame}"
                 Height="25" 
                 />
-            <TextBlock 
+            <!-- If RGB Show these options -->
+            <Grid
                 Grid.Column="0"
-                Grid.Row="3"
-                Text=" Start Colour"
+                Grid.ColumnSpan="3"
+                Row="3"
+                RowSpan="2"
+                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock 
+                Grid.Column="0"
+                Grid.Row="0"
+                Text="Start Colour"
                 VerticalAlignment="Center"
                 />
             <xctk:ColorPicker 
                 Grid.Column="2"
-                Grid.Row="3"
+                Grid.Row="0"
                 SelectedColor="{Binding LedsVm.NewEventStartColor}"
                 />
             <TextBlock 
                 Grid.Column="0"
-                Grid.Row="4"
-                Text=" End Colour"
+                Grid.Row="1"
+                Text="End Colour"
                 VerticalAlignment="Center"
                 />
             <xctk:ColorPicker 
                 Grid.Column="2"
-                Grid.Row="4"
+                Grid.Row="1"
                 SelectedColor="{Binding LedsVm.NewEventStartColor}"
                 IsEnabled="False"
                 />
+            </Grid>
+            <!-- If Single Colour Show these options -->
+            <Grid
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Row="3"
+                RowSpan="2"
+                Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}}"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock 
+                Grid.Column="0"
+                Grid.Row="0"
+                Text="Fade In"
+                VerticalAlignment="Center"
+                />
+                <TextBlock 
+                Grid.Column="2"
+                Grid.Row="0"
+                Text="Fade out"
+                VerticalAlignment="Center"
+                />
+                <TextBlock 
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Blink"
+                VerticalAlignment="Center"
+                />
+                <TextBlock 
+                Grid.Column="2"
+                Grid.Row="1"
+                Text="Blink rate"
+                VerticalAlignment="Center"
+                />
+            </Grid>
             <Button 
                 Grid.Column="2"
                 Grid.Row="5"

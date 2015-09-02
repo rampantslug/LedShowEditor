@@ -53,5 +53,22 @@ namespace LedShowEditor.Converters
             base(Visibility.Visible, Visibility.Collapsed) { }
     }
 
+    public sealed class InverseBooleanToVisibilityConverter : BooleanConverter<Visibility>
+    {
+        public InverseBooleanToVisibilityConverter() :
+            base(Visibility.Collapsed, Visibility.Visible) { }
+    }
 
+    public class BoolToIndexConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((bool)value == true) ? 0 : 1;   
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((int)value == 0) ? true : false;
+        }
+    }
 }

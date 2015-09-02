@@ -298,6 +298,8 @@ namespace LedShowEditor.ViewModels
                 AddLed();
                 var duplicate = AllLeds.Last();
 
+                duplicate.IsSingleColor = led.IsSingleColor;
+                duplicate.SingleColor = led.SingleColor;
                 duplicate.Shape = led.Shape;
                 duplicate.Angle = led.Angle;
                 duplicate.Scale = led.Scale;
@@ -411,7 +413,8 @@ namespace LedShowEditor.ViewModels
         {
             return AllLeds.Select(led => new LedConfig()
             {
-                Id = led.Id, HardwareAddress = led.HardwareAddress, Name = led.Name, LocationX = led.LocationX, LocationY = led.LocationY, Shape = led.Shape, Angle = led.Angle, Scale = led.Scale
+                Id = led.Id, HardwareAddress = led.HardwareAddress, Name = led.Name, IsSingleColor = led.IsSingleColor, SingleColor = led.SingleColor, 
+                LocationX = led.LocationX, LocationY = led.LocationY, Shape = led.Shape, Angle = led.Angle, Scale = led.Scale
             }).ToList();
         }
 
