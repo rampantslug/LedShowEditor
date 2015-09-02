@@ -180,15 +180,16 @@ namespace LedShowEditor.Display.Playfield
                     SelectedLed.IsSelected = true;
                 }
             }
-            else
-            {
-                SelectedLed = null;
-            }
         }
 
         public void MouseUp(object source)
         {
-
+            if (SelectedLed != null && !SelectedLed.IsMouseOver)
+            {
+                // De-Select selected Led
+                SelectedLed.IsSelected = false;
+                SelectedLed = null;
+            }
         }
 
         public void MouseMove(object source)

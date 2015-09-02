@@ -56,7 +56,8 @@
     <Grid
         Margin="10,20,10,20"
         x:Name="DevicesContainer"
-        cal:Message.Attach="[Event MouseMove] = [Action MouseMove($source)]"
+        cal:Message.Attach="[Event MouseMove] = [Action MouseMove($source)];
+                            [Event MouseUp] = [Action MouseUp($source)]"
         >
         <Image
             
