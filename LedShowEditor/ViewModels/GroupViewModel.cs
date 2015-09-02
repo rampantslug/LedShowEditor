@@ -57,7 +57,7 @@ namespace LedShowEditor.ViewModels
 
         private IObservableCollection<LedViewModel> _leds;
         private readonly IEventAggregator _eventAggregator;
-        private string _name    ;
+        private string _name;
     }
 }
 

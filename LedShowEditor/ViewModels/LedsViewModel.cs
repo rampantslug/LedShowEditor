@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -12,7 +13,11 @@ using LedShowEditor.ViewModels.Events;
 namespace LedShowEditor.ViewModels
 {
     [Export(typeof(ILeds))]
-    public class LedsViewModel: Screen, ILeds, IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, IHandle<DeleteGroupEvent>
+    public class LedsViewModel: Screen, ILeds, 
+        IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, 
+        IHandle<DeleteGroupEvent>,
+        IHandle<DeleteShowEvent>, IHandle<DuplicateShowEvent>
+
     {
         
         #region Properties
@@ -175,6 +180,8 @@ namespace LedShowEditor.ViewModels
             _timer.Tick += TimerOnTick;
         }
 
+        #region Event Handlers
+
         public void Handle(SelectLedEvent message)
         {
             SelectedLed = message.Led;
@@ -195,6 +202,17 @@ namespace LedShowEditor.ViewModels
             DeleteGroup(message.Group);
         }
 
+        public void Handle(DeleteShowEvent message)
+        {
+            DeleteShow(message.Show);
+        }
+
+        public void Handle(DuplicateShowEvent message)
+        {
+            DuplicateShow(message.Show);
+        }
+
+        #endregion
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
@@ -309,6 +327,35 @@ namespace LedShowEditor.ViewModels
             if (show != null)
             {
                 Shows.Remove(show);
+                // Also need to remove physical file
+                var path = Directory.GetCurrentDirectory();
+                var additionalpath = path + @"\LedShows\" + show.Name + ".json";
+                if (File.Exists(additionalpath))
+                {
+                    File.Delete(additionalpath);
+                }
+            }
+        }
+
+        public void DuplicateShow(ShowViewModel show)
+        {
+            if (show != null)
+            {
+                AddShow();
+                var duplicate = Shows.Last();
+
+                duplicate.Frames = show.Frames;
+                // Need to perform a deep copy for leds
+                foreach (var led in show.Leds)
+                {
+                    var duplicateLed = new LedInShowViewModel(led.LinkedLed);
+                    foreach (var eventVm in led.Events)
+                    {
+                        var duplicateEvent = new EventViewModel(eventVm.StartFrame, eventVm.EndFrame, eventVm.EventColor);
+                        duplicateLed.Events.Add(duplicateEvent);
+                    }
+                    duplicate.Leds.Add(duplicateLed);
+                }                
             }
         }
 

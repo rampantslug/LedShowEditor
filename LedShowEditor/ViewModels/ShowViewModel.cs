@@ -1,11 +1,23 @@
-﻿using Caliburn.Micro;
+﻿using System.IO;
+using Caliburn.Micro;
 using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
     public class ShowViewModel: Screen
     {
-        public uint Frames { get; set; }
+        public uint Frames
+        {
+            get
+            {
+                return _frames;
+            }
+            set
+            {
+                _frames = value;
+                NotifyOfPropertyChange(() => Frames);
+            }
+        }
 
         public string Name
         {
@@ -15,7 +27,17 @@ namespace LedShowEditor.ViewModels
             }
             set
             {
+                // Need to rename physical filename as well
+                var path = Directory.GetCurrentDirectory();
+                var initialName = path + @"\LedShows\" + _name + ".json";
+
                 _name = value;
+
+                var updatedName = path + @"\LedShows\" + _name + ".json";
+                if (File.Exists(initialName))
+                {
+                    File.Move(initialName, updatedName);
+                }
                 NotifyOfPropertyChange(() => Name);
             }
         }
@@ -36,6 +58,7 @@ namespace LedShowEditor.ViewModels
         public ShowViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            Name = "New Show";
             Leds = new BindableCollection<LedInShowViewModel>();
         }
 
@@ -58,5 +81,6 @@ namespace LedShowEditor.ViewModels
         private IObservableCollection<LedInShowViewModel> _leds;
         private string _name;
         private readonly IEventAggregator _eventAggregator;
+        private uint _frames;
     }
 }
