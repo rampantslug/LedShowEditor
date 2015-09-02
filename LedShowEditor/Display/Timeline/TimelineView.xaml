@@ -5,8 +5,19 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:converters="clr-namespace:LedShowEditor.Converters">
-    <UserControl.Resources>
-        <converters:MathConverter x:Key="MathConverter" />
+    <UserControl.Resources>       
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.listview.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:MathConverter x:Key="MathConverter" />
+            <Style x:Key="AdvancedListViewItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="IsSelected" Value="{Binding LinkedLed.IsSelected, Mode=TwoWay}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid
         Margin="5"
@@ -28,6 +39,7 @@
             Margin="20,0,0,0"            
             Foreground="{StaticResource AccentColorBrush}"
             FontSize="26"
+            
             />
 
         <!-- List of Leds used in this show-->
@@ -36,20 +48,27 @@
             Grid.Row="1"
             ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
             Background="Transparent"
-            >
+            ItemContainerStyle="{StaticResource AdvancedListViewItemStyle}"
+            >          
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="40" />
-                        </Grid.ColumnDefinitions>
-
                         <TextBlock 
-                                    Text="{Binding LinkedLed.Name}"
-                                    VerticalAlignment="Center"
+                            Text="{Binding LinkedLed.Name}"
+                            VerticalAlignment="Center"
+                            />
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem 
+                                    Header="Delete from show" 
+                                    cal:Message.Attach="DeleteLedFromShow()"                                   
                                     />
+                                <MenuItem 
+                                    Header="Duplicate led events" 
+                                    cal:Message.Attach="DuplicateLedEvents()"                                   
+                                    />                               
+                            </ContextMenu>
+                        </Grid.ContextMenu>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

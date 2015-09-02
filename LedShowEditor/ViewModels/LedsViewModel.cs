@@ -16,7 +16,7 @@ namespace LedShowEditor.ViewModels
     public class LedsViewModel: Screen, ILeds, 
         IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, 
         IHandle<DeleteGroupEvent>,
-        IHandle<DeleteShowEvent>, IHandle<DuplicateShowEvent>
+        IHandle<DeleteShowEvent>, IHandle<DuplicateShowEvent>, IHandle<DeleteLedFromShowEvent>
 
     {
         
@@ -212,6 +212,11 @@ namespace LedShowEditor.ViewModels
             DuplicateShow(message.Show);
         }
 
+        public void Handle(DeleteLedFromShowEvent message)
+        {
+            DeleteLedFromShowEvent(SelectedShow, message.Led);
+        }
+
         #endregion
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
@@ -348,7 +353,7 @@ namespace LedShowEditor.ViewModels
                 // Need to perform a deep copy for leds
                 foreach (var led in show.Leds)
                 {
-                    var duplicateLed = new LedInShowViewModel(led.LinkedLed);
+                    var duplicateLed = new LedInShowViewModel(_eventAggregator, led.LinkedLed);
                     foreach (var eventVm in led.Events)
                     {
                         var duplicateEvent = new EventViewModel(eventVm.StartFrame, eventVm.EndFrame, eventVm.EventColor);
@@ -359,6 +364,11 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public void DeleteLedFromShowEvent(ShowViewModel show, LedInShowViewModel led)
+        {
+            show.Leds.Remove(led);
+        }
+
         public void AddEvent()
         {
             if (SelectedShow != null && SelectedLed != null)
@@ -366,7 +376,7 @@ namespace LedShowEditor.ViewModels
                 var existingLed = SelectedShow.Leds.FirstOrDefault(led => led.LinkedLed == SelectedLed);
                 if (existingLed == null)
                 {
-                    existingLed = new LedInShowViewModel(SelectedLed);
+                    existingLed = new LedInShowViewModel(_eventAggregator, SelectedLed);
                     SelectedShow.Leds.Add(existingLed);
                 }
 
@@ -503,7 +513,7 @@ namespace LedShowEditor.ViewModels
                      var matchingLed = AllLeds.FirstOrDefault(led => led.Id == ledInShowConfig.LinkedLed);
                      if (matchingLed != null)
                      {
-                         var ledInShow = new LedInShowViewModel(matchingLed);
+                         var ledInShow = new LedInShowViewModel(_eventAggregator, matchingLed);
                          foreach (var eventConfig in ledInShowConfig.Events)
                          {
                              var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame,

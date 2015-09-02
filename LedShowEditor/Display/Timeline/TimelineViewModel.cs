@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.Display.Timeline
 {
@@ -18,6 +19,8 @@ namespace LedShowEditor.Display.Timeline
             LedsVm = ledsViewModel;
 
         }
+
+        #region Playback Control
 
         public void FirstFrame()
         {
@@ -47,5 +50,9 @@ namespace LedShowEditor.Display.Timeline
             // TODO: Need to replace this with max frames
             LedsVm.CurrentFrame = 100;
         }
+
+        #endregion
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
@@ -19,12 +20,26 @@ namespace LedShowEditor.ViewModels
 
         public LedViewModel LinkedLed { get; set; }
 
-        public LedInShowViewModel(LedViewModel linkedLed)
+        public LedInShowViewModel(IEventAggregator eventAggregator, LedViewModel linkedLed)
         {
+            _eventAggregator = eventAggregator;
             LinkedLed = linkedLed;
             _events = new BindableCollection<EventViewModel>();
         }
 
+
+        public void DeleteLedFromShow()
+        {
+            _eventAggregator.PublishOnUIThread(new DeleteLedFromShowEvent(this));
+        }
+
+        public void DuplicateLedEvents()
+        {
+            // TODO: Get led id from context
+        }
+
+
         private IObservableCollection<EventViewModel> _events;
+        private IEventAggregator _eventAggregator;
     }
 }

@@ -108,6 +108,7 @@
     <Compile Include="Display\Properties\PropertiesViewModel.cs" />
     <Compile Include="Display\ShowsList\IShowsList.cs" />
     <Compile Include="Display\ShowsList\ShowsListViewModel.cs" />
+    <Compile Include="ViewModels\Events\DeleteLedFromShowEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteShowEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteGroupEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteLedEvent.cs" />

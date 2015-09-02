@@ -77,7 +77,6 @@ namespace LedShowEditor.ViewModels
             // TODO: Add export lampshow code here...
         }
 
-
         private IObservableCollection<LedInShowViewModel> _leds;
         private string _name;
         private readonly IEventAggregator _eventAggregator;
