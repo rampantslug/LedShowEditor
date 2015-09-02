@@ -186,9 +186,12 @@ namespace LedShowEditor.ViewModels
             Groups = new BindableCollection<GroupViewModel>();
             Shows = new BindableCollection<ShowViewModel>();
 
+            double framesPerSecond = 32;
+            double frameFreq = 1 / framesPerSecond;
+
             _timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(0.05)
+                Interval = TimeSpan.FromSeconds(frameFreq)
             };
             _timer.Tick += TimerOnTick;
         }

@@ -1,4 +1,4 @@
-﻿{
+{
   "Frames": 100,
   "Leds": [
     {
@@ -7,12 +7,14 @@
         {
           "StartFrame": 0,
           "EndFrame": 20,
-          "EventColor": "#FF8A2BE2"
+          "StartColor": "#00000000",
+          "EndColor": "#00000000"
         },
         {
           "StartFrame": 30,
           "EndFrame": 70,
-          "EventColor": "#FFFF0000"
+          "StartColor": "#00000000",
+          "EndColor": "#00000000"
         }
       ]
     },
@@ -22,17 +24,20 @@
         {
           "StartFrame": 10,
           "EndFrame": 15,
-          "EventColor": "#FF228B22"
+          "StartColor": "#00000000",
+          "EndColor": "#00000000"
         },
         {
           "StartFrame": 15,
           "EndFrame": 50,
-          "EventColor": "#FF1E90FF"
+          "StartColor": "#00000000",
+          "EndColor": "#00000000"
         },
         {
           "StartFrame": 50,
           "EndFrame": 100,
-          "EventColor": "#FFFF1493"
+          "StartColor": "#00000000",
+          "EndColor": "#00000000"
         }
       ]
     },

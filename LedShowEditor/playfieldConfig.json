@@ -1,10 +1,12 @@
-﻿{
-    "PlayfieldImage": "playfield.jpg",
-     "Leds": [
+{
+  "PlayfieldImage": "playfield.jpg",
+  "Leds": [
     {
       "Id": 1,
       "HardwareAddress": "PLB-101",
       "Name": "Led 1",
+      "IsSingleColor": true,
+      "SingleColor": "#FF7FFFD4",
       "LocationX": 105.39306358381508,
       "LocationY": 75.356725146199082,
       "Angle": 0.0,
@@ -15,6 +17,8 @@
       "Id": 2,
       "HardwareAddress": "PLB-102",
       "Name": "Led 2",
+      "IsSingleColor": true,
+      "SingleColor": "#FFB22222",
       "LocationX": 106.0057803468209,
       "LocationY": 89.163742690059024,
       "Angle": 0.0,
@@ -25,6 +29,8 @@
       "Id": 3,
       "HardwareAddress": "PLB-103",
       "Name": "Led 3",
+      "IsSingleColor": true,
+      "SingleColor": "#FF778899",
       "LocationX": 106.26011560693647,
       "LocationY": 29.92397660818742,
       "Angle": 0.0,
@@ -35,6 +41,8 @@
       "Id": 4,
       "HardwareAddress": "PLB-104",
       "Name": "Led 4",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": -14.635838150289119,
       "LocationY": 13.128654970760206,
       "Angle": 0.0,
@@ -45,6 +53,8 @@
       "Id": 5,
       "HardwareAddress": "PLB-105",
       "Name": "Led 5",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": -8.1907514450867343,
       "LocationY": 33.122807017543877,
       "Angle": 0.0,
@@ -55,6 +65,8 @@
       "Id": 6,
       "HardwareAddress": "PLB-106",
       "Name": "Led 6",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": 46.0,
       "LocationY": 52.0,
       "Angle": 0.0,
@@ -65,6 +77,8 @@
       "Id": 7,
       "HardwareAddress": "PLB-107",
       "Name": "Led 7",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": 58.716763005780365,
       "LocationY": 64.426900584795092,
       "Angle": 0.0,
@@ -75,6 +89,8 @@
       "Id": 8,
       "HardwareAddress": "PLB-108",
       "Name": "Led 8",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": 74.323699421965358,
       "LocationY": 36.941520467836526,
       "Angle": 0.0,
@@ -85,7 +101,9 @@
       "Id": 9,
       "HardwareAddress": "PLB-109",
       "Name": "Led 9",
-      "LocationX": -35.502890173410506,
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
+      "LocationX": -15.0,
       "LocationY": 60.187134502923811,
       "Angle": 0.0,
       "Scale": 1.0,
@@ -95,6 +113,8 @@
       "Id": 10,
       "HardwareAddress": "PLB-110",
       "Name": "Led 10",
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
       "LocationX": 8.744849886541143,
       "LocationY": 52.853269689717031,
       "Angle": 75.0,
@@ -105,25 +125,43 @@
       "Id": 11,
       "HardwareAddress": "PLB-111",
       "Name": "Led 11",
-      "LocationX": -32.4997128299372,
+      "IsSingleColor": false,
+      "SingleColor": "#00000000",
+      "LocationX": -15.0,
       "LocationY": 54.131434784057753,
       "Angle": -25.0,
       "Scale": 1.0,
       "Shape": 8
     }
   ],
-     "Groups": [
+  "Groups": [
     {
-      "Id": 1,
-      "Name": "Global Illumination"
+      "Name": "Unassigned Leds",
+      "Leds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
     },
     {
-      "Id": 2,
-      "Name": "INDY"
+      "Name": "Global Illumination",
+      "Leds": []
     },
     {
-      "Id": 2,
-      "Name": "Adventures"
+      "Name": "INDY",
+      "Leds": []
+    },
+    {
+      "Name": "Adventures",
+      "Leds": []
     }
   ]
 }

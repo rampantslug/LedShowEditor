@@ -66,6 +66,14 @@ namespace LedShowEditor.Display.LedTree
             if (targetItem != null && sourceLed != null)
             {
                 // Remove led from original group
+                foreach (var group in LedsVm.Groups)
+                {
+                    if (group.Leds.Contains(sourceLed))
+                    {
+                        group.Leds.Remove(sourceLed);
+                        break;
+                    }
+                }
                 targetItem.Leds.Add(sourceLed);
             }
             else if (targetItem != null && sourceGroup != null)
