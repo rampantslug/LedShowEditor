@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
@@ -11,6 +12,8 @@ using LedShowEditor.Display.ShowsList;
 using LedShowEditor.Display.Timeline;
 using LedShowEditor.Display.Tools;
 using LedShowEditor.ViewModels;
+using Microsoft.Win32;
+using Configuration = LedShowEditor.Config.Configuration;
 
 namespace LedShowEditor
 {
@@ -22,9 +25,18 @@ namespace LedShowEditor
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell
     {
 
-        private readonly IEventAggregator _eventAggregator;
-        private ILeds _ledsViewModel;
-        private BindableCollection<IScreen> _leftTabs;
+        public string ConfigName
+        {
+            get
+            {
+                return _configName;
+            }
+            set
+            {
+                _configName = value;
+                NotifyOfPropertyChange(() => ConfigName);
+            }
+        }
 
         // Display Modules
         public ILedTree LedTree { get; private set; }    
@@ -50,12 +62,7 @@ namespace LedShowEditor
         /// <summary>
         /// Constructor for the ShellViewModel. Main container for Client application elements.
         /// Imports required UI elements via DI.
-        /// </summary>
-        /// <param name="eventAggregator"></param>
-        /// <param name="ledTree"></param>
-        /// <param name="playfield"></param>
-        /// <param name="tools"></param>
-        /// <param name="timeline"></param>    
+        /// </summary> 
         [ImportingConstructor]
         public ShellViewModel(
             IEventAggregator eventAggregator,
@@ -79,6 +86,7 @@ namespace LedShowEditor
 
             LeftTabs = new BindableCollection<IScreen>();
 
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             DisplayName = "Led Show Editor";
         }
 
@@ -92,35 +100,73 @@ namespace LedShowEditor
             LeftTabs.Add(LedTree);
             LeftTabs.Add(ShowList);
 
-            LoadConfig();
-            LoadShows();
+            _lastConfigFile = ConfigurationManager.AppSettings.Get("LastConfig");
+
+            // If we can load the last config then also load any associated shows
+            if (LoadConfig(_lastConfigFile))
+            {
+                LoadShows(_configDirectory);               
+            }
+            else
+            {
+                // Create blank option
+                //var path = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+               // _lastConfigFile = path + @"\playfieldConfig"
+            }
+            
         }
 
         protected override void OnDeactivate(bool close)
         {
             base.OnDeactivate(close);
             SaveConfig();
-            SaveLedShows();
         }
 
-        // TODO: Link this to a button so user can select config file
-        // Attempts to load last loaded config file
-        private void LoadConfig()
+        public void LoadExistingConfig()
         {
-            // Retrieve saved configuration information
-            var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-            var gameConfiguration = Configuration.FromFile(filePath + @"\playfieldConfig.json");
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "JSON File (*.json)|*.json",              
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                LoadConfig(openFileDialog.FileName);
+            }
+        }
+
+
+
+        public bool LoadConfig(string fullConfigFilename) 
+        {
+            if (string.IsNullOrEmpty(fullConfigFilename) || !File.Exists(fullConfigFilename))
+            {
+                return false;
+            }
+            var gameConfiguration = Configuration.FromFile(fullConfigFilename);
+            _configDirectory = Path.GetDirectoryName(fullConfigFilename);
 
             // Update local information from configuration
-            Playfield.PlayfieldImagePath = filePath + @"\" + gameConfiguration.PlayfieldImage;
+            Playfield.PlayfieldImagePath = _configDirectory + gameConfiguration.PlayfieldImage;
 
             _ledsViewModel.LoadLedsFromConfig(gameConfiguration.Leds);
             _ledsViewModel.LoadGroupsFromConfig(gameConfiguration.Groups);
 
+            // If loaded ok then set default load file to be this...
+            _lastConfigFile = fullConfigFilename;
+            ConfigurationManager.AppSettings.Set("LastConfig", _lastConfigFile);
+            ConfigName = Path.GetFileNameWithoutExtension(_lastConfigFile);
+
+            return true;
         }
 
-        private void SaveConfig()
+        public void SaveConfig()
         {
+            if (string.IsNullOrEmpty(_lastConfigFile) || !File.Exists(_lastConfigFile))
+            {
+                // Prompt user for a filename save location
+            }
+
             var playfieldImage = Path.GetFileName(Playfield.PlayfieldImagePath);
             var config = new Configuration
             {
@@ -128,7 +174,9 @@ namespace LedShowEditor
                 Groups = _ledsViewModel.GetGroupsAsConfigs(),
                 PlayfieldImage = playfieldImage
             };
-            config.ToFile("playfieldConfig.json");
+            config.ToFile(_lastConfigFile);
+
+            SaveLedShows();
         }
 
         private void SaveLedShows()
@@ -136,17 +184,16 @@ namespace LedShowEditor
             foreach (var showViewModel in _ledsViewModel.Shows)
             {
                 var showConfig = _ledsViewModel.GetShowAsConfig(showViewModel);
-                var path = Directory.GetCurrentDirectory() + @"\LedShows\";
+                var path = _configDirectory + @"\LedShows\";
                 showConfig.ToFile(path + showViewModel.Name + ".json");
             }
         }
 
-        private void LoadShows()
+        private void LoadShows(string configLocation)
         {
-            var path = Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\LedShows\";
+            var path = configLocation + @"\LedShows\";
 
-            var ledShows = Directory.GetFiles(additionalpath, "*.json");
+            var ledShows = Directory.GetFiles(path, "*.json");
             foreach (var file in ledShows)
             {
                 if (File.Exists(file))
@@ -158,5 +205,14 @@ namespace LedShowEditor
                 }
             }
         }
+
+
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ILeds _ledsViewModel;
+        private BindableCollection<IScreen> _leftTabs;
+        private string _lastConfigFile;
+        private string _configDirectory;
+        private string _configName;
+
     }
 }
