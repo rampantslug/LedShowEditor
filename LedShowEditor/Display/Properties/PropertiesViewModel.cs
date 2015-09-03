@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Caliburn.Micro;
 using LedShowEditor.Config;
 using LedShowEditor.Display.Playfield;
 using LedShowEditor.ViewModels;
+using Microsoft.Win32;
 
 namespace LedShowEditor.Display.Properties
 {
@@ -56,7 +58,18 @@ namespace LedShowEditor.Display.Properties
 
         public void BrowsePlayfieldImage()
         {
-            
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image File (*.jpg)|*.jpg",
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                if (File.Exists(openFileDialog.FileName))
+                {
+                    PlayfieldVm.PlayfieldImagePath = openFileDialog.FileName;
+                }
+            }
         }
 
         private IEventAggregator _eventAggregator;

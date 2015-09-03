@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using Caliburn.Micro;
 using LedShowEditor.Config;
@@ -35,6 +36,19 @@ namespace LedShowEditor
             {
                 _configName = value;
                 NotifyOfPropertyChange(() => ConfigName);
+            }
+        }
+
+        public bool IsConfigLoaded
+        {
+            get
+            {
+                return _isConfigLoaded;
+            }
+            set
+            {
+                _isConfigLoaded = value;
+                NotifyOfPropertyChange(() => IsConfigLoaded);
             }
         }
 
@@ -88,6 +102,8 @@ namespace LedShowEditor
 
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             DisplayName = "Led Show Editor";
+
+            IsConfigLoaded = false;
         }
 
 
@@ -103,23 +119,25 @@ namespace LedShowEditor
             _lastConfigFile = ConfigurationManager.AppSettings.Get("LastConfig");
 
             // If we can load the last config then also load any associated shows
-            if (LoadConfig(_lastConfigFile))
-            {
-                LoadShows(_configDirectory);               
-            }
-            else
-            {
-                // Create blank option
-                //var path = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-               // _lastConfigFile = path + @"\playfieldConfig"
-            }
-            
+            LoadConfig(_lastConfigFile);
         }
 
         protected override void OnDeactivate(bool close)
         {
             base.OnDeactivate(close);
             SaveConfig();
+        }
+
+        public void NewConfig()
+        {
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "JSON File (*.json)|*.json",
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                _lastConfigFile = saveFileDialog.FileName;
+            }
         }
 
         public void LoadExistingConfig()
@@ -137,11 +155,11 @@ namespace LedShowEditor
 
 
 
-        public bool LoadConfig(string fullConfigFilename) 
+        public void LoadConfig(string fullConfigFilename) 
         {
             if (string.IsNullOrEmpty(fullConfigFilename) || !File.Exists(fullConfigFilename))
             {
-                return false;
+                return;
             }
             var gameConfiguration = Configuration.FromFile(fullConfigFilename);
             _configDirectory = Path.GetDirectoryName(fullConfigFilename);
@@ -157,7 +175,9 @@ namespace LedShowEditor
             ConfigurationManager.AppSettings.Set("LastConfig", _lastConfigFile);
             ConfigName = Path.GetFileNameWithoutExtension(_lastConfigFile);
 
-            return true;
+            LoadShows(_configDirectory);
+
+            IsConfigLoaded = true;
         }
 
         public void SaveConfig()
@@ -193,6 +213,11 @@ namespace LedShowEditor
         {
             var path = configLocation + @"\LedShows\";
 
+            if(!Directory.Exists(path))
+            {
+                return;
+            }
+
             var ledShows = Directory.GetFiles(path, "*.json");
             foreach (var file in ledShows)
             {
@@ -213,6 +238,6 @@ namespace LedShowEditor
         private string _lastConfigFile;
         private string _configDirectory;
         private string _configName;
-
+        private bool _isConfigLoaded;
     }
 }
