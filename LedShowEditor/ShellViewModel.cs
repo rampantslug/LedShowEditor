@@ -110,7 +110,6 @@ namespace LedShowEditor
 
         protected override void OnViewLoaded(object view)
         {
-
             base.OnViewLoaded(view);
             _eventAggregator.Subscribe(this);
             LeftTabs.Add(LedTree);
@@ -153,6 +152,11 @@ namespace LedShowEditor
             }
         }
 
+        public void SaveCurrentConfig()
+        {
+            SaveConfig();
+        }
+
 
 
         public void LoadConfig(string fullConfigFilename) 
@@ -184,7 +188,7 @@ namespace LedShowEditor
         {
             if (string.IsNullOrEmpty(_lastConfigFile) || !File.Exists(_lastConfigFile))
             {
-                // Prompt user for a filename save location
+                return;
             }
 
             var playfieldImage = Path.GetFileName(Playfield.PlayfieldImagePath);

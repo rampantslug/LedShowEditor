@@ -107,15 +107,19 @@
             />-->
 
             <!-- Middle Left Column Area -->
-            <properties:PropertiesView
+            <ScrollViewer
                 Grid.Column="1"
                 Grid.Row="0"
                 Margin="2,46,2,2"
                 Background="#FFECECEC"
-                cal:View.Model="{Binding Properties}"
                 Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                VerticalScrollBarVisibility="Auto"
+                >
+            <properties:PropertiesView
+                
+                cal:View.Model="{Binding Properties}"                              
                 />
-
+            </ScrollViewer>
 
             <!-- Middle Right Column Area -->
             <playfield:PlayfieldView

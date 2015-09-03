@@ -11,7 +11,9 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
         <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid
+        
+        >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
