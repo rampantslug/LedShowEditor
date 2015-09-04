@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using GongSolutions.Wpf.DragDrop;
@@ -40,9 +41,10 @@ namespace LedShowEditor.Display.LedTree
             // Allow moving leds or groups
             var sourceLed = dropInfo.Data as LedViewModel;
             var sourceGroup = dropInfo.Data as GroupViewModel;
-            var targetItem = dropInfo.TargetItem as GroupViewModel;
+            var targetGroup = dropInfo.TargetItem as GroupViewModel;
+            var targetLed = dropInfo.TargetItem as LedViewModel;
 
-            if (targetItem != null)
+            if (targetGroup != null)
             {
                 if (sourceLed != null)
                 {
@@ -55,36 +57,61 @@ namespace LedShowEditor.Display.LedTree
                     dropInfo.Effects = DragDropEffects.Move;
                 }
             }
+            else if (targetLed != null)
+            {
+                if (sourceLed != null)
+                {
+                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    dropInfo.Effects = DragDropEffects.Move;
+                }
+            }
         }
 
         void IDropTarget.Drop(IDropInfo dropInfo)
         {
             var sourceLed = dropInfo.Data as LedViewModel;
             var sourceGroup = dropInfo.Data as GroupViewModel;
-            var targetItem = dropInfo.TargetItem as GroupViewModel;
+            var targetGroup = dropInfo.TargetItem as GroupViewModel;
+            var targetLed = dropInfo.TargetItem as LedViewModel;
 
-            if (targetItem != null && sourceLed != null)
+            // Move led from 1 group to a new group
+            if (targetGroup != null && sourceLed != null)
             {
                 // Remove led from original group
-                foreach (var group in LedsVm.Groups)
-                {
-                    if (group.Leds.Contains(sourceLed))
-                    {
-                        group.Leds.Remove(sourceLed);
-                        break;
-                    }
-                }
-                targetItem.Leds.Add(sourceLed);
+                RemoveLedFromGroup(sourceLed);
+                targetGroup.Leds.Add(sourceLed);
             }
-            else if (targetItem != null && sourceGroup != null)
+            // Reorder groups
+            else if (targetGroup != null && sourceGroup != null)
             {
                 // Perform default drop behaviour of inserting above??
-                var targetIndex = LedsVm.Groups.IndexOf(targetItem);
+                var targetIndex = LedsVm.Groups.IndexOf(targetGroup);
                 LedsVm.Groups.Remove(sourceGroup);
                 LedsVm.Groups.Insert(targetIndex, sourceGroup);
             }
+            // Reorder leds
+            else if (targetLed != null && sourceLed != null)
+            {
+                RemoveLedFromGroup(sourceLed);
+
+                var newLedsGroup = GetParentGroup(targetLed);
+                var targetIndex = newLedsGroup.Leds.IndexOf(targetLed);
+                newLedsGroup.Leds.Insert(targetIndex, sourceLed);
+            }
         }
 
+        public void RemoveLedFromGroup(LedViewModel led)
+        {
+            var parentGroup = GetParentGroup(led);
+            if (parentGroup != null)
+            {
+                parentGroup.Leds.Remove(led);
+            }
+        }
 
+        public GroupViewModel GetParentGroup(LedViewModel led)
+        {
+            return LedsVm.Groups.FirstOrDefault(group => group.Leds.Contains(led));
+        }
     }
 }

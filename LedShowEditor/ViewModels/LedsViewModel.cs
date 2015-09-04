@@ -406,6 +406,7 @@ namespace LedShowEditor.ViewModels
             stringBuilder.AppendLine("# Lightshow: " + show.Name);
             stringBuilder.AppendLine("# Type: simple");
             stringBuilder.AppendLine("# Length: " + show.Frames + " frames - Approx " + show.Frames/32 + " seconds");
+            stringBuilder.AppendLine(@"# Created using LedShowEditor - Get it at https://bitbucket.org/rampantslug/ledshoweditor");
             stringBuilder.AppendLine(hashLine);
             
             var markers = "# Markers:";
@@ -562,36 +563,33 @@ namespace LedShowEditor.ViewModels
                 }
             }
 
-            // Go through all the leds and find the first group that it has been assigned to
-            if (AllLeds.Any())
+            // Add leds to groups
+            if (groups != null)
             {
-                foreach (var ledViewModel in AllLeds)
+                foreach (var groupConfig in groups)
                 {
-                    var matchFound = false;
-                    if (groups != null)
-                    {                        
-                        foreach (var groupConfig in groups)
+                    foreach (var ledId in groupConfig.Leds)
+                    {
+                        var ledViewModel = AllLeds.FirstOrDefault(match => match.Id == ledId);
+                        if (ledViewModel != null)
                         {
-                            if (groupConfig.Leds.Contains(ledViewModel.Id))
+                            var groupVm = Groups.FirstOrDefault(match => match.Name == groupConfig.Name);
+                            if (groupVm != null)
                             {
-                                matchFound = true;
-                                var groupVm = Groups.FirstOrDefault(match => match.Name == groupConfig.Name);
-                                if (groupVm != null)
-                                {
-                                    groupVm.Leds.Add(ledViewModel);
-                                }
-                                break;
+                                groupVm.Leds.Add(ledViewModel);
                             }
                         }
                     }
-                    if(!matchFound)
-                    {
-                        _unassignedGroup.Leds.Add(ledViewModel);
-                    }
                 }
-
             }
-
+            else
+            {
+                // Add all leds to unassigned as we currently have no groups
+                foreach (var ledViewModel in AllLeds)
+                {
+                    _unassignedGroup.Leds.Add(ledViewModel);
+                }
+            }
         }
 
         public IList<GroupConfig> GetGroupsAsConfigs()

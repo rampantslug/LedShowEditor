@@ -121,7 +121,7 @@ namespace LedShowEditor
             {
                 var exampleConfig = Directory.GetCurrentDirectory() + @"\IndyExample\IndyConfig.json";
                 LoadConfig(exampleConfig);  
-                ConfigurationManager.AppSettings.Set("FirstRun", "False");
+                UpdateSetting("FirstRun", "False");
             }
             else
             {
@@ -204,7 +204,7 @@ namespace LedShowEditor
 
             // If loaded ok then set default load file to be this...
             _lastConfigFile = fullConfigFilename;
-            ConfigurationManager.AppSettings.Set("LastConfig", _lastConfigFile);
+            UpdateSetting("LastConfig", _lastConfigFile);
             ConfigName = Path.GetFileNameWithoutExtension(_lastConfigFile);
 
             LoadShows(_ledsViewModel.WorkingDirectory);
@@ -263,6 +263,17 @@ namespace LedShowEditor
             }
         }
 
+        
+    
+
+    private static void UpdateSetting(string key, string value)
+    {
+        var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        configuration.AppSettings.Settings[key].Value = value;
+        configuration.Save();
+
+        ConfigurationManager.RefreshSection("appSettings");
+    }
 
         private readonly IEventAggregator _eventAggregator;
         private readonly ILeds _ledsViewModel;
