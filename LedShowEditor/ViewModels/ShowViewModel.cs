@@ -62,21 +62,6 @@ namespace LedShowEditor.ViewModels
             Leds = new BindableCollection<LedInShowViewModel>();
         }
 
-        public void DeleteShow()
-        {
-            _eventAggregator.PublishOnUIThread(new DeleteShowEvent(){Show = this});
-        }
-
-        public void DuplicateShow()
-        {
-            _eventAggregator.PublishOnUIThread(new DuplicateShowEvent() { Show = this });
-        }
-
-        public void ExportLampShow()
-        {
-            // TODO: Add export lampshow code here...
-        }
-
         private IObservableCollection<LedInShowViewModel> _leds;
         private string _name;
         private readonly IEventAggregator _eventAggregator;

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels;
+using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.Display.ShowsList
 {
@@ -27,6 +28,21 @@ namespace LedShowEditor.Display.ShowsList
         public void ImportExistingShow()
         {
             // TODO: open file browser window
+        }
+
+        public void DeleteShow(ShowViewModel dataContext)
+        {
+            LedsVm.DeleteShow(dataContext);
+        }
+
+        public void DuplicateShow(ShowViewModel dataContext)
+        {
+            LedsVm.DuplicateShow(dataContext);
+        }
+
+        public void ExportLampShow(ShowViewModel dataContext)
+        {
+            LedsVm.ExportLampShow(dataContext);
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -16,11 +17,23 @@ namespace LedShowEditor.ViewModels
     public class LedsViewModel: Screen, ILeds, 
         IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, 
         IHandle<DeleteGroupEvent>,
-        IHandle<DeleteShowEvent>, IHandle<DuplicateShowEvent>, IHandle<DeleteLedFromShowEvent>
+        IHandle<DeleteLedFromShowEvent>
 
     {
         
         #region Properties
+
+        public string WorkingDirectory
+        {
+            get
+            {
+                return _workingDirectory;
+            }
+            set 
+            {
+                _workingDirectory = Directory.Exists(value) ? value + @"\" : Directory.GetCurrentDirectory() + @"\";
+            }
+        }
 
         public IObservableCollection<LedViewModel> AllLeds
         {
@@ -218,16 +231,6 @@ namespace LedShowEditor.ViewModels
             DeleteGroup(message.Group);
         }
 
-        public void Handle(DeleteShowEvent message)
-        {
-            DeleteShow(message.Show);
-        }
-
-        public void Handle(DuplicateShowEvent message)
-        {
-            DuplicateShow(message.Show);
-        }
-
         public void Handle(DeleteLedFromShowEvent message)
         {
             DeleteLedFromShowEvent(SelectedShow, message.Led);
@@ -351,8 +354,7 @@ namespace LedShowEditor.ViewModels
             {
                 Shows.Remove(show);
                 // Also need to remove physical file
-                var path = Directory.GetCurrentDirectory();
-                var additionalpath = path + @"\LedShows\" + show.Name + ".json";
+                var additionalpath = WorkingDirectory + @"LedShows\" + show.Name + ".json";
                 if (File.Exists(additionalpath))
                 {
                     File.Delete(additionalpath);
@@ -380,6 +382,71 @@ namespace LedShowEditor.ViewModels
                     duplicate.Leds.Add(duplicateLed);
                 }                
             }
+        }
+
+        /// <summary>
+        /// Export LedShow in lamp show format. i.e. Dots and Spaces
+        /// </summary>
+        /// <param name="show"></param>
+        public void ExportLampShow(ShowViewModel show)
+        {
+            var filePath = WorkingDirectory + @"LedShows\" + show.Name + ".lampshow";
+            var stringBuilder = new StringBuilder();
+
+            const int lineWidthToPipe = 44;
+            const int lineWidthToFirstFrame = 46;
+
+
+            //
+            // Header Template
+            //
+            var hashLine = "";
+            hashLine = hashLine.PadRight(lineWidthToFirstFrame + 64, '#');
+            stringBuilder.AppendLine(hashLine);
+            stringBuilder.AppendLine("# Lightshow: " + show.Name);
+            stringBuilder.AppendLine("# Type: simple");
+            stringBuilder.AppendLine("# Length: " + show.Frames + " frames - Approx " + show.Frames/32 + " seconds");
+            stringBuilder.AppendLine(hashLine);
+            
+            var markers = "# Markers:";
+            var frames = "# Frames:";
+            markers = markers.PadRight(lineWidthToPipe);
+            frames = frames.PadRight(lineWidthToPipe);
+            markers = markers + "|        8      16      24      32      40      48      56      64";
+            frames = frames +   "| 1234567812345678123456781234567812345678123456781234567812345678";
+            stringBuilder.AppendLine(markers);
+            stringBuilder.AppendLine(frames);
+
+            // Add a single line for each led
+            foreach (var ledInShowViewModel in show.Leds)
+            {
+                var ledSimpleName = ledInShowViewModel.LinkedLed.Name.Replace(" ", ""); // Remove spaces
+                var line = "lamp:" + ledSimpleName;
+                line = line.PadRight(lineWidthToPipe);
+                line = line + "| ";
+
+                for (int frameNo = 1; frameNo <= (int)show.Frames; frameNo++)
+                {
+                    var frameInEvents = false;
+                    foreach (var eventViewModel in ledInShowViewModel.Events)
+                    {
+                        frameInEvents = eventViewModel.ContainsFrame(frameNo);
+                        if (frameInEvents)
+                            break;
+                    }
+                    if (frameInEvents)
+                    {
+                        line = line + "."; // ON
+                    }
+                    else
+                    {
+                        line = line + " "; // OFF
+                    }
+                } 
+                stringBuilder.AppendLine(line);
+            }
+
+            File.WriteAllText(filePath,stringBuilder.ToString());
         }
 
         public void DeleteLedFromShowEvent(ShowViewModel show, LedInShowViewModel led)
@@ -606,6 +673,7 @@ namespace LedShowEditor.ViewModels
         private Color _newEventStartColor;
         private GroupViewModel _unassignedGroup;
         private Color _newEventEndColor;
+        private string _workingDirectory;
     }
 }
 

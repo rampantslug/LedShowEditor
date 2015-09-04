@@ -18,7 +18,9 @@
             >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
+                        >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="20" />
@@ -30,10 +32,12 @@
                            VerticalAlignment="Center"
                            />
                         <Grid.ContextMenu>
-                            <ContextMenu>
+                            <ContextMenu
+                                 >
                                 <MenuItem 
                                     Header="Delete" 
-                                    cal:Message.Attach="DeleteShow()"                                   
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"                              
+                                    cal:Message.Attach="DeleteShow($dataContext)"                                   
                                     />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -57,11 +61,13 @@
                                 </Grid>
                                 <MenuItem 
                                     Header="Duplicate" 
-                                    cal:Message.Attach="DuplicateShow()"                                   
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"                               
+                                    cal:Message.Attach="DuplicateShow($dataContext)"                                   
                                     />     
                                 <MenuItem 
                                     Header="Export to lampshow" 
-                                    cal:Message.Attach="ExportLampShow()"                                   
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"                               
+                                    cal:Message.Attach="ExportLampShow($dataContext)"                                   
                                     />
                             </ContextMenu>
                         </Grid.ContextMenu>
@@ -75,12 +81,12 @@
             <Button 
                 Margin="5"
                 x:Name="AddShow"
-                Content="Add new show"
+                Content="New show"
                 />
             <Button 
                 Margin="5"
                 x:Name="ImportExistingShow"
-                Content="Import existing show"
+                Content="Import show"
                 />
         </StackPanel>
     </Grid>

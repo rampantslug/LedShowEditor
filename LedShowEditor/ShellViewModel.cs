@@ -148,10 +148,10 @@ namespace LedShowEditor
             if (saveFileDialog.ShowDialog() == true)
             {
                 _lastConfigFile = saveFileDialog.FileName;
-                
-                _configDirectory = Path.GetDirectoryName(_lastConfigFile) + @"\";
 
-                Directory.CreateDirectory(_configDirectory + @"LedShows\");
+                _ledsViewModel.WorkingDirectory = Path.GetDirectoryName(_lastConfigFile) + @"\";
+
+                Directory.CreateDirectory(_ledsViewModel.WorkingDirectory + @"LedShows\");
 
                 var config = new Configuration();
                 config.ToFile(_lastConfigFile);
@@ -193,12 +193,11 @@ namespace LedShowEditor
             {
                 return; // Need some kind of error message that data is corrupt?
             }
-
-            _configDirectory = Path.GetDirectoryName(fullConfigFilename) + @"\";
+            _ledsViewModel.WorkingDirectory = Path.GetDirectoryName(fullConfigFilename);
 
             // Update local information from configuration
-            Playfield.UpdateImageLocation(_configDirectory);            
-            Playfield.UpdateImage(_configDirectory + gameConfiguration.PlayfieldImage);
+            Playfield.UpdateImageLocation(_ledsViewModel.WorkingDirectory);
+            Playfield.UpdateImage(_ledsViewModel.WorkingDirectory + gameConfiguration.PlayfieldImage);
  
             _ledsViewModel.LoadLedsFromConfig(gameConfiguration.Leds);
             _ledsViewModel.LoadGroupsFromConfig(gameConfiguration.Groups);
@@ -208,7 +207,7 @@ namespace LedShowEditor
             ConfigurationManager.AppSettings.Set("LastConfig", _lastConfigFile);
             ConfigName = Path.GetFileNameWithoutExtension(_lastConfigFile);
 
-            LoadShows(_configDirectory);
+            LoadShows(_ledsViewModel.WorkingDirectory);
 
             IsConfigLoaded = true;
         }
@@ -236,14 +235,14 @@ namespace LedShowEditor
             foreach (var showViewModel in _ledsViewModel.Shows)
             {
                 var showConfig = _ledsViewModel.GetShowAsConfig(showViewModel);
-                var path = _configDirectory + @"\LedShows\";
+                var path = _ledsViewModel.WorkingDirectory + @"LedShows\";
                 showConfig.ToFile(path + showViewModel.Name + ".json");
             }
         }
 
         private void LoadShows(string configLocation)
         {
-            var path = configLocation + @"\LedShows\";
+            var path = configLocation + @"LedShows\";
 
             if(!Directory.Exists(path))
             {
@@ -268,8 +267,7 @@ namespace LedShowEditor
         private readonly IEventAggregator _eventAggregator;
         private readonly ILeds _ledsViewModel;
         private BindableCollection<IScreen> _leftTabs;
-        private string _lastConfigFile;
-        private string _configDirectory;
+        private string _lastConfigFile;        
         private string _configName;
         private bool _isConfigLoaded;
     }

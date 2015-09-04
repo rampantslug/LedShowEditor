@@ -19,19 +19,26 @@ namespace LedShowEditor.ViewModels
         uint NewEventStartFrame { get; set; }
         uint NewEventEndFrame { get; set; }
         Color NewEventStartColor { get; set; }
+        string WorkingDirectory { get; set; }
 
+        // Edit Leds
         void AddLed();
         void DeleteLed(LedViewModel led);
         void DuplicateLed(LedViewModel led);
 
+        // Edit Groups
         void AddGroup();
         void DeleteGroup(GroupViewModel group);
 
+        // Edit Shows
         void AddShow();
         void DeleteShow(ShowViewModel show);
+        void DuplicateShow(ShowViewModel dataContext);
+        void ExportLampShow(ShowViewModel dataContext);
 
         void AddEvent();
 
+        // Import / Export
         void LoadLedsFromConfig(IList<LedConfig> leds);
         IList<LedConfig> GetLedsAsConfigs();
         void LoadGroupsFromConfig(IList<GroupConfig> groups);
@@ -40,6 +47,8 @@ namespace LedShowEditor.ViewModels
         ShowConfig GetShowAsConfig(ShowViewModel show);
         void LoadShowFromConfig(ShowConfig showConfig, string name);
 
+
+        
         
     }
 }

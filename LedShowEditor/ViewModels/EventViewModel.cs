@@ -81,5 +81,10 @@ namespace LedShowEditor.ViewModels
         private uint _startFrame;
         private uint _endFrame;
         private Brush _eventColor;
+
+        public bool ContainsFrame(int frameNo)
+        {
+            return frameNo >= StartFrame && frameNo <= EndFrame;
+        }
     }
 }
