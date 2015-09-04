@@ -4,7 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:converters="clr-namespace:LedShowEditor.Converters">
+        xmlns:converters="clr-namespace:LedShowEditor.Converters"
+        xmlns:timeline="clr-namespace:LedShowEditor.Display.Timeline">
     <UserControl.Resources>       
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -51,6 +52,7 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+           
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid
@@ -72,6 +74,7 @@
 
         <TextBlock 
             Grid.Column="0"
+            Grid.ColumnSpan="2"
             Grid.Row="0"
             Grid.RowSpan="2"
             Text="{Binding LedsVm.SelectedShow.Name}"
@@ -82,90 +85,103 @@
             
             />
 
-        <!-- List of Leds used in this show-->
-        <ListView
+        <ScrollViewer
             Grid.Column="0"
             Grid.Row="2"
+            Grid.ColumnSpan="6"
+            >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+                <!-- List of Leds used in this show-->
+                <ListView
+            Grid.Column="0"
             ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
             Background="Transparent"
             ItemContainerStyle="{StaticResource AdvancedListViewItemStyle}"
-            >          
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock 
+            >
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock 
                             Text="{Binding LinkedLed.Name}"
                             VerticalAlignment="Center"
                             />
-                        <Grid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem 
+                                <Grid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
                                     Header="Delete from show" 
                                     cal:Message.Attach="DeleteLedFromShow()"                                   
                                     />
-                                <MenuItem 
+                                        <MenuItem 
                                     Header="Duplicate led events" 
                                     cal:Message.Attach="DuplicateLedEvents()"                                   
-                                    />                               
-                            </ContextMenu>
-                        </Grid.ContextMenu>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-        </ListView>
-        
-        
-        <!-- Timeline view of led colours -->
-        <ListView
+                                    />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+
+
+                <!-- Timeline view of led colours -->
+                <ListView
             Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.Row="2"
             ItemsSource="{Binding LedsVm.SelectedShow.Leds}"
             Background="Transparent"
             >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>                   
-                    <Grid>
-                        <ItemsControl
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ItemsControl
                             ItemsSource="{Binding Events}"
                             >
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemContainerStyle>
-                                <Style>
-                                    <Setter Property="Canvas.Left" Value="{Binding StartFrame, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"/>
-                                    <Setter Property="Canvas.Top" Value="0" />
-                                </Style>
-                            </ItemsControl.ItemContainerStyle>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Rectangle
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style>
+                                            <Setter Property="Canvas.Left" Value="{Binding StartFrame, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"/>
+                                            <Setter Property="Canvas.Top" Value="0" />
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Rectangle
                                        Fill="{Binding EventColor}"
                                        Height="25"
                                        Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
                                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}"
                                        >
-                                        <Rectangle.ContextMenu>
-                                            <ContextMenu>
-                                                <MenuItem 
+                                                <Rectangle.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem 
                                                     cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
                                                      Header="Delete" 
                                                      cal:Message.Attach="DeleteEvent($dataContext)"                                   
                                                 />
-                                            </ContextMenu>
-                                        </Rectangle.ContextMenu>
-                                    </Rectangle>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ListView>
-        
+                                                    </ContextMenu>
+                                                </Rectangle.ContextMenu>
+                                            </Rectangle>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+
+            </Grid>
+       
+        </ScrollViewer>
+
         <!-- Frame Ticks -->
         <Canvas
             Grid.Column="1"
