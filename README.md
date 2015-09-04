@@ -1,4 +1,5 @@
 **Led and show list** 
+
 * Groups can be created to contain leds
 
 * Leds and Groups support drag and drop reordering
@@ -13,6 +14,7 @@
 
 
 **Properties View** 
+
 * Select image to use as playfield image (browse button)
 
 * Scale playfield to adjust size of leds compared with playfield image. Use this first to match led size as close as possible and then fine tune individual leds
@@ -27,6 +29,7 @@
 
 
 **Playfield View** 
+
 * Resizes playfield image and leds to match available screen size
 
 * Left click to select a led
@@ -37,6 +40,7 @@
 
 
 **Timeline View** 
+
 * Lists leds that are involved in the selected show
 
 * Right click led to remove it from show
