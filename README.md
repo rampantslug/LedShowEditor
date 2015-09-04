@@ -52,5 +52,7 @@
 * Right click to delete an event from the timeline (more timeline direct event editing to come in v0.2)
 
 
+
+
 On first startup an example using Indy will load. It contains 2 example led shows and a bunch of leds.
 It is best to have an individual folder for each playfield but the folder can be located anywhere. However a ledshows folder must reside in the same folder as the config file.
