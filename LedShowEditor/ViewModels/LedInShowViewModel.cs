@@ -38,6 +38,11 @@ namespace LedShowEditor.ViewModels
             // TODO: Get led id from context
         }
 
+        public void DeleteEvent(EventViewModel dataContext)
+        {
+            Events.Remove(dataContext);
+        }
+
 
         private IObservableCollection<EventViewModel> _events;
         private IEventAggregator _eventAggregator;

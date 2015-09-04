@@ -60,15 +60,14 @@ namespace LedShowEditor.Display.Properties
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "Image File (*.jpg)|*.jpg",
+                Filter = "Image Files (*.bmp,*.jpg,*.png)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|" +
+                "BMP (*.bmp)|*.bmp|JPG (*.jpg,*.jpeg)|*.jpg;*.jpeg|PNG (*.png)|*.png|TIF (*.tif,*.tiff)|*.tif;*.tiff",                
+                CheckFileExists = true
             };
 
             if (openFileDialog.ShowDialog() == true)
             {
-                if (File.Exists(openFileDialog.FileName))
-                {
-                    PlayfieldVm.PlayfieldImagePath = openFileDialog.FileName;
-                }
+                PlayfieldVm.UpdateImage(openFileDialog.FileName);               
             }
         }
 

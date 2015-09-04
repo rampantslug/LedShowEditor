@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -115,10 +116,20 @@ namespace LedShowEditor
             LeftTabs.Add(LedTree);
             LeftTabs.Add(ShowList);
 
-            _lastConfigFile = ConfigurationManager.AppSettings.Get("LastConfig");
+            var firstRun = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("FirstRun"));
+            if (firstRun)
+            {
+                var exampleConfig = Directory.GetCurrentDirectory() + @"\IndyExample\IndyConfig.json";
+                LoadConfig(exampleConfig);  
+                ConfigurationManager.AppSettings.Set("FirstRun", "False");
+            }
+            else
+            {
+                _lastConfigFile = ConfigurationManager.AppSettings.Get("LastConfig");
 
-            // If we can load the last config then also load any associated shows
-            LoadConfig(_lastConfigFile);
+                // If we can load the last config then also load any associated shows
+                LoadConfig(_lastConfigFile);
+            }  
         }
 
         protected override void OnDeactivate(bool close)
@@ -132,10 +143,20 @@ namespace LedShowEditor
             var saveFileDialog = new SaveFileDialog()
             {
                 Filter = "JSON File (*.json)|*.json",
+                AddExtension = true
             };
             if (saveFileDialog.ShowDialog() == true)
             {
                 _lastConfigFile = saveFileDialog.FileName;
+                
+                _configDirectory = Path.GetDirectoryName(_lastConfigFile) + @"\";
+
+                Directory.CreateDirectory(_configDirectory + @"LedShows\");
+
+                var config = new Configuration();
+                config.ToFile(_lastConfigFile);
+                
+                LoadConfig(_lastConfigFile);
             }
         }
 
@@ -143,7 +164,8 @@ namespace LedShowEditor
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "JSON File (*.json)|*.json",              
+                Filter = "JSON File (*.json)|*.json",                
+                CheckFileExists = true
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -157,20 +179,27 @@ namespace LedShowEditor
             SaveConfig();
         }
 
-
-
         public void LoadConfig(string fullConfigFilename) 
         {
+            // Clear Playfield image
+            Playfield.ClearImage();
+
             if (string.IsNullOrEmpty(fullConfigFilename) || !File.Exists(fullConfigFilename))
             {
-                return;
+                return; // Need to put error message about file not found?
             }
-            var gameConfiguration = Configuration.FromFile(fullConfigFilename);
-            _configDirectory = Path.GetDirectoryName(fullConfigFilename);
+            var gameConfiguration = Configuration.FromFile(fullConfigFilename);          
+            if (gameConfiguration == null)
+            {
+                return; // Need some kind of error message that data is corrupt?
+            }
+
+            _configDirectory = Path.GetDirectoryName(fullConfigFilename) + @"\";
 
             // Update local information from configuration
-            Playfield.PlayfieldImagePath = _configDirectory + gameConfiguration.PlayfieldImage;
-
+            Playfield.UpdateImageLocation(_configDirectory);            
+            Playfield.UpdateImage(_configDirectory + gameConfiguration.PlayfieldImage);
+ 
             _ledsViewModel.LoadLedsFromConfig(gameConfiguration.Leds);
             _ledsViewModel.LoadGroupsFromConfig(gameConfiguration.Groups);
 
@@ -191,12 +220,11 @@ namespace LedShowEditor
                 return;
             }
 
-            var playfieldImage = Path.GetFileName(Playfield.PlayfieldImagePath);
             var config = new Configuration
             {
                 Leds = _ledsViewModel.GetLedsAsConfigs(),
                 Groups = _ledsViewModel.GetGroupsAsConfigs(),
-                PlayfieldImage = playfieldImage
+                PlayfieldImage = Playfield.PlayfieldImageName
             };
             config.ToFile(_lastConfigFile);
 
@@ -222,6 +250,7 @@ namespace LedShowEditor
                 return;
             }
 
+            _ledsViewModel.Shows.Clear();
             var ledShows = Directory.GetFiles(path, "*.json");
             foreach (var file in ledShows)
             {

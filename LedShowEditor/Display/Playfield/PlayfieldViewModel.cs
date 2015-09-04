@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels;
 using MahApps.Metro.Controls;
+using Path = System.Windows.Shapes.Path;
 
 namespace LedShowEditor.Display.Playfield
 {
@@ -19,21 +20,13 @@ namespace LedShowEditor.Display.Playfield
 
         #region Properties
 
-        public string PlayfieldImagePath
+        public string PlayfieldImageName
         {
-            get
-            {
-                return System.IO.Path.GetFileName(_playfieldImagePath);
-            }
+            get { return _playfieldImageName; }
             set
             {
-                if (!string.IsNullOrEmpty(value) && System.IO.File.Exists(value))
-                {
-                    _playfieldImagePath = value;
-                    PlayfieldImage = new BitmapImage(new Uri(_playfieldImagePath));
-                    
-                    NotifyOfPropertyChange(() => PlayfieldImagePath);
-                }
+                _playfieldImageName = value;
+                NotifyOfPropertyChange(() => PlayfieldImageName);
             }
         }
 
@@ -147,6 +140,35 @@ namespace LedShowEditor.Display.Playfield
             _eventAggregator.Subscribe(this);
         }
 
+        public void ClearImage()
+        {
+            _playfieldImagePath = "";
+            PlayfieldImage = null;
+        }
+
+        public void UpdateImageLocation(string imageLocation)
+        {
+            _playfieldImageLocation = imageLocation;
+        }
+
+        public void UpdateImage(string imageFilename)
+        {
+            if (!string.IsNullOrEmpty(imageFilename) && File.Exists(imageFilename))
+            {
+                if (Directory.Exists(_playfieldImageLocation))
+                {
+                    PlayfieldImageName = System.IO.Path.GetFileName(imageFilename);
+                    if (!string.Equals(imageFilename, _playfieldImageLocation + PlayfieldImageName))
+                    {
+                        File.Copy(imageFilename, _playfieldImageLocation + PlayfieldImageName, true);
+                    }
+                    PlayfieldImage = new BitmapImage(new Uri(_playfieldImageLocation + PlayfieldImageName));
+                }
+            }
+        }
+
+  
+
         #region Handle Mouse movement / Dragging of Device
 
         public void MouseEnter(object source)
@@ -231,5 +253,7 @@ namespace LedShowEditor.Display.Playfield
         private readonly IEventAggregator _eventAggregator;
         private double _playfieldToLedsScale;
         private bool _isPlayfieldVisible;
+        private string _playfieldImageName;
+        private string _playfieldImageLocation;
     }
 }

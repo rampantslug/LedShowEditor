@@ -5,6 +5,11 @@ namespace LedShowEditor.Display.Playfield
 {
     public interface IPlayfield : IScreen
     {
-        string PlayfieldImagePath { get; set; }
+        void ClearImage();
+        void UpdateImageLocation(string imageLocation);
+
+        void UpdateImage(string imageFilename);
+        string PlayfieldImageName { get; }
+
     }
 }

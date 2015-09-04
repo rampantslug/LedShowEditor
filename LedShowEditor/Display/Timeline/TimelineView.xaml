@@ -142,11 +142,22 @@
                             </ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                   <Rectangle
+                                    <Rectangle
                                        Fill="{Binding EventColor}"
                                        Height="25"
                                        Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
-                                       />
+                                       Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}"
+                                       >
+                                        <Rectangle.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem 
+                                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                                     Header="Delete" 
+                                                     cal:Message.Attach="DeleteEvent($dataContext)"                                   
+                                                />
+                                            </ContextMenu>
+                                        </Rectangle.ContextMenu>
+                                    </Rectangle>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

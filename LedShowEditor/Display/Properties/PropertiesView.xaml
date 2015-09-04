@@ -55,7 +55,7 @@
             <TextBlock
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding PlayfieldVm.PlayfieldImagePath}"
+                Text="{Binding PlayfieldVm.PlayfieldImageName}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 />
@@ -439,6 +439,7 @@
                     Height="25" 
                     ItemsSource="{Binding SingleLedEventOptions}"
                     SelectedItem="{Binding SelectedSingleLedEventOption}"
+                    IsEnabled="False"
                 />
                 <TextBlock 
                 Grid.Column="0"

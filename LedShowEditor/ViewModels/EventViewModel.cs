@@ -77,6 +77,7 @@ namespace LedShowEditor.ViewModels
             return EventColor;
         }
 
+
         private uint _startFrame;
         private uint _endFrame;
         private Brush _eventColor;
