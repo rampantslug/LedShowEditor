@@ -1,9 +1,14 @@
 **Led and show list** 
 * Groups can be created to contain leds
+
 * Leds and Groups support drag and drop reordering
+
 * Right click renaming and deleting of leds, groups and shows
+
 * Right click to duplicate led(very helpful for similar leds) or show will copy properties of led or show to a new led or show
+
 * Right click a show to export it to .lampshow file it will be created in the same folder alongside the .json lampshows
+
 * Selecting led highlights it on playfield in blue and shows its properties
 
 **Properties View** 
