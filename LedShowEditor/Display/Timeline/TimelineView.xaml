@@ -139,7 +139,13 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <!-- Template for the Led Row -->
-                            <Grid>
+                            <Grid
+                                cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
+                                                                    [Event MouseUp] = [Action MouseUp($source)]; 
+                                 [Event MouseMove] = [Action MouseMove($source)]; 
+                                                                    [Event MouseEnter] = [Action MouseEnter($source)];
+                                                                    [Event MouseLeave] = [Action MouseLeave($source)]"
+                                >
                                 <ItemsControl
                                     ItemsSource="{Binding Events}"
                                     

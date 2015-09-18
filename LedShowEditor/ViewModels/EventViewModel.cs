@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using Caliburn.Micro;
 
 namespace LedShowEditor.ViewModels
@@ -104,6 +106,8 @@ namespace LedShowEditor.ViewModels
                 // Insert a new event at current frame of 4 frame sizes
             }
         }
+
+
 
 
         private uint _startFrame;
