@@ -29,16 +29,6 @@ namespace LedShowEditor.ViewModels
         }
 
 
-        public void DeleteLedFromShow()
-        {
-            _eventAggregator.PublishOnUIThread(new DeleteLedFromShowEvent(this));
-        }
-
-        public void DuplicateLedEvents()
-        {
-            // TODO: Get led id from context
-        }
-
         public void DeleteEvent(EventViewModel dataContext)
         {
             Events.Remove(dataContext);

@@ -104,7 +104,9 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid
+                                Tag="{Binding Path=DataContext.LedsVm.SelectedShow, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
+                                >
                                 <TextBlock
                                     Text="{Binding LinkedLed.Name}"
                                     VerticalAlignment="Center" />
@@ -112,10 +114,12 @@
                                     <ContextMenu>
                                         <MenuItem
                                             Header="Delete from show"
-                                            cal:Message.Attach="DeleteLedFromShow()" />
+                                            cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                            cal:Message.Attach="DeleteLedFromShow($dataContext)" />
                                         <MenuItem
                                             Header="Duplicate led events"
-                                            cal:Message.Attach="DuplicateLedEvents()" />
+                                            cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                            cal:Message.Attach="DuplicateLedEvents($dataContext)" />
                                     </ContextMenu>
                                 </Grid.ContextMenu>
                             </Grid>
@@ -164,8 +168,8 @@
                                                 <Rectangle.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem
-                                                            cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
                                                             Header="Delete"
+                                                            cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"                                                          
                                                             cal:Message.Attach="DeleteEvent($dataContext)" />
                                                     </ContextMenu>
                                                 </Rectangle.ContextMenu>

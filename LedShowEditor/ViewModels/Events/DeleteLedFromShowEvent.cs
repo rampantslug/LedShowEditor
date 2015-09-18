@@ -1,6 +1,6 @@
 namespace LedShowEditor.ViewModels.Events
 {
-    public class DeleteLedFromShowEvent
+   /* public class DeleteLedFromShowEvent
     {
         public DeleteLedFromShowEvent(LedInShowViewModel led)
         {
@@ -8,5 +8,5 @@ namespace LedShowEditor.ViewModels.Events
         }
 
         public LedInShowViewModel Led { get; private set; }
-    }
+    }*/
 }

@@ -253,17 +253,7 @@ namespace LedShowEditor.ViewModels
             Scale = ledConfig.Scale;
         }
 
-        public void DeleteLed()
-        {
-            _eventAggregator.PublishOnUIThread(new DeleteLedEvent{Led = this});
-        }
-
-        public void DuplicateLed()
-        {
-            _eventAggregator.PublishOnUIThread(new DuplicateLedEvent { Led = this });
-        }
-
-
+ 
         // Build what shapes we can from code. Irregular shapes are taken from AllShapes.xaml
         private void UpdateGeometry(LedShape shape)
         {

@@ -36,6 +36,21 @@ namespace LedShowEditor.Display.LedTree
             LedsVm.AddGroup();
         }
 
+        public void DeleteGroup(GroupViewModel dataContext)
+        {
+            LedsVm.DeleteGroup(dataContext);
+        }
+
+        public void DeleteLed(LedViewModel dataContext)
+        {
+            LedsVm.DeleteLed(dataContext);
+        }
+
+        public void DuplicateLed(LedViewModel dataContext)
+        {
+            LedsVm.DuplicateLed(dataContext);
+        }
+
         void IDropTarget.DragOver(IDropInfo dropInfo)
         {
             // Allow moving leds or groups

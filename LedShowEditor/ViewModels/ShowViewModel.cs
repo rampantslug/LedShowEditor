@@ -71,8 +71,21 @@ namespace LedShowEditor.ViewModels
         {
             _eventAggregator = eventAggregator;
             Name = "New Show";
+            Frames = 64;
             Leds = new BindableCollection<LedInShowViewModel>();
         }
+
+        public void DeleteLedFromShow(LedInShowViewModel dataContext)
+        {
+            Leds.Remove(dataContext);
+        }
+
+        public void DuplicateLedEvents(LedInShowViewModel dataContext)
+        {
+
+        }
+
+
 
         private IObservableCollection<LedInShowViewModel> _leds;
         private string _name;

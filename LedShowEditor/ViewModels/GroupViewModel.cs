@@ -52,11 +52,6 @@ namespace LedShowEditor.ViewModels
             Leds = new BindableCollection<LedViewModel>();
         }
 
-        public void DeleteGroup()
-        {
-            _eventAggregator.PublishOnUIThread(new DeleteGroupEvent{Group = this});
-        }
-
      
         private IObservableCollection<LedViewModel> _leds;
         private readonly IEventAggregator _eventAggregator;

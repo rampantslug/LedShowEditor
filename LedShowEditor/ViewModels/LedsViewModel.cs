@@ -16,9 +16,7 @@ namespace LedShowEditor.ViewModels
 {
     [Export(typeof(ILeds))]
     public class LedsViewModel: Screen, ILeds, 
-        IHandle<SelectLedEvent>, IHandle<DeleteLedEvent>, IHandle<DuplicateLedEvent>, 
-        IHandle<DeleteGroupEvent>,
-        IHandle<DeleteLedFromShowEvent>
+        IHandle<SelectLedEvent>
 
     {
         
@@ -215,26 +213,6 @@ namespace LedShowEditor.ViewModels
         public void Handle(SelectLedEvent message)
         {
             SelectedLed = message.Led;
-        }
-
-        public void Handle(DeleteLedEvent message)
-        {
-            DeleteLed(message.Led);
-        }
-
-        public void Handle(DuplicateLedEvent message)
-        {
-            DuplicateLed(message.Led);
-        }
-
-        public void Handle(DeleteGroupEvent message)
-        {
-            DeleteGroup(message.Group);
-        }
-
-        public void Handle(DeleteLedFromShowEvent message)
-        {
-            DeleteLedFromShowEvent(SelectedShow, message.Led);
         }
 
         #endregion

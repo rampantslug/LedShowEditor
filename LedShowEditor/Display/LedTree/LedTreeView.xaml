@@ -43,6 +43,7 @@
                     
                     >
                     <Grid
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                         <TextBlock
                             Margin="2"
@@ -53,7 +54,8 @@
                             <ContextMenu>
                                 <MenuItem 
                                     Header="Delete" 
-                                    cal:Message.Attach="DeleteGroup()"                                   
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    cal:Message.Attach="DeleteGroup($dataContext)"                                   
                                     />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -87,6 +89,7 @@
                     
                     >
                     <Grid
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                         <TextBlock
                             Margin="2"
@@ -97,11 +100,13 @@
                             <ContextMenu>
                                 <MenuItem 
                                     Header="Delete" 
-                                    cal:Message.Attach="DeleteLed()"                                   
+                                     cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    cal:Message.Attach="DeleteLed($dataContext)"                                   
                                     />
                                 <MenuItem 
                                     Header="Duplicate" 
-                                    cal:Message.Attach="DuplicateLed()"                                   
+                                     cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    cal:Message.Attach="DuplicateLed($dataContext)"                                   
                                     />
                                 <Grid>
                                     <Grid.RowDefinitions>
