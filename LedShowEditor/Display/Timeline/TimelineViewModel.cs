@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows.Input;
+using System.Windows.Media;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels;
 using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.Display.Timeline
 {
-    [Export(typeof(ITimeline))]
-    public class TimelineViewModel :Screen, ITimeline
+    [Export(typeof (ITimeline))]
+    public class TimelineViewModel : Screen, ITimeline
     {
         private IEventAggregator _eventAggregator;
 
@@ -17,7 +19,6 @@ namespace LedShowEditor.Display.Timeline
         {
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
-
         }
 
         #region Playback Control
@@ -53,6 +54,24 @@ namespace LedShowEditor.Display.Timeline
 
         #endregion
 
-
+        public void ExecuteLedRowCommand(Key key)
+        {
+            if (key == Key.D1)
+            {
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 4);
+            }
+            else if (key == Key.D2)
+            {
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 8);
+            }
+            else if (key == Key.D3)
+            {
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 16);
+            }
+            else if (key == Key.D4)
+            {
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 32);
+            }
+        }
     }
 }

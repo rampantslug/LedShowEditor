@@ -55,6 +55,18 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public LedInShowViewModel SelectedLed {
+            get
+            {
+                return _selectedLed;
+            }
+            set
+            {
+                _selectedLed = value;
+                NotifyOfPropertyChange(() => SelectedLed);
+            }
+        }
+
         public ShowViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -66,5 +78,6 @@ namespace LedShowEditor.ViewModels
         private string _name;
         private readonly IEventAggregator _eventAggregator;
         private uint _frames;
+        private LedInShowViewModel _selectedLed;
     }
 }

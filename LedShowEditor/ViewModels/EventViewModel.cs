@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
 
@@ -77,14 +78,38 @@ namespace LedShowEditor.ViewModels
             return EventColor;
         }
 
+        public bool ContainsFrame(int frameNo)
+        {
+            return frameNo >= StartFrame && frameNo <= EndFrame;
+        }
+
+        public void ExecuteLedRowCommand(Key key)
+        {
+            var breakhere = true;
+            if (key == Key.D1)
+            {
+                // Insert a new event at current frame of 4 frame sizes
+
+            }
+            else if (key == Key.D2)
+            {
+                // Insert a new event at current frame of 4 frame sizes
+            }
+            else if (key == Key.D3)
+            {
+                // Insert a new event at current frame of 4 frame sizes
+            }
+            else if (key == Key.D4)
+            {
+                // Insert a new event at current frame of 4 frame sizes
+            }
+        }
+
 
         private uint _startFrame;
         private uint _endFrame;
         private Brush _eventColor;
 
-        public bool ContainsFrame(int frameNo)
-        {
-            return frameNo >= StartFrame && frameNo <= EndFrame;
-        }
+       
     }
 }

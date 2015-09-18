@@ -12,6 +12,7 @@ namespace LedShowEditor.ViewModels
         IObservableCollection<ShowViewModel> Shows { get; }
 
         LedViewModel SelectedLed { get; }
+        ShowViewModel SelectedShow { get; }
 
         uint CurrentFrame { get; set; }
         bool IsPlaying { get; set; }
@@ -20,6 +21,7 @@ namespace LedShowEditor.ViewModels
         uint NewEventEndFrame { get; set; }
         Color NewEventStartColor { get; set; }
         string WorkingDirectory { get; set; }
+        
 
         // Edit Leds
         void AddLed();
@@ -37,6 +39,7 @@ namespace LedShowEditor.ViewModels
         void ExportLampShow(ShowViewModel dataContext);
 
         void AddEvent();
+        void AddEvent(uint startFrame, uint endFrame);
 
         // Import / Export
         void LoadLedsFromConfig(IList<LedConfig> leds);
@@ -48,7 +51,6 @@ namespace LedShowEditor.ViewModels
         void LoadShowFromConfig(ShowConfig showConfig, string name);
 
 
-        
         
     }
 }

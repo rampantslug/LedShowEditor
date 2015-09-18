@@ -6,6 +6,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 
 namespace LedShowEditor
@@ -38,6 +39,20 @@ namespace LedShowEditor
             batch.AddExportedValue(Container);
 
             Container.Compose(batch);
+
+            MessageBinder.SpecialValues.Add("$pressedkey", (context) =>
+            {
+                // NOTE: IMPORTANT - you MUST add the dictionary key as lowercase as CM
+                // does a ToLower on the param string you add in the action message, in fact ideally
+                // all your param messages should be lowercase just in case. I don't really like this
+                // behaviour but that's how it is!
+                var keyArgs = context.EventArgs as KeyEventArgs;
+
+                if (keyArgs != null)
+                    return keyArgs.Key;
+
+                return null;
+            });
         }
 
         protected override object GetInstance(Type serviceType, string key)

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows.Input;
+using Caliburn.Micro;
 using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
 using LedShowEditor.Config;
@@ -275,6 +276,25 @@ namespace LedShowEditor
         ConfigurationManager.RefreshSection("appSettings");
     }
 
+
+    public void ExecuteGlobalCommand(Key key)
+    {
+        if (key == Key.Space)
+        {
+            Timeline.PlayPause();
+        }
+        else if (key == Key.NumPad0)
+        {
+            Timeline.FirstFrame();
+        }
+        else if (key == Key.NumPad1)
+        {
+            Timeline.LastFrame();
+        }
+    }
+
+
+
         private readonly IEventAggregator _eventAggregator;
         private readonly ILeds _ledsViewModel;
         private BindableCollection<IScreen> _leftTabs;
@@ -282,4 +302,7 @@ namespace LedShowEditor
         private string _configName;
         private bool _isConfigLoaded;
     }
+
+
+
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -249,7 +250,6 @@ namespace LedShowEditor.ViewModels
                 else
                 {
                     CurrentFrame = 0;
-                    _isPlaying = false;
                 }
             }
         }
@@ -457,10 +457,15 @@ namespace LedShowEditor.ViewModels
 
         public void AddEvent()
         {
+            AddEvent(NewEventStartFrame, NewEventEndFrame);
+        }
+
+        public void AddEvent(uint startFrame, uint endFrame)
+        {
             if (SelectedShow != null && SelectedLed != null)
             {
                 var existingLed = SelectedShow.Leds.FirstOrDefault(led => led.LinkedLed == SelectedLed);
-                
+
                 // Add led to show if required...
                 if (existingLed == null)
                 {
@@ -473,23 +478,23 @@ namespace LedShowEditor.ViewModels
                 foreach (var existingEvent in existingLed.Events)
                 {
                     // Does new event completely overlap existing -> delete existing
-                    if (existingEvent.StartFrame >= NewEventStartFrame && existingEvent.EndFrame <= NewEventEndFrame)
+                    if (existingEvent.StartFrame >= startFrame && existingEvent.EndFrame <= endFrame)
                     {
-                        removeEvents.Add(existingEvent);                       
+                        removeEvents.Add(existingEvent);
                         continue;
                     }
 
                     // Does new event start before existing finishes -> update existing finish time
-                    if (existingEvent.EndFrame > NewEventStartFrame && existingEvent.EndFrame < NewEventEndFrame)
+                    if (existingEvent.EndFrame > startFrame && existingEvent.EndFrame < endFrame)
                     {
-                        existingEvent.EndFrame = NewEventStartFrame;
+                        existingEvent.EndFrame = startFrame;
                         continue;
                     }
 
                     // Does new event finish after existing starts -> update existing start time
-                    if (existingEvent.StartFrame > NewEventStartFrame && existingEvent.EndFrame > NewEventEndFrame)
+                    if (existingEvent.StartFrame > startFrame && existingEvent.EndFrame > endFrame)
                     {
-                        existingEvent.StartFrame = NewEventEndFrame;
+                        existingEvent.StartFrame = endFrame;
                         continue;
                     }
 
@@ -506,17 +511,17 @@ namespace LedShowEditor.ViewModels
                 // TODO: If blink type of event then need to add multiple events
                 if (SelectedLed.IsSingleColor)
                 {
-                    var eventToAdd = new EventViewModel(NewEventStartFrame, NewEventEndFrame, new SolidColorBrush(SelectedLed.SingleColor));
+                    var eventToAdd = new EventViewModel(startFrame, endFrame, new SolidColorBrush(SelectedLed.SingleColor));
                     existingLed.Events.Add(eventToAdd);
                 }
                 else
                 {
-                    var eventToAdd = new EventViewModel(NewEventStartFrame, NewEventEndFrame, new LinearGradientBrush(NewEventStartColor, NewEventEndColor, 0));
+                    var eventToAdd = new EventViewModel(startFrame, endFrame, new LinearGradientBrush(NewEventStartColor, NewEventEndColor, 0));
 
                     existingLed.Events.Add(eventToAdd);
                 }
 
-                
+
             }
         }
 
@@ -654,7 +659,6 @@ namespace LedShowEditor.ViewModels
         }
 
         #endregion
-
 
         private LedViewModel _selectedLed;
         private IEventAggregator _eventAggregator;
