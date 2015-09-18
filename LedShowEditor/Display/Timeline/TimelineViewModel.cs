@@ -39,7 +39,13 @@ namespace LedShowEditor.Display.Timeline
             LedsVm.IsPlaying = !LedsVm.IsPlaying;
         }
 
-        public void Step()
+        public void StepBack()
+        {
+            LedsVm.IsPlaying = false;
+            LedsVm.CurrentFrame--;
+        }
+
+        public void StepForward()
         {
             LedsVm.IsPlaying = false;
             LedsVm.CurrentFrame++;
@@ -48,8 +54,11 @@ namespace LedShowEditor.Display.Timeline
         public void LastFrame()
         {
             LedsVm.IsPlaying = false;
-            // TODO: Need to replace this with max frames
-            LedsVm.CurrentFrame = 100;
+
+            if (LedsVm.SelectedShow != null)
+            {
+                LedsVm.CurrentFrame = LedsVm.SelectedShow.Frames - 1;
+            }
         }
 
         #endregion

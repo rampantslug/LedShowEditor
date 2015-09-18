@@ -71,6 +71,14 @@ namespace LedShowEditor.Display.Properties
             }
         }
 
+        public void ProcessChange()
+        {
+            if (LedsVm.SelectedLed != null)
+            {
+                NotifyOfPropertyChange(() => LedsVm.SelectedLed.Name);
+            }
+        }
+
         private IEventAggregator _eventAggregator;
         private string _selectedSingleLedEventOption;
         public ILeds LedsVm { get; set; }

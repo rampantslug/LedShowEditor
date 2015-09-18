@@ -658,7 +658,29 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-
+            <Button
+                x:Name="StepBack"
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="30"
+                Width="30"
+                ToolTip="Step Back 1 Frame">
+                <Rectangle
+                    Width="10"
+                    Height="8"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_control_resume}" 
+                                     >
+                            <VisualBrush.Transform>
+                                <ScaleTransform 
+                                   CenterX="5"
+                                    ScaleX="-1"/>
+                            </VisualBrush.Transform>
+                        </VisualBrush>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
             <TextBox
                 Text="{Binding LedsVm.CurrentFrame}"
                 Width="50"
@@ -676,11 +698,11 @@
                     Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
             </Button>
             <Button
-                x:Name="Step"
+                x:Name="StepForward"
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"
-                ToolTip="Step 1 Frame">
+                ToolTip="Step Forward 1 Frame">
                 <Rectangle
                     Width="10"
                     Height="8"

@@ -165,6 +165,7 @@
                 Grid.Column="2"
                 Grid.Row="2"
                 Text="{Binding LedsVm.SelectedLed.Name}"
+                cal:Message.Attach="ProcessChange()"  
                 />
             <TextBlock 
                 Grid.Column="0"
