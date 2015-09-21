@@ -55,7 +55,7 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public LedInShowViewModel SelectedLed {
+    /*    public LedInShowViewModel SelectedLed {
             get
             {
                 return _selectedLed;
@@ -65,7 +65,7 @@ namespace LedShowEditor.ViewModels
                 _selectedLed = value;
                 NotifyOfPropertyChange(() => SelectedLed);
             }
-        }
+        }*/
 
         public ShowViewModel(IEventAggregator eventAggregator)
         {

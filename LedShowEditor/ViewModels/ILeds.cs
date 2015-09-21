@@ -11,7 +11,7 @@ namespace LedShowEditor.ViewModels
         IObservableCollection<GroupViewModel> Groups { get; }
         IObservableCollection<ShowViewModel> Shows { get; }
 
-        LedViewModel SelectedLed { get; }
+        LedViewModel SelectedLed { get; set; }
         ShowViewModel SelectedShow { get; }
 
         uint CurrentFrame { get; set; }

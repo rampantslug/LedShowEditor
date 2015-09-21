@@ -80,7 +80,7 @@ namespace LedShowEditor.ViewModels
             set
             {
                 _selectedLed = value;
-                NotifyOfPropertyChange(() => SelectedLed);
+                NotifyOfPropertyChange(() => SelectedLed);  
             }
         }
 
