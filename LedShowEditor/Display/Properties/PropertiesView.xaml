@@ -5,7 +5,8 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:converters="clr-namespace:LedShowEditor.Converters">
+        xmlns:converters="clr-namespace:LedShowEditor.Converters"
+        xmlns:display="clr-namespace:LedShowEditor.Display">
     <UserControl.Resources>
         <converters:BoolToIndexConverter x:Key="BoolToIndexConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
@@ -165,7 +166,8 @@
                 Grid.Column="2"
                 Grid.Row="2"
                 Text="{Binding LedsVm.SelectedLed.Name}"
-                cal:Message.Attach="ProcessChange()"  
+                cal:Message.Attach="ProcessChange()" 
+                display:FocusAdvancement.AdvancesByEnterKey="True"
                 />
             <TextBlock 
                 Grid.Column="0"
