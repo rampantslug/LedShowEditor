@@ -25,7 +25,7 @@
                   RenderOptions.BitmapScalingMode="HighQuality">
                 <Grid.OpacityMask>
                     <VisualBrush Stretch="Uniform"
-                                 Visual="{DynamicResource appbar_box}" />
+                                 Visual="{DynamicResource RssLogo}" />
                 </Grid.OpacityMask>
             </Grid>
         </DataTemplate>
@@ -107,56 +107,11 @@
         <Grid Background="#FFC1C0C0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" MinWidth="800"/>
                 <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" MinWidth="800"/>               
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <Grid
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Grid.Row="0"
-                Margin="2"
-                Background="#FFECECEC"
-                Height="40"
-                VerticalAlignment="Top">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Margin="10,0"
-                    Text="{Binding ConfigName}"
-                    VerticalAlignment="Center"
-                    FontSize="16" />
-                <Button
-                    Grid.Column="1"
-                    x:Name="NewConfig"
-                    Width="100"
-                    Height="30"
-                    Content="New Config" />
-                <Button
-                    Grid.Column="2"
-
-                    x:Name="LoadExistingConfig"
-                    Width="100"
-                    Height="30"
-                    Content="Load Config" />
-                <Button
-                    Grid.Column="3"
-
-                    x:Name="SaveCurrentConfig"
-                    Width="100"
-                    Height="30"
-                    Content="Save Config" />
-            </Grid>
-
+         
             <!-- Left Column Area -->
             <Grid
                 Grid.Row="0"
@@ -178,32 +133,9 @@
             </Grid>
 
             <!-- Middle Left Column Area -->
-            <ScrollViewer
-                Grid.Column="1"
-                Grid.Row="0"
-                Margin="2,46,2,2"
-                Background="#FFECECEC"
-                Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                VerticalScrollBarVisibility="Auto">
-                <properties:PropertiesView
-
-                    cal:View.Model="{Binding Properties}" />
-            </ScrollViewer>
-
-            <!-- Middle Right Column Area -->
-            <playfield:PlayfieldView
-                Grid.Column="1"
-                Grid.Row="0"
-                Margin="2"
-                Background="#FFECECEC"
-                cal:View.Model="{Binding Playfield}"
-                Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <!-- Far Right Column Area -->
             <Grid
                 Grid.Row="0"
-                Grid.Column="3"
-
+                Grid.Column="1"
                 Margin="2"
                 Background="#FFECECEC"
                 Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -218,15 +150,25 @@
                     </TabControl.ItemTemplate>
                 </TabControl>
             </Grid>
-          
-            <!-- Bottom Row Area -->
-            <timeline:TimelineView
+
+            <!-- Middle Right Column Area -->
+            <playfield:PlayfieldView
                 Grid.Column="2"
+                Grid.Row="0"
+                Margin="2"
+                Background="#FFECECEC"
+                cal:View.Model="{Binding Playfield}"
+                Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <!-- Far Right Column Area -->
+            <timeline:TimelineView
+                Grid.Column="3"
                 Grid.Row="0"
                 Margin="2"
                 Background="#FFECECEC"
                 cal:View.Model="{Binding Timeline}"
                 Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            
         </Grid>
     </Grid>
 
