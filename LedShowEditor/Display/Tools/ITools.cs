@@ -1,6 +1,8 @@
-﻿namespace LedShowEditor.Display.Tools
+﻿using Caliburn.Micro;
+
+namespace LedShowEditor.Display.Tools
 {
-    public interface ITools
+    public interface ITools : IScreen
     {
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 
 namespace LedShowEditor.Display.Properties
 {
-    public interface IProperties
+    public interface IProperties : IScreen
     {
     }
 }

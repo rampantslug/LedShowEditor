@@ -44,6 +44,8 @@ namespace LedShowEditor.Display.Properties
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
             PlayfieldVm = playfieldViewModel;
+
+            DisplayName = "Properties";
         }      
 
         public void AddEvent()

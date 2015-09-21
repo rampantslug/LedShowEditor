@@ -10,21 +10,109 @@
     xmlns:tools="clr-namespace:LedShowEditor.Display.Tools"
     xmlns:properties="clr-namespace:LedShowEditor.Display.Properties"
     Title="Led Show Editor"
-    Width="1400"
+    Width="1680"
     Height="1050"
     cal:Message.Attach="[Event KeyDown] = [Action ExecuteGlobalCommand($pressedKey)]"
     >
+    
+    <controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="{DynamicResource HighlightBrush}"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                                 Visual="{DynamicResource appbar_box}" />
+                </Grid.OpacityMask>
+            </Grid>
+        </DataTemplate>
+    </controls:MetroWindow.IconTemplate>
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <StackPanel
+                Orientation="Horizontal"
+                Width="10" />
+
+            <Button 
+                        cal:Message.Attach="NewConfig()"
+                        ToolTip="New Config"
+                        Width="30"
+                        Height="30"
+                Padding="10,0,10,0"
+                HorizontalAlignment="Center"
+                        >
+                <Rectangle Width="12" Height="12"
+                            Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                    Visual="{StaticResource appbar_page_add}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <Button 
+                        cal:Message.Attach="LoadExistingConfig()"
+                        ToolTip="Load Config"
+                        Width="30"
+                        Height="30"
+                Padding="10,0,10,0"
+                 HorizontalContentAlignment="Center"
+                        >
+                <Rectangle 
+                    HorizontalAlignment="Center"
+                    Width="12" Height="12"
+                            Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                    Visual="{StaticResource appbar_folder_open}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <Button 
+                        cal:Message.Attach="SaveCurrentConfig()"
+                        ToolTip="Save Config"
+                        Width="30"
+                        Height="30"
+                Padding="10,0,10,0"
+                 HorizontalAlignment="Center"
+                        >
+                <Rectangle Width="12" Height="12"
+                            Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                    Visual="{StaticResource appbar_disk}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <TextBlock 
+                Text="{Binding ConfigName}"
+                VerticalAlignment="Center"
+                Margin="10,0,10,0" 
+                FontWeight="Light"
+                FontSize="14"
+                />
+            <TextBlock 
+                Text="-"
+                VerticalAlignment="Center"
+                Margin="10,0,10,0"                
+                />
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+        
+
+
     <Grid>
         <Grid Background="#FFC1C0C0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" MinWidth="800"/>
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Grid
@@ -74,7 +162,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
 
-                Margin="2,46,2,2"
+                Margin="2"
                 Background="#FFECECEC"
                 Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TabControl
@@ -104,7 +192,7 @@
 
             <!-- Middle Right Column Area -->
             <playfield:PlayfieldView
-                Grid.Column="2"
+                Grid.Column="1"
                 Grid.Row="0"
                 Margin="2"
                 Background="#FFECECEC"
@@ -112,19 +200,29 @@
                 Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <!-- Far Right Column Area -->
-            <tools:ToolsView
-                Grid.Column="3"
+            <Grid
                 Grid.Row="0"
+                Grid.Column="3"
+
                 Margin="2"
                 Background="#FFECECEC"
-                cal:View.Model="{Binding Tools}"
-                Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
+                Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TabControl
+                    x:Name="RightTabs"
+                    TabStripPlacement="Top">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding DisplayName}" />
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                </TabControl>
+            </Grid>
+          
             <!-- Bottom Row Area -->
             <timeline:TimelineView
-                Grid.Column="0"
-                Grid.ColumnSpan="4"
-                Grid.Row="1"
+                Grid.Column="2"
+                Grid.Row="0"
                 Margin="2"
                 Background="#FFECECEC"
                 cal:View.Model="{Binding Timeline}"

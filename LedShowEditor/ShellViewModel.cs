@@ -75,6 +75,19 @@ namespace LedShowEditor
             }
         }
 
+        public BindableCollection<IScreen> RightTabs
+        {
+            get
+            {
+                return _rightTabs;
+            }
+            set
+            {
+                _rightTabs = value;
+                NotifyOfPropertyChange(() => RightTabs);
+            }
+        }
+
         /// <summary>
         /// Constructor for the ShellViewModel. Main container for Client application elements.
         /// Imports required UI elements via DI.
@@ -101,6 +114,7 @@ namespace LedShowEditor
             Tools = tools;
 
             LeftTabs = new BindableCollection<IScreen>();
+            RightTabs = new BindableCollection<IScreen>();
 
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             DisplayName = "Led Show Editor";
@@ -108,14 +122,19 @@ namespace LedShowEditor
             IsConfigLoaded = false;
         }
 
+        
 
 
         protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
             _eventAggregator.Subscribe(this);
+
             LeftTabs.Add(LedTree);
             LeftTabs.Add(ShowList);
+
+            RightTabs.Add(Properties);
+            RightTabs.Add(Tools);
 
             var firstRun = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("FirstRun"));
             if (firstRun)
@@ -301,6 +320,7 @@ namespace LedShowEditor
         private string _lastConfigFile;        
         private string _configName;
         private bool _isConfigLoaded;
+        private BindableCollection<IScreen> _rightTabs;
     }
 
 

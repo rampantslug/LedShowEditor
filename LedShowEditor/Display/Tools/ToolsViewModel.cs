@@ -17,6 +17,8 @@ namespace LedShowEditor.Display.Tools
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
 
+            DisplayName = "Tools";
+
         }
     }
 }
