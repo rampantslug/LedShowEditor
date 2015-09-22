@@ -82,7 +82,7 @@ namespace LedShowEditor.ViewModels
 
         public bool ContainsFrame(int frameNo)
         {
-            return frameNo >= StartFrame && frameNo <= EndFrame;
+            return frameNo >= StartFrame && frameNo < EndFrame;
         }
 
         public void ExecuteLedRowCommand(Key key)

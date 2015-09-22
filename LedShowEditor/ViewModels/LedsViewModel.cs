@@ -404,7 +404,7 @@ namespace LedShowEditor.ViewModels
                 line = line.PadRight(lineWidthToPipe);
                 line = line + "| ";
 
-                for (int frameNo = 1; frameNo <= (int)show.Frames; frameNo++)
+                for (int frameNo = 0; frameNo <= (int)show.Frames; frameNo++)
                 {
                     var frameInEvents = false;
                     foreach (var eventViewModel in ledInShowViewModel.Events)
