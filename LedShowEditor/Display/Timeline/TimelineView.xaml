@@ -218,7 +218,7 @@
                         Data="F1 M 66.1467,63.0002L 131.793,0.499981L 0.499985,0.499981L 66.1467,63.0002 Z " />
 
                     <Rectangle
-                        Height="200"
+                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type timeline:TimelineView}}}"
                         Width="1"
                         Fill="{StaticResource AccentColorBrush}"
                         Canvas.Top="20"
