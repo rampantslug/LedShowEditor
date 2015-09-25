@@ -244,6 +244,26 @@ namespace LedShowEditor.Display.Timeline
         public void PreviewMouseLeftButtonDown(object source)
         {
             var listView = source as ListView;
+            if (listView != null)
+            {
+                var position = Mouse.GetPosition(listView);
+
+                // If over an event then need to select it...
+                var mouseOverEvent = GetEventUnderCursor(position);
+                if (mouseOverEvent != null)
+                {
+                    // Set old event to not selected
+                    if (LedsVm.SelectedShow.SelectedEvent != null)
+                    {
+                        LedsVm.SelectedShow.SelectedEvent.IsSelected = false;
+                    }
+                    mouseOverEvent.IsSelected = true;
+                    LedsVm.SelectedShow.SelectedEvent = mouseOverEvent;
+                }
+            }
+
+
+
             if (listView != null && SelectedLed != null)
             {
                 var position = Mouse.GetPosition(listView);
@@ -283,6 +303,26 @@ namespace LedShowEditor.Display.Timeline
                 }        
             }
         }
+
+        private EventViewModel GetEventUnderCursor(Point cursorPosition)
+        {
+            var rowHeight = 25; // NOTE: If this is changed in xaml then this needs to be updated. Possibly bind xaml to this value.
+            int activeRow = (int)cursorPosition.Y/rowHeight;
+            uint frameNo = (uint)cursorPosition.X/5;
+
+            // Get matching Led
+            var matchingLed = LedsVm.SelectedShow.Leds[activeRow];
+
+            foreach (var eventViewModel in matchingLed.Events)
+            {
+                if (eventViewModel.StartFrame <= frameNo && eventViewModel.EndFrame >= frameNo)
+                {
+                    return eventViewModel;
+                }
+            }
+            return null;
+        }
+
 
         public void PreviewMouseLeftButtonUp(object source)
         {

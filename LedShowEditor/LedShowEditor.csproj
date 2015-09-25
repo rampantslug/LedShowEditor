@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\Events\DeleteLedEvent.cs" />
     <Compile Include="ViewModels\Events\DuplicateShowEvent.cs" />
     <Compile Include="ViewModels\Events\DuplicateLedEvent.cs" />
+    <Compile Include="ViewModels\Events\SingleColorLedColorModifiedEvent.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\ILeds.cs" />

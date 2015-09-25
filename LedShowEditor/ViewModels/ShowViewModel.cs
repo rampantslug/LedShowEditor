@@ -57,6 +57,19 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public EventViewModel SelectedEvent
+        {
+            get
+            {
+                return _selectedEvent;
+            }
+            set
+            {
+                _selectedEvent = value;
+                NotifyOfPropertyChange(() => SelectedEvent);
+            }
+        }
+
         public ShowViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -82,6 +95,7 @@ namespace LedShowEditor.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private uint _frames;
         private LedInShowViewModel _selectedLed;
+        private EventViewModel _selectedEvent;
     }
 
     public class MaxFramesUpdatedEvent

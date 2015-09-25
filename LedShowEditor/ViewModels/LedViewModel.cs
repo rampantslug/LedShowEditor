@@ -49,6 +49,8 @@ namespace LedShowEditor.ViewModels
             {
                 _singleColor = value;
                 NotifyOfPropertyChange(() => SingleColor);
+
+                _eventAggregator.PublishOnUIThread(new SingleColorLedColorModifiedEvent(this, SingleColor));
             }
         }
 

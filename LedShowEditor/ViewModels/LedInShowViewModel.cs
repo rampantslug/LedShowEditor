@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
 {
-    public class LedInShowViewModel: Screen
+    public class LedInShowViewModel: Screen, IHandle<SingleColorLedColorModifiedEvent>
     {      
         public IObservableCollection<EventViewModel> Events
         {
@@ -27,6 +28,7 @@ namespace LedShowEditor.ViewModels
         public LedInShowViewModel(IEventAggregator eventAggregator, LedViewModel linkedLed)
         {
             _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
             LinkedLed = linkedLed;
             _events = new BindableCollection<EventViewModel>();
         }
@@ -37,10 +39,28 @@ namespace LedShowEditor.ViewModels
             Events.Remove(dataContext);
         }
 
-
+        public void Handle(SingleColorLedColorModifiedEvent message)
+        {
+            if (message.Led == LinkedLed)
+            {
+                foreach (var eventViewModel in Events)
+                {
+                    // Dont modify transparent values as we want to keep fades
+                    if (eventViewModel.StartColor != Colors.Transparent)
+                    {
+                        eventViewModel.StartColor = message.NewColor;
+                    }
+                    if (eventViewModel.EndColor != Colors.Transparent)
+                    {
+                        eventViewModel.EndColor = message.NewColor;
+                    }
+                }
+            }
+        }
 
 
         private IObservableCollection<EventViewModel> _events;
         private IEventAggregator _eventAggregator;
+        
     }
 }

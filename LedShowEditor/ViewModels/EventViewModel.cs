@@ -50,24 +50,68 @@ namespace LedShowEditor.ViewModels
             }
         }
 
-        public Brush EventColor
+        public Color StartColor
         {
             get
             {
-                return _eventColor;
+                return _startColor;
             }
             set
             {
-                _eventColor = value;
-                NotifyOfPropertyChange(() => EventColor);
+                _startColor = value;
+                NotifyOfPropertyChange(() => StartColor);
+                UpdateBrush();
             }
         }
 
-        public EventViewModel(uint startFrame, uint endFrame, Brush brush)
+        public Color EndColor
+        {
+            get
+            {
+                return _endColor;
+            }
+            set
+            {
+                _endColor = value;
+                NotifyOfPropertyChange(() => EndColor);
+                UpdateBrush();
+            }
+        }
+
+        public Brush EventBrush
+        {
+            get
+            {
+                return _eventBrush;
+            }
+            set
+            {
+                _eventBrush = value;
+                NotifyOfPropertyChange(() => EventBrush);
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+                NotifyOfPropertyChange(() => IsSelected);
+            }
+        }
+
+        public EventViewModel(uint startFrame, uint endFrame, Color startColor, Color endColor)
         {
             _startFrame = startFrame;
             _endFrame = endFrame;
-            _eventColor = brush;
+            _startColor = startColor;
+            _endColor = endColor;
+
+            UpdateBrush();
         }
 
         public bool Contains(uint frame)
@@ -78,14 +122,14 @@ namespace LedShowEditor.ViewModels
         public Brush GetColor(uint frame)
         {
             // Single colour event
-            var solidBrush = EventColor as SolidColorBrush;
+            var solidBrush = EventBrush as SolidColorBrush;
             if (solidBrush != null)
             {
-                return EventColor;
+                return EventBrush;
             }
             else // Gradient Brush
             {
-                var linearGradBrush = EventColor as LinearGradientBrush;
+                var linearGradBrush = EventBrush as LinearGradientBrush;
                 if (linearGradBrush != null)
                 {
                     // Normalise frame position to length event
@@ -96,7 +140,19 @@ namespace LedShowEditor.ViewModels
                     return new SolidColorBrush(offsetColor);
                 }
             }
-            return EventColor;
+            return EventBrush;
+        }
+
+        private void UpdateBrush()
+        {
+            if (StartColor == EndColor)
+            {
+                EventBrush = new SolidColorBrush(StartColor);
+            }
+            else
+            {
+                EventBrush = new LinearGradientBrush(StartColor, EndColor, 0);
+            }
         }
 
         public bool ContainsFrame(int frameNo)
@@ -131,8 +187,9 @@ namespace LedShowEditor.ViewModels
 
         private uint _startFrame;
         private uint _endFrame;
-        private Brush _eventColor;
-
-       
+        private Brush _eventBrush;
+        private bool _isSelected;
+        private Color _startColor;
+        private Color _endColor;
     }
 }

@@ -166,10 +166,27 @@
                                     </ItemsControl.ItemContainerStyle>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
+                                            <Grid>
                                             <!-- Template for an Individual Event-->
+                                                <Rectangle
+                                                Height="25"
+                                                Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
+                                                Fill="{Binding EventBrush}"   
+                                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+>
+                                                    <Rectangle.Effect                           
+                                                >
+                                                    <DropShadowEffect
+                                                       
+                                    ShadowDepth="0" 
+                                    Color="{DynamicResource AccentColor}" 
+                                    BlurRadius="20"
+                                />
+                                                </Rectangle.Effect>
+                                            </Rectangle>
                                             <Rectangle
 
-                                                Fill="{Binding EventColor}"
+                                                Fill="{Binding EventBrush}"
                                                 Height="25"
                                                 Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
                                                 Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}">
@@ -181,7 +198,9 @@
                                                             cal:Message.Attach="DeleteEvent($dataContext)" />
                                                     </ContextMenu>
                                                 </Rectangle.ContextMenu>
+                                               
                                             </Rectangle>
+                                            </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

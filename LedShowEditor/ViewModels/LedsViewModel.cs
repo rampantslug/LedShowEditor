@@ -359,7 +359,7 @@ namespace LedShowEditor.ViewModels
                     var duplicateLed = new LedInShowViewModel(_eventAggregator, led.LinkedLed);
                     foreach (var eventVm in led.Events)
                     {
-                        var duplicateEvent = new EventViewModel(eventVm.StartFrame, eventVm.EndFrame, eventVm.EventColor);
+                        var duplicateEvent = new EventViewModel(eventVm.StartFrame, eventVm.EndFrame, eventVm.StartColor, eventVm.EndColor);
                         duplicateLed.Events.Add(duplicateEvent);
                     }
                     duplicate.Leds.Add(duplicateLed);
@@ -440,7 +440,7 @@ namespace LedShowEditor.ViewModels
 
         public void AddEvent()
         {
-            AddEvent(NewEventStartFrame, NewEventEndFrame);
+            AddEvent(CurrentFrame, CurrentFrame+4);
         }
 
         public void AddEvent(uint startFrame, uint endFrame)
@@ -494,12 +494,12 @@ namespace LedShowEditor.ViewModels
                 // TODO: If blink type of event then need to add multiple events
                 if (SelectedLed.IsSingleColor)
                 {
-                    var eventToAdd = new EventViewModel(startFrame, endFrame, new SolidColorBrush(SelectedLed.SingleColor));
+                    var eventToAdd = new EventViewModel(startFrame, endFrame, SelectedLed.SingleColor, SelectedLed.SingleColor);
                     existingLed.Events.Add(eventToAdd);
                 }
                 else
                 {
-                    var eventToAdd = new EventViewModel(startFrame, endFrame, new LinearGradientBrush(NewEventStartColor, NewEventEndColor, 0));
+                    var eventToAdd = new EventViewModel(startFrame, endFrame, Colors.Blue, Colors.Red);
 
                     existingLed.Events.Add(eventToAdd);
                 }
@@ -598,32 +598,12 @@ namespace LedShowEditor.ViewModels
                 var ledInShowConfig = new LedInShowConfig {LinkedLed = ledInShow.LinkedLed.Id};
                 foreach (var showEvent in ledInShow.Events)
                 {
-                    Color startColor = Colors.Black;
-                    Color endColor = Colors.Black;
-
-                    // Single colour event
-                    var solidBrush = showEvent.EventColor as SolidColorBrush;
-                    if (solidBrush != null)
-                    {
-                        startColor = solidBrush.Color;
-                        endColor = solidBrush.Color;
-                    }
-                    else // Gradient Brush
-                    {
-                        var linearGradBrush = showEvent.EventColor as LinearGradientBrush;
-                        if (linearGradBrush != null)
-                        {
-                            startColor = linearGradBrush.GradientStops.GetRelativeColor(0);
-                            endColor = linearGradBrush.GradientStops.GetRelativeColor(1);
-                        }
-                    }
-
                     var showEventConfig = new EventConfig
                     {
                         StartFrame = showEvent.StartFrame,
                         EndFrame = showEvent.EndFrame,
-                        StartColor = startColor,
-                        EndColor = endColor,
+                        StartColor = showEvent.StartColor,
+                        EndColor = showEvent.EndColor,
                     };
                     ledInShowConfig.Events.Add(showEventConfig);
                 }
@@ -649,19 +629,7 @@ namespace LedShowEditor.ViewModels
                          var ledInShow = new LedInShowViewModel(_eventAggregator, matchingLed);
                          foreach (var eventConfig in ledInShowConfig.Events)
                          {
-                             Brush eventBrush;
-
-                             if (eventConfig.StartColor == eventConfig.EndColor)
-                             {
-                                 eventBrush = new SolidColorBrush(eventConfig.StartColor);
-                             }
-                             else
-                             {
-                                 eventBrush = new LinearGradientBrush(eventConfig.StartColor, eventConfig.EndColor, 0);
-                             }
-
-                             var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame,
-                                 eventBrush);
+                             var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame, eventConfig.StartColor, eventConfig.EndColor);
                              ledInShow.Events.Add(eventViewModel);
                          }
                          show.Leds.Add(ledInShow);
