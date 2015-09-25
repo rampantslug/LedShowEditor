@@ -116,6 +116,7 @@
     <Compile Include="Display\ShowsList\IShowsList.cs" />
     <Compile Include="Display\ShowsList\ShowsListViewModel.cs" />
     <Compile Include="Display\Timeline\ScrollSynchronizer.cs" />
+    <Compile Include="ViewModels\Events\ShowSelectedEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteLedFromShowEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteShowEvent.cs" />
     <Compile Include="ViewModels\Events\DeleteGroupEvent.cs" />

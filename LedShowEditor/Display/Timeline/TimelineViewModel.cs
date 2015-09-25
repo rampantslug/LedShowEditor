@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels;
 using LedShowEditor.ViewModels.Events;
@@ -11,12 +12,9 @@ using LedShowEditor.ViewModels.Events;
 namespace LedShowEditor.Display.Timeline
 {
     [Export(typeof (ITimeline))]
-    public class TimelineViewModel : Screen, ITimeline
+    public class TimelineViewModel : Screen, ITimeline, IHandle<MaxFramesUpdatedEvent>, IHandle<ShowSelectedEvent>
     {
-        private IEventAggregator _eventAggregator;
-
         public ILeds LedsVm { get; set; }
-
 
         public LedInShowViewModel SelectedLed
         {
@@ -46,6 +44,17 @@ namespace LedShowEditor.Display.Timeline
         {
             _eventAggregator = eventAggregator;
             LedsVm = ledsViewModel;
+
+            _eventAggregator.Subscribe(this);
+        }
+
+
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+
+            // Need to break MVVM to dynamically generate part of the view
+            _timelineView = view as TimelineView;
         }
 
         #region Playback Control
@@ -94,21 +103,119 @@ namespace LedShowEditor.Display.Timeline
         {
             if (key == Key.D1)
             {
-                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 4);
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 2);
             }
             else if (key == Key.D2)
             {
-                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 8);
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 4);
             }
             else if (key == Key.D3)
             {
-                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 16);
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 8);
             }
             else if (key == Key.D4)
+            {
+                LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 16);
+            }
+            else if (key == Key.D5)
             {
                 LedsVm.AddEvent(LedsVm.CurrentFrame, LedsVm.CurrentFrame + 32);
             }
         }
+
+        public void Handle(MaxFramesUpdatedEvent message)
+        {
+            if (LedsVm.SelectedShow != null)
+            {            
+                var showLength = LedsVm.SelectedShow.Frames;
+                if (_currentDisplayedMaxFrames != showLength)
+                {
+                    _currentDisplayedMaxFrames = showLength;
+                    GenerateTickMarks();
+                }
+            }           
+        }
+
+        public void Handle(ShowSelectedEvent message)
+        {
+            if (LedsVm.SelectedShow != null)
+            {
+                var showLength = LedsVm.SelectedShow.Frames;
+                if (_currentDisplayedMaxFrames != showLength)
+                {
+                    _currentDisplayedMaxFrames = showLength;
+                    GenerateTickMarks();
+                }
+            }  
+        }
+
+
+
+        private void GenerateTickMarks()
+        {
+            if (_timelineView != null && LedsVm.SelectedShow != null)
+            {
+                _timelineView.TickCanvas.Children.Clear();
+                var showLength = LedsVm.SelectedShow.Frames;
+
+                for (int frame = 0; frame <= showLength; frame++)
+                {
+                    int remainder = frame%16;
+                    var xPos = frame*5;
+                    var line = new Line
+                    {
+                        X1 = xPos,
+                        X2 = xPos,
+                        Y1 = 20,
+                        Stroke = Brushes.Black
+                    };
+
+                    if (remainder == 0) // Major Tick mark
+                    {                       
+                        line.Y2 = 0;
+
+                        // Also add text label                      
+                        int firstChar = frame/32;
+                        var textString = firstChar.ToString();
+
+                        int secondCharRemainder = frame%32;
+
+                        if (secondCharRemainder == 16)
+                        {
+                            textString = textString + ".5";
+                        }
+
+                        var textBlock = new TextBlock()
+                        {
+                           Text = textString
+                        };
+                        Canvas.SetLeft(textBlock, xPos + 3);
+                        Canvas.SetTop(textBlock, 0);
+
+                        _timelineView.TickCanvas.Children.Add(textBlock);
+                    }
+                    else if (remainder == 8) // Minor Tick mark
+                    {
+                        line.Y2 = 10;
+                    }
+                    else
+                    {
+                        int oddEven = frame%2;
+                        if (oddEven == 0) // Even Tick mark
+                        {
+                            line.Y2 = 16;
+                        }
+                        else
+                        {
+                            line.Y2 = 18;
+                        }
+                    }
+                    _timelineView.TickCanvas.Children.Add(line);                    
+                }
+                _timelineView.TickCanvas.UpdateLayout();
+            }
+        }
+
 
         #region Handle Mouse movement / Dragging of Event
 
@@ -260,6 +367,10 @@ namespace LedShowEditor.Display.Timeline
 
         #endregion
 
-   
+
+        private IEventAggregator _eventAggregator;
+        private TimelineView _timelineView;
+        private uint _currentDisplayedMaxFrames;
+
     }
 }

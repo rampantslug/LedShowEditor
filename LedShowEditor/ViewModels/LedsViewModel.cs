@@ -94,6 +94,8 @@ namespace LedShowEditor.ViewModels
             {
                 _selectedShow = value;
                 NotifyOfPropertyChange(() => SelectedShow);
+
+                _eventAggregator.PublishOnUIThread(new ShowSelectedEvent());
             }
         }
 

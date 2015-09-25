@@ -16,6 +16,8 @@ namespace LedShowEditor.ViewModels
             {
                 _frames = value;
                 NotifyOfPropertyChange(() => Frames);
+
+                _eventAggregator.PublishOnUIThread(new MaxFramesUpdatedEvent());
             }
         }
 
@@ -92,5 +94,9 @@ namespace LedShowEditor.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private uint _frames;
         private LedInShowViewModel _selectedLed;
+    }
+
+    public class MaxFramesUpdatedEvent
+    {
     }
 }
