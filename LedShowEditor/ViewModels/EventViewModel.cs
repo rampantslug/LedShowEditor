@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Caliburn.Micro;
+using LedShowEditor.Helpers;
 
 namespace LedShowEditor.ViewModels
 {
@@ -76,7 +77,25 @@ namespace LedShowEditor.ViewModels
 
         public Brush GetColor(uint frame)
         {
-            // TODO: If single color throughout event then all good. Else if transition need to find the color at specific frame
+            // Single colour event
+            var solidBrush = EventColor as SolidColorBrush;
+            if (solidBrush != null)
+            {
+                return EventColor;
+            }
+            else // Gradient Brush
+            {
+                var linearGradBrush = EventColor as LinearGradientBrush;
+                if (linearGradBrush != null)
+                {
+                    // Normalise frame position to length event
+                    var positionInEvent = frame - StartFrame;
+                    var offset = (double)positionInEvent/EventLength;
+
+                    var offsetColor = linearGradBrush.GradientStops.GetRelativeColor(offset);
+                    return new SolidColorBrush(offsetColor);
+                }
+            }
             return EventColor;
         }
 

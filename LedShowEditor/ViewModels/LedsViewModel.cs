@@ -649,8 +649,19 @@ namespace LedShowEditor.ViewModels
                          var ledInShow = new LedInShowViewModel(_eventAggregator, matchingLed);
                          foreach (var eventConfig in ledInShowConfig.Events)
                          {
+                             Brush eventBrush;
+
+                             if (eventConfig.StartColor == eventConfig.EndColor)
+                             {
+                                 eventBrush = new SolidColorBrush(eventConfig.StartColor);
+                             }
+                             else
+                             {
+                                 eventBrush = new LinearGradientBrush(eventConfig.StartColor, eventConfig.EndColor, 0);
+                             }
+
                              var eventViewModel = new EventViewModel(eventConfig.StartFrame, eventConfig.EndFrame,
-                                 new SolidColorBrush(eventConfig.StartColor));
+                                 eventBrush);
                              ledInShow.Events.Add(eventViewModel);
                          }
                          show.Leds.Add(ledInShow);
