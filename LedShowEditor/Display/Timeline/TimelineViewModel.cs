@@ -310,6 +310,11 @@ namespace LedShowEditor.Display.Timeline
             int activeRow = (int)cursorPosition.Y/rowHeight;
             uint frameNo = (uint)cursorPosition.X/5;
 
+            if (activeRow > LedsVm.SelectedShow.Leds.Count)
+            {
+                return null;
+            }
+
             // Get matching Led
             var matchingLed = LedsVm.SelectedShow.Leds[activeRow];
 
