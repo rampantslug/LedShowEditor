@@ -4,12 +4,15 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using LedShowEditor.Config;
 using LedShowEditor.Display.ShowsList;
+using LedShowEditor.Helpers;
 using LedShowEditor.ViewModels.Events;
 
 namespace LedShowEditor.ViewModels
@@ -595,13 +598,32 @@ namespace LedShowEditor.ViewModels
                 var ledInShowConfig = new LedInShowConfig {LinkedLed = ledInShow.LinkedLed.Id};
                 foreach (var showEvent in ledInShow.Events)
                 {
-                    SolidColorBrush tempBrush = (SolidColorBrush)showEvent.EventColor;
+                    Color startColor = Colors.Black;
+                    Color endColor = Colors.Black;
+
+                    // Single colour event
+                    var solidBrush = showEvent.EventColor as SolidColorBrush;
+                    if (solidBrush != null)
+                    {
+                        startColor = solidBrush.Color;
+                        endColor = solidBrush.Color;
+                    }
+                    else // Gradient Brush
+                    {
+                        var linearGradBrush = showEvent.EventColor as LinearGradientBrush;
+                        if (linearGradBrush != null)
+                        {
+                            startColor = linearGradBrush.GradientStops.GetRelativeColor(0);
+                            endColor = linearGradBrush.GradientStops.GetRelativeColor(1);
+                        }
+                    }
+
                     var showEventConfig = new EventConfig
                     {
                         StartFrame = showEvent.StartFrame,
                         EndFrame = showEvent.EndFrame,
-                        StartColor = tempBrush.Color,
-                        EndColor = tempBrush.Color,
+                        StartColor = startColor,
+                        EndColor = endColor,
                     };
                     ledInShowConfig.Events.Add(showEventConfig);
                 }
