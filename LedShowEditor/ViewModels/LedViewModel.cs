@@ -232,8 +232,8 @@ namespace LedShowEditor.ViewModels
             CurrentColor = Brushes.Transparent;
             IsSingleColor = false;
             SingleColor = Colors.White;
-            LocationX = 50;
-            LocationY = 50;
+            LocationX = 5;
+            LocationY = -2;
             Shape = LedShape.CircleMed;
             Angle = 0;
             Scale = 1.0;        
