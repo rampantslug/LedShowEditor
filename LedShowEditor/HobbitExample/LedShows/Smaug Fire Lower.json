@@ -1,0 +1,16 @@
+{
+  "Frames": 64,
+  "Leds": [
+    {
+      "LinkedLed": 6,
+      "Events": [
+        {
+          "StartFrame": 10,
+          "EndFrame": 14,
+          "StartColor": "#FF0000FF",
+          "EndColor": "#FFFF0000"
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ namespace LedShowEditor.Config
     public class Configuration
     {
         public string PlayfieldImage { get; set; }
+        public double PlayfieldToLedsScale { get; set; }
         public IList<LedConfig> Leds { get; set; }
         public IList<GroupConfig> Groups { get; set; }
 

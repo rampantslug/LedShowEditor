@@ -218,6 +218,11 @@ namespace LedShowEditor
             // Update local information from configuration
             Playfield.UpdateImageLocation(_ledsViewModel.WorkingDirectory);
             Playfield.UpdateImage(_ledsViewModel.WorkingDirectory + gameConfiguration.PlayfieldImage);
+            Playfield.PlayfieldToLedsScale = gameConfiguration.PlayfieldToLedsScale;
+            if (Playfield.PlayfieldToLedsScale < 0.01)
+            {
+                Playfield.PlayfieldToLedsScale = 0.25;
+            }
  
             _ledsViewModel.LoadLedsFromConfig(gameConfiguration.Leds);
             _ledsViewModel.LoadGroupsFromConfig(gameConfiguration.Groups);
@@ -243,7 +248,8 @@ namespace LedShowEditor
             {
                 Leds = _ledsViewModel.GetLedsAsConfigs(),
                 Groups = _ledsViewModel.GetGroupsAsConfigs(),
-                PlayfieldImage = Playfield.PlayfieldImageName
+                PlayfieldImage = Playfield.PlayfieldImageName,
+                PlayfieldToLedsScale = Playfield.PlayfieldToLedsScale
             };
             config.ToFile(_lastConfigFile);
 

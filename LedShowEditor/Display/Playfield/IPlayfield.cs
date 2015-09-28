@@ -10,6 +10,6 @@ namespace LedShowEditor.Display.Playfield
 
         void UpdateImage(string imageFilename);
         string PlayfieldImageName { get; }
-
+        double PlayfieldToLedsScale { get; set; }
     }
 }

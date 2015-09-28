@@ -1,0 +1,106 @@
+{
+  "PlayfieldImage": "HobbitPlayfield.jpg",
+  "PlayfieldToLedsScale": 0.15,
+  "Leds": [
+    {
+      "Id": 2,
+      "Name": "L - Rollover",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 35.548926014319875,
+      "LocationY": 49.5262515262515,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 3,
+      "Name": "New Led 3",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 17.171837708830505,
+      "LocationY": 50.625152625152566,
+      "Angle": 18.620689655172413,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 4,
+      "Name": "New Led 4",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 5.7159904534606394,
+      "LocationY": 67.597069597069563,
+      "Angle": 15.517241379310345,
+      "Scale": 1.0,
+      "Shape": 5
+    },
+    {
+      "Id": 5,
+      "Name": "New Led 5",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 10.489260143198122,
+      "LocationY": 34.019536019535991,
+      "Angle": 341.3793103448275,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 6,
+      "Name": "New Led 6",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 36.026252983293539,
+      "LocationY": 64.300366300366193,
+      "Angle": 158.27586206896541,
+      "Scale": 1.0,
+      "Shape": 3
+    }
+  ],
+  "Groups": [
+    {
+      "Name": "Unassigned Leds",
+      "Leds": [
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "Name": "Lock Rollovers",
+      "Leds": [
+        2
+      ]
+    },
+    {
+      "Name": "Dwarf Drops Left",
+      "Leds": []
+    },
+    {
+      "Name": "Dwarf Drops Right",
+      "Leds": []
+    },
+    {
+      "Name": "Dwarf Drops Smaug",
+      "Leds": []
+    },
+    {
+      "Name": "Orbit",
+      "Leds": []
+    },
+    {
+      "Name": "Ramps",
+      "Leds": []
+    },
+    {
+      "Name": "Lanes",
+      "Leds": []
+    },
+    {
+      "Name": "Pop Bumpers",
+      "Leds": []
+    }
+  ]
+}
