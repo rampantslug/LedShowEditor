@@ -30,10 +30,26 @@ namespace LedShowEditor.Display.LedTree
         {
             LedsVm.AddLed();
         }
-     
+
+        public void AddLedToShow(LedViewModel dataContext)
+        {
+            if (LedsVm.SelectedShow != null)
+            {
+                LedsVm.SelectedShow.AddLed(dataContext);
+            }            
+        }
+
         public void AddGroup()
         {
             LedsVm.AddGroup();
+        }
+
+        public void AddGroupToShow(GroupViewModel dataContext)
+        {
+            if (LedsVm.SelectedShow != null)
+            {
+                LedsVm.SelectedShow.AddGroup(dataContext);
+            }
         }
 
         public void DeleteGroup(GroupViewModel dataContext)

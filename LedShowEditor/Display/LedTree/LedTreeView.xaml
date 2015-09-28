@@ -5,7 +5,9 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-        xmlns:leds="clr-namespace:LedShowEditor.ViewModels">
+        xmlns:leds="clr-namespace:LedShowEditor.ViewModels"
+        xmlns:converters="clr-namespace:LedShowEditor.Converters"
+        xmlns:ledTree="clr-namespace:LedShowEditor.Display.LedTree">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,6 +20,7 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             </Style>
+            <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -52,6 +55,11 @@
                         </TextBlock>
                         <Grid.ContextMenu>
                             <ContextMenu>
+                                <MenuItem 
+                                    Header="Add Leds to Show" 
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    cal:Message.Attach="AddGroupToShow($dataContext)"    
+                                    />
                                 <MenuItem 
                                     Header="Delete" 
                                     cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
@@ -98,6 +106,11 @@
                         </TextBlock>
                         <Grid.ContextMenu>
                             <ContextMenu>
+                                <MenuItem 
+                                    Header="Add to Show" 
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    cal:Message.Attach="AddLedToShow($dataContext)"                                
+                                    />
                                 <MenuItem 
                                     Header="Delete" 
                                      cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"

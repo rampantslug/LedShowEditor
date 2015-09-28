@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Caliburn.Micro;
 using LedShowEditor.ViewModels.Events;
 
@@ -88,6 +89,22 @@ namespace LedShowEditor.ViewModels
 
         }
 
+        public void AddLed(LedViewModel ledVm)
+        {
+            var matchingLed = Leds.FirstOrDefault(led => led.LinkedLed.Id == ledVm.Id);
+            if (matchingLed == null) // Led does not already exist
+            {
+                Leds.Add(new LedInShowViewModel(_eventAggregator, ledVm));
+            }
+        }
+
+        public void AddGroup(GroupViewModel groupVm)
+        {
+            foreach (var ledViewModel in groupVm.Leds)
+            {
+                AddLed(ledViewModel);
+            }
+        }
 
 
         private IObservableCollection<LedInShowViewModel> _leds;
@@ -96,6 +113,7 @@ namespace LedShowEditor.ViewModels
         private uint _frames;
         private LedInShowViewModel _selectedLed;
         private EventViewModel _selectedEvent;
+
     }
 
     public class MaxFramesUpdatedEvent
