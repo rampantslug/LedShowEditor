@@ -104,13 +104,15 @@ namespace LedShowEditor.Display.Timeline
             if (LedsVm.SelectedShow != null && SelectedLed != null)
             {
                 var lastEvent = SelectedLed.GetLastEvent();
+                if (lastEvent != null)
+                {
+                    LedsVm.CurrentFrame = lastEvent.EndFrame;
+                    return;
+                }
+            }
 
-                LedsVm.CurrentFrame = lastEvent.EndFrame;
-            }
-            else
-            {
-                LastFrame();
-            }
+            // If cant get event then jump to end of show 
+            LastFrame();            
         }
 
         #endregion

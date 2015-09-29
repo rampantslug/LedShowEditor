@@ -61,15 +61,19 @@ namespace LedShowEditor.ViewModels
 
         public EventViewModel GetLastEvent()
         {
-            var lastEvent = Events.First();
-            foreach (var eventViewModel in Events)
+            if (Events.Any())
             {
-                if (eventViewModel.EndFrame >= lastEvent.EndFrame)
+                var lastEvent = Events.First();
+                foreach (var eventViewModel in Events)
                 {
-                    lastEvent = eventViewModel;
+                    if (eventViewModel.EndFrame >= lastEvent.EndFrame)
+                    {
+                        lastEvent = eventViewModel;
+                    }
                 }
+                return lastEvent;
             }
-            return lastEvent;
+            return null;
         }
 
 
