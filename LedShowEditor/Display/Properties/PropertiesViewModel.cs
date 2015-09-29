@@ -41,7 +41,13 @@ namespace LedShowEditor.Display.Properties
                 _newEventMode = value;
                 NotifyOfPropertyChange(() => NewEventMode);
                 NotifyOfPropertyChange(() => CanAddEvent);
+                NotifyOfPropertyChange(() => EventManipulationText);
             }
+        }
+
+        public string EventManipulationText
+        {
+            get { return NewEventMode ? "Adding Event" : "Editing Event"; }
         }
 
         [ImportingConstructor]
@@ -64,6 +70,12 @@ namespace LedShowEditor.Display.Properties
 
         public void NewEvent()
         {
+            // Update prevEvent values to be selected event as we want new one to 'follow on'
+            _prevEventStartFrame = LedsVm.SelectedShow.SelectedEvent.StartFrame;
+            _prevEventEndFrame = LedsVm.SelectedShow.SelectedEvent.EndFrame;
+            _prevEventStartColor = LedsVm.SelectedShow.SelectedEvent.StartColor;
+            _prevEventEndColor = LedsVm.SelectedShow.SelectedEvent.EndColor;
+
             NewEventMode = true;
             var duration = _prevEventEndFrame - _prevEventStartFrame;
 
@@ -79,10 +91,6 @@ namespace LedShowEditor.Display.Properties
         public void AddEvent()
         {
             LedsVm.AddEvent(LedsVm.SelectedShow.SelectedEvent);
-            _prevEventStartFrame = LedsVm.SelectedShow.SelectedEvent.StartFrame;
-            _prevEventEndFrame = LedsVm.SelectedShow.SelectedEvent.EndFrame;
-            _prevEventStartColor = LedsVm.SelectedShow.SelectedEvent.StartColor;
-            _prevEventEndColor = LedsVm.SelectedShow.SelectedEvent.EndColor;
 
             // Ready properties panel for next event
             NewEvent();
@@ -120,6 +128,7 @@ namespace LedShowEditor.Display.Properties
         {
             UpdateColorList(message.Led.SingleColor);
             NewEventMode = false; // Editing event
+          
         }
 
         private void UpdateColorList(Color solidColor) 

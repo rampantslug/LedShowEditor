@@ -345,7 +345,7 @@
                 Grid.ColumnSpan="3"
                 Grid.Row="0"
                 Margin="20,0,0,0"
-                Text="Event"                
+                Text="{Binding EventManipulationText}"                
                 Foreground="{StaticResource AccentColorBrush}"
                 VerticalAlignment="Center" 
                 FontSize="24"
@@ -478,11 +478,10 @@
                 />
 
             </Grid>
-            <ToggleButton 
+            <controls:ToggleSwitch 
                 Grid.Column="0"
                 Grid.Row="6"
                 Content="New"
-                x:Name="NewEvent"
                 IsChecked="{Binding NewEventMode}"
                 />
             <Button 
