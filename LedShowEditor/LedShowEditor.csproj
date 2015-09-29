@@ -151,6 +151,7 @@
     <None Include="HobbitExample\HobbitConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="HobbitExample\LedShows\Lock Show 1.json" />
     <None Include="HobbitExample\LedShows\Smaug Fire Lower.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
