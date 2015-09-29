@@ -427,24 +427,59 @@ namespace LedShowEditor.ViewModels
                 line = line.PadRight(lineWidthToPipe);
                 line = line + "| ";
 
-                for (int frameNo = 0; frameNo <= (int)show.Frames; frameNo++)
+                char[] timelineRow = new char[show.Frames];
+                
+                // Initialise each char to be a space
+                for (var i = 0; i < show.Frames; i++)
                 {
-                    var frameInEvents = false;
-                    foreach (var eventViewModel in ledInShowViewModel.Events)
+                    timelineRow[i] = ' ';
+                }
+
+                foreach (var eventVm in ledInShowViewModel.Events)
+                {
+                    // Handle case where events have been placed outside the max frames of the show
+                    // Normally this shouldnt be a problem (More error handling may be require elsewhere)
+                    var endFrame = eventVm.EndFrame;
+                    if (eventVm.StartFrame >= show.Frames)
                     {
-                        frameInEvents = eventViewModel.ContainsFrame(frameNo);
-                        if (frameInEvents)
-                            break;
+                        break;
                     }
-                    if (frameInEvents)
+                    if (endFrame > show.Frames)
                     {
-                        line = line + "."; // ON
+                        endFrame = show.Frames;
                     }
-                    else
+
+                    // No change so normal process
+                    if (eventVm.StartColor == eventVm.EndColor)
                     {
-                        line = line + " "; // OFF
+                        for (var i = eventVm.StartFrame; i < endFrame; i++)
+                        {
+                            timelineRow[i] = '.';
+                        }
                     }
-                } 
+                    // Fade In
+                    else if (eventVm.StartColor == Colors.Transparent)
+                    {
+                        timelineRow[eventVm.StartFrame] = '<';
+                        for (var i = eventVm.StartFrame + 1; i < endFrame - 1; i++)
+                        {
+                            timelineRow[i] = ' ';
+                        }
+                        timelineRow[endFrame -1] = ']';
+                    }
+                    // Fade Out
+                    else if (eventVm.EndColor == Colors.Transparent)
+                    {
+                        timelineRow[eventVm.StartFrame] = '[';
+                        for (var i = eventVm.StartFrame + 1; i < endFrame - 1; i++)
+                        {
+                            timelineRow[i] = ' ';
+                        }
+                        timelineRow[endFrame - 1] = '>';
+                    }
+                }
+                var rowString = new string(timelineRow);
+                line = line + rowString;
                 stringBuilder.AppendLine(line);
             }
 
