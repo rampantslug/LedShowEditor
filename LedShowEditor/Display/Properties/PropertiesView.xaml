@@ -338,6 +338,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <TextBlock 
                 Grid.Column="0"
@@ -373,11 +374,26 @@
                 Text="{Binding LedsVm.SelectedShow.SelectedEvent.EndFrame}"
                 Height="25" 
                 />
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="3"
+                Text="Duration"
+                VerticalAlignment="Center"
+                />
+            <TextBox 
+                Grid.Column="2"
+                Grid.Row="3"
+                Text="{Binding LedsVm.SelectedShow.SelectedEvent.EventLength}"
+                Height="25" 
+                />
+
+
+
             <!-- If RGB Show these options -->
             <Grid
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Row="3"
+                Row="4"
                 RowSpan="2"
                 Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                 >
@@ -417,7 +433,7 @@
             <Grid
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Row="3"
+                Row="4"
                 RowSpan="2"
                 Visibility="{Binding LedsVm.SelectedLed.IsSingleColor, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
                 >
@@ -462,10 +478,17 @@
                 />
 
             </Grid>
+            <ToggleButton 
+                Grid.Column="0"
+                Grid.Row="6"
+                Content="New"
+                x:Name="NewEvent"
+                IsChecked="{Binding NewEventMode}"
+                />
             <Button 
                 Grid.Column="2"
-                Grid.Row="5"
-                Content="Add new event at current frame"
+                Grid.Row="6"
+                Content="Add"
                 x:Name="AddEvent"
                 />
         </Grid>

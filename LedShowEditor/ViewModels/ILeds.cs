@@ -39,6 +39,7 @@ namespace LedShowEditor.ViewModels
         void ExportLampShow(ShowViewModel dataContext);
 
         void AddEvent();
+        void AddEvent(EventViewModel selectedEvent);
         void AddEvent(uint startFrame, uint endFrame);
 
         // Import / Export

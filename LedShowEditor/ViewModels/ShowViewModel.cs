@@ -76,6 +76,9 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+
+
+
         public ShowViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -113,6 +116,7 @@ namespace LedShowEditor.ViewModels
             }
             await metroWindow.HideMetroDialogAsync(dialog);        
         }
+
 
         public void AddLed(LedViewModel ledVm)
         {

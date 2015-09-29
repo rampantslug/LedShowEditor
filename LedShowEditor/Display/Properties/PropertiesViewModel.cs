@@ -20,7 +20,8 @@ namespace LedShowEditor.Display.Properties
     [Export(typeof(IProperties))]
     public class PropertiesViewModel : Screen, IProperties, IHandle<SelectLedEvent>, IHandle<SingleColorLedColorModifiedEvent>
     {
-
+        public ILeds LedsVm { get; set; }
+        public IPlayfield PlayfieldVm { get; set; }
 
         public IEnumerable<LedShape> AllShapes
         {
@@ -31,6 +32,17 @@ namespace LedShowEditor.Display.Properties
             get { return _colorList; }
         }
 
+        public bool NewEventMode
+        {
+            get { return _newEventMode; }
+            set
+            {
+                if (value.Equals(_newEventMode)) return;
+                _newEventMode = value;
+                NotifyOfPropertyChange(() => NewEventMode);
+                NotifyOfPropertyChange(() => CanAddEvent);
+            }
+        }
 
         [ImportingConstructor]
         public PropertiesViewModel(IEventAggregator eventAggregator, ILeds ledsViewModel, IPlayfield playfieldViewModel)
@@ -47,11 +59,33 @@ namespace LedShowEditor.Display.Properties
                 new ColorItem(Colors.White, "White"),
                 new ColorItem(Colors.Transparent, "Transparent")
             };
-        }      
+        }
+
+
+        public void NewEvent()
+        {
+            NewEventMode = true;
+            var duration = _prevEventEndFrame - _prevEventStartFrame;
+
+            LedsVm.SelectedShow.SelectedEvent = new EventViewModel(
+                _prevEventEndFrame, _prevEventEndFrame + duration, _prevEventEndColor, _prevEventEndColor);
+        }
+
+        public bool CanAddEvent
+        {
+            get { return _newEventMode; }
+        }
 
         public void AddEvent()
         {
-            LedsVm.AddEvent();
+            LedsVm.AddEvent(LedsVm.SelectedShow.SelectedEvent);
+            _prevEventStartFrame = LedsVm.SelectedShow.SelectedEvent.StartFrame;
+            _prevEventEndFrame = LedsVm.SelectedShow.SelectedEvent.EndFrame;
+            _prevEventStartColor = LedsVm.SelectedShow.SelectedEvent.StartColor;
+            _prevEventEndColor = LedsVm.SelectedShow.SelectedEvent.EndColor;
+
+            // Ready properties panel for next event
+            NewEvent();
         }
 
         public void BrowsePlayfieldImage()
@@ -85,6 +119,7 @@ namespace LedShowEditor.Display.Properties
         public void Handle(SelectLedEvent message)
         {
             UpdateColorList(message.Led.SingleColor);
+            NewEventMode = false; // Editing event
         }
 
         private void UpdateColorList(Color solidColor) 
@@ -97,9 +132,12 @@ namespace LedShowEditor.Display.Properties
         private IEventAggregator _eventAggregator;
         private string _selectedSingleLedEventOption;
         private BindableCollection<ColorItem> _colorList;
-        public ILeds LedsVm { get; set; }
-        public IPlayfield PlayfieldVm { get; set; }
+        private bool _newEventMode;
 
-        
+        private uint _prevEventStartFrame;
+        private uint _prevEventEndFrame;
+        private Color _prevEventStartColor;
+        private Color _prevEventEndColor;
+
     }
 }

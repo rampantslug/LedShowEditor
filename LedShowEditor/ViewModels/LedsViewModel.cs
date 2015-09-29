@@ -461,7 +461,7 @@ namespace LedShowEditor.ViewModels
             AddEvent(CurrentFrame, CurrentFrame+4);
         }
 
-        public void AddEvent(uint startFrame, uint endFrame)
+        public void AddEvent(EventViewModel eventViewModel)
         {
             if (SelectedShow != null && SelectedLed != null)
             {
@@ -479,23 +479,23 @@ namespace LedShowEditor.ViewModels
                 foreach (var existingEvent in existingLed.Events)
                 {
                     // Does new event completely overlap existing -> delete existing
-                    if (existingEvent.StartFrame >= startFrame && existingEvent.EndFrame <= endFrame)
+                    if (existingEvent.StartFrame >= eventViewModel.StartFrame && existingEvent.EndFrame <= eventViewModel.EndFrame)
                     {
                         removeEvents.Add(existingEvent);
                         continue;
                     }
 
                     // Does new event start before existing finishes -> update existing finish time
-                    if (existingEvent.EndFrame > startFrame && existingEvent.EndFrame < endFrame)
+                    if (existingEvent.EndFrame > eventViewModel.StartFrame && existingEvent.EndFrame < eventViewModel.EndFrame)
                     {
-                        existingEvent.EndFrame = startFrame;
+                        existingEvent.EndFrame = eventViewModel.StartFrame;
                         continue;
                     }
 
                     // Does new event finish after existing starts -> update existing start time
-                    if (existingEvent.StartFrame > startFrame && existingEvent.EndFrame > endFrame)
+                    if (existingEvent.StartFrame > eventViewModel.StartFrame && existingEvent.EndFrame > eventViewModel.EndFrame)
                     {
-                        existingEvent.StartFrame = endFrame;
+                        existingEvent.StartFrame = eventViewModel.EndFrame;
                         continue;
                     }
 
@@ -508,21 +508,19 @@ namespace LedShowEditor.ViewModels
                     existingLed.Events.Remove(removeEvent);
                 }
 
+                existingLed.Events.Add(eventViewModel);
+            }
+        }
 
-                // TODO: If blink type of event then need to add multiple events
-                if (SelectedLed.IsSingleColor)
-                {
-                    var eventToAdd = new EventViewModel(startFrame, endFrame, SelectedLed.SingleColor, SelectedLed.SingleColor);
-                    existingLed.Events.Add(eventToAdd);
-                }
-                else
-                {
-                    var eventToAdd = new EventViewModel(startFrame, endFrame, Colors.Blue, Colors.Red);
-
-                    existingLed.Events.Add(eventToAdd);
-                }
-
-
+        public void AddEvent(uint startFrame, uint endFrame)
+        {
+            if (SelectedLed != null && SelectedLed.IsSingleColor)
+            {
+                AddEvent(new EventViewModel(startFrame, endFrame, SelectedLed.SingleColor, SelectedLed.SingleColor));
+            }
+            else
+            {
+                AddEvent(new EventViewModel(startFrame, endFrame, Colors.Blue, Colors.Red));
             }
         }
 

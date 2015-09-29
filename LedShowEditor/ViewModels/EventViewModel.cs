@@ -48,6 +48,12 @@ namespace LedShowEditor.ViewModels
             {
                 return _endFrame - _startFrame;
             }
+            set
+            {
+                _endFrame = value + _startFrame;
+                NotifyOfPropertyChange(()=> EventLength);
+                NotifyOfPropertyChange(()=> EndFrame);
+            }
         }
 
         public Color StartColor

@@ -26,6 +26,20 @@ namespace LedShowEditor.ViewModels
 
         public LedViewModel LinkedLed { get; set; }
 
+        public int ShiftAmount
+        {
+            get { return _shiftAmount; }
+            set
+            {
+                _shiftAmount = value;
+                ShiftAllEvents(_shiftAmount);
+                _shiftAmount = 0;
+                NotifyOfPropertyChange(() => ShiftAmount);
+
+            }
+        }
+
+
         public LedInShowViewModel(IEventAggregator eventAggregator, LedViewModel linkedLed)
         {
             _eventAggregator = eventAggregator;
@@ -38,6 +52,16 @@ namespace LedShowEditor.ViewModels
         public void DeleteEvent(EventViewModel dataContext)
         {
             Events.Remove(dataContext);
+        }
+
+        public void ShiftAllEvents(int shiftAmount)
+        {
+            // TODO: Check to see if shift makes sense e.g not some masive amount or something that will make StartFrame neg.
+            foreach (var eventViewModel in Events)
+            {
+                eventViewModel.StartFrame = (uint)(eventViewModel.StartFrame + shiftAmount);
+                eventViewModel.EndFrame = (uint)(eventViewModel.EndFrame + shiftAmount);
+            }    
         }
 
         public void Handle(SingleColorLedColorModifiedEvent message)
@@ -79,7 +103,6 @@ namespace LedShowEditor.ViewModels
 
         private IObservableCollection<EventViewModel> _events;
         private IEventAggregator _eventAggregator;
-
-        
+        private int _shiftAmount;
     }
 }
