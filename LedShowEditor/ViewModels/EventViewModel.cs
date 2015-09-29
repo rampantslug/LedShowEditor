@@ -104,6 +104,19 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public int ShiftAmount
+        {
+            get { return _shiftAmount; }
+            set
+            {
+                _shiftAmount = value;
+                ShiftEvent(_shiftAmount);
+                _shiftAmount = 0;
+                NotifyOfPropertyChange(() => ShiftAmount);
+                
+            }
+        }
+
         public EventViewModel(uint startFrame, uint endFrame, Color startColor, Color endColor)
         {
             _startFrame = startFrame;
@@ -160,29 +173,11 @@ namespace LedShowEditor.ViewModels
             return frameNo >= StartFrame && frameNo < EndFrame;
         }
 
-        public void ExecuteLedRowCommand(Key key)
+        public void ShiftEvent(int shiftAmount)
         {
-            var breakhere = true;
-            if (key == Key.D1)
-            {
-                // Insert a new event at current frame of 4 frame sizes
-
-            }
-            else if (key == Key.D2)
-            {
-                // Insert a new event at current frame of 4 frame sizes
-            }
-            else if (key == Key.D3)
-            {
-                // Insert a new event at current frame of 4 frame sizes
-            }
-            else if (key == Key.D4)
-            {
-                // Insert a new event at current frame of 4 frame sizes
-            }
+            StartFrame = (uint) (StartFrame + shiftAmount);
+            EndFrame = (uint) (EndFrame + shiftAmount);
         }
-
-
 
 
         private uint _startFrame;
@@ -191,5 +186,6 @@ namespace LedShowEditor.ViewModels
         private bool _isSelected;
         private Color _startColor;
         private Color _endColor;
+        private int _shiftAmount;
     }
 }

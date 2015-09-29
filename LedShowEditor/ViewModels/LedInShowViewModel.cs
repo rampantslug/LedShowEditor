@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -58,9 +59,23 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public EventViewModel GetLastEvent()
+        {
+            var lastEvent = Events.First();
+            foreach (var eventViewModel in Events)
+            {
+                if (eventViewModel.EndFrame >= lastEvent.EndFrame)
+                {
+                    lastEvent = eventViewModel;
+                }
+            }
+            return lastEvent;
+        }
+
 
         private IObservableCollection<EventViewModel> _events;
         private IEventAggregator _eventAggregator;
+
         
     }
 }

@@ -1,7 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
+using LedShowEditor.Display.Dialogs;
 using LedShowEditor.ViewModels.Events;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace LedShowEditor.ViewModels
 {
@@ -84,9 +89,29 @@ namespace LedShowEditor.ViewModels
             Leds.Remove(dataContext);
         }
 
-        public void DuplicateLedEvents(LedInShowViewModel dataContext)
+        public async void DuplicateLedEvents(LedInShowViewModel dataContext)
         {
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+            var ledNames = Leds.Select(led => led.LinkedLed.Name).ToList();
 
+            var dialog = new LedSelectorDialog(ledNames, metroWindow);
+            await metroWindow.ShowMetroDialogAsync(dialog);
+
+            var result = await dialog.WaitForButtonPressAsync();
+            if (!string.IsNullOrEmpty(result))
+            {
+                var matchingLedInShow = Leds.FirstOrDefault(led => led.LinkedLed.Name == result);
+                if (matchingLedInShow != null)
+                {
+                    foreach (var eventVm in dataContext.Events)
+                    {
+                        var duplicateEventViewModel = new EventViewModel(eventVm.StartFrame, eventVm.EndFrame,
+                            eventVm.StartColor, eventVm.EndColor);
+                        matchingLedInShow.Events.Add(duplicateEventViewModel);
+                    }
+                }
+            }
+            await metroWindow.HideMetroDialogAsync(dialog);        
         }
 
         public void AddLed(LedViewModel ledVm)

@@ -97,6 +97,22 @@ namespace LedShowEditor.Display.Timeline
             }
         }
 
+        public void LastFrameOfLastEvent()
+        {
+            LedsVm.IsPlaying = false;
+
+            if (LedsVm.SelectedShow != null && SelectedLed != null)
+            {
+                var lastEvent = SelectedLed.GetLastEvent();
+
+                LedsVm.CurrentFrame = lastEvent.EndFrame;
+            }
+            else
+            {
+                LastFrame();
+            }
+        }
+
         #endregion
 
         public void ExecuteLedRowCommand(Key key)
@@ -310,7 +326,7 @@ namespace LedShowEditor.Display.Timeline
             int activeRow = (int)cursorPosition.Y/rowHeight;
             uint frameNo = (uint)cursorPosition.X/5;
 
-            if (activeRow > LedsVm.SelectedShow.Leds.Count)
+            if (activeRow >= LedsVm.SelectedShow.Leds.Count)
             {
                 return null;
             }

@@ -46,7 +46,7 @@ namespace LedShowEditor.ViewModels
             private set
             {
                 _allLeds = value;
-                NotifyOfPropertyChange(() => AllLeds);
+                NotifyOfPropertyChange(() => AllLeds);                
             }
         }
         public IObservableCollection<GroupViewModel> Groups
@@ -59,6 +59,7 @@ namespace LedShowEditor.ViewModels
             {
                 _groups = value;
                 NotifyOfPropertyChange(() => Groups);
+                NotifyOfPropertyChange(() => GroupCount);
             }
         }
         public IObservableCollection<ShowViewModel> Shows
@@ -190,6 +191,16 @@ namespace LedShowEditor.ViewModels
             }
         }
 
+        public int GroupCount
+        {
+            get { return Groups.Count; }
+        }
+
+        public int LedCount
+        {
+            get { return AllLeds.Count; }
+
+        }
 
         #endregion
 
@@ -279,6 +290,8 @@ namespace LedShowEditor.ViewModels
             var ledVm = new LedViewModel(_eventAggregator, highestId + 1);
             AllLeds.Add(ledVm);
             _unassignedGroup.Leds.Add(ledVm);
+
+            NotifyOfPropertyChange(() => LedCount);
         }
 
         public void DeleteLed(LedViewModel led)
@@ -290,6 +303,7 @@ namespace LedShowEditor.ViewModels
                 {
                     groupViewModel.Leds.Remove(led);
                 }
+                NotifyOfPropertyChange(() => LedCount);
             }
         }
 
@@ -311,6 +325,8 @@ namespace LedShowEditor.ViewModels
         public void AddGroup()
         {
             Groups.Add(new GroupViewModel(_eventAggregator));
+
+            NotifyOfPropertyChange(() => GroupCount);
         }
 
         public void DeleteGroup(GroupViewModel group)
@@ -322,6 +338,8 @@ namespace LedShowEditor.ViewModels
                     _unassignedGroup.Leds.Add(led);
                 }
                 Groups.Remove(group);
+
+                NotifyOfPropertyChange(() => GroupCount);
             }
         }
 
@@ -521,6 +539,7 @@ namespace LedShowEditor.ViewModels
                     AllLeds.Add(led);
                 }
             }
+            NotifyOfPropertyChange(() => LedCount);
         }
 
         public IList<LedConfig> GetLedsAsConfigs()
@@ -578,6 +597,7 @@ namespace LedShowEditor.ViewModels
                     _unassignedGroup.Leds.Add(ledViewModel);
                 }
             }
+            NotifyOfPropertyChange(() => GroupCount);
         }
 
         public IList<GroupConfig> GetGroupsAsConfigs()

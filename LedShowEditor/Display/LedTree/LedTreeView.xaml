@@ -26,6 +26,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
@@ -151,6 +152,22 @@
         <StackPanel 
             Grid.Row="1"
             Orientation="Horizontal">
+            <TextBlock 
+                Margin="5,0"
+                Text="Total Groups"/>
+            <TextBlock 
+                Margin="5,0"
+                Text="{Binding LedsVm.GroupCount}"/>
+            <TextBlock 
+                Margin="5,0"
+                Text="Total Leds"/>
+            <TextBlock 
+                Margin="5,0"
+                Text="{Binding LedsVm.LedCount}"/>
+        </StackPanel>
+        <StackPanel 
+            Grid.Row="2"
+            Orientation="Horizontal">
             <Button 
                 Margin="5"
                 x:Name="AddLed"
@@ -162,6 +179,7 @@
                 Content="Add new group"
                 />
         </StackPanel>
+        
     </Grid>
 
 </UserControl>

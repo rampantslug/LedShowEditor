@@ -7,7 +7,7 @@
       "Name": "L - Rollover",
       "IsSingleColor": false,
       "SingleColor": "#FFFFFFFF",
-      "LocationX": 35.548926014319875,
+      "LocationX": 35.369069899211958,
       "LocationY": 49.5262515262515,
       "Angle": 0.0,
       "Scale": 1.0,
@@ -15,29 +15,29 @@
     },
     {
       "Id": 3,
-      "Name": "New Led 3",
+      "Name": "Gloin",
       "IsSingleColor": false,
       "SingleColor": "#FFFFFFFF",
-      "LocationX": 17.171837708830505,
-      "LocationY": 50.625152625152566,
+      "LocationX": 13.346701096808639,
+      "LocationY": 56.315451132615308,
       "Angle": 18.620689655172413,
       "Scale": 1.0,
       "Shape": 4
     },
     {
       "Id": 4,
-      "Name": "New Led 4",
+      "Name": "Kickback",
       "IsSingleColor": false,
       "SingleColor": "#FFFFFFFF",
-      "LocationX": 5.7159904534606394,
-      "LocationY": 67.597069597069563,
+      "LocationX": 5.1764221081369026,
+      "LocationY": 67.59706959706935,
       "Angle": 15.517241379310345,
-      "Scale": 1.0,
+      "Scale": 0.74137931034482762,
       "Shape": 5
     },
     {
       "Id": 5,
-      "Name": "New Led 5",
+      "Name": "Fili Orbit Arrow",
       "IsSingleColor": false,
       "SingleColor": "#FFFFFFFF",
       "LocationX": 10.489260143198122,
@@ -56,51 +56,740 @@
       "Angle": 158.27586206896541,
       "Scale": 1.0,
       "Shape": 3
+    },
+    {
+      "Id": 7,
+      "Name": "O - Rollover",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 44.528704904928581,
+      "LocationY": 48.652985074626883,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 8,
+      "Name": "C - Rollover",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 53.636173028790068,
+      "LocationY": 48.651782523844894,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 9,
+      "Name": "K - Rollover",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 62.741347905282382,
+      "LocationY": 49.676699376047942,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 10,
+      "Name": "Oin",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 15.38251366120218,
+      "LocationY": 53.410447761194014,
+      "Angle": 18.620689655172413,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 11,
+      "Name": "Dwalin",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 17.386156648451713,
+      "LocationY": 50.705223880597011,
+      "Angle": 18.620689655172413,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 12,
+      "Name": "Nori",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 82.595628415300652,
+      "LocationY": 48.652985074626919,
+      "Angle": 68.275862068965523,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 13,
+      "Name": "Dori",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 84.417122040073025,
+      "LocationY": 51.638059701492594,
+      "Angle": 68.275862068965523,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 14,
+      "Name": "Ori",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 86.420765027322631,
+      "LocationY": 54.249999999999915,
+      "Angle": 68.275862068965523,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 15,
+      "Name": "Smaug",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 19.754098360655757,
+      "LocationY": 34.286110882053855,
+      "Angle": 49.6551724137931,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 16,
+      "Name": "Balin",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 24.064748201438832,
+      "LocationY": 32.346224677716393,
+      "Angle": 49.6551724137931,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 17,
+      "Name": "Bifur",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 28.381294964028765,
+      "LocationY": 30.596685082872927,
+      "Angle": 49.6551724137931,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 18,
+      "Name": "Bofur",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 32.697841726618691,
+      "LocationY": 28.755064456721914,
+      "Angle": 49.6551724137931,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 19,
+      "Name": "Bombur",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 37.194244604316573,
+      "LocationY": 26.913443830570902,
+      "Angle": 49.6551724137931,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 20,
+      "Name": "Load Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 5.000000000000008,
+      "LocationY": 71.020257826887672,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Id": 21,
+      "Name": "Warg",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 15.07194244604316,
+      "LocationY": 65.863720073664609,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 22,
+      "Name": "Orc",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 21.007194244604307,
+      "LocationY": 65.955801104972451,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 23,
+      "Name": "Goblin",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 77.122302158273371,
+      "LocationY": 66.047882136280023,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 24,
+      "Name": "Spider",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 82.877697841726658,
+      "LocationY": 65.771639042357378,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 25,
+      "Name": "Light Mystery Left",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 26.223021582733796,
+      "LocationY": 77.926335174954374,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
+    },
+    {
+      "Id": 26,
+      "Name": "Light Mystery Right",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 71.906474820144,
+      "LocationY": 78.018416206261833,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
+    },
+    {
+      "Id": 27,
+      "Name": "Precious",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 88.992805755395793,
+      "LocationY": 65.86372007366478,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 28,
+      "Name": "Smaug Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 25.4861111111111,
+      "LocationY": 38.674955595026624,
+      "Angle": 335.17241379310332,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 29,
+      "Name": "Gandalf Ramp Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 43.194444444444457,
+      "LocationY": 24.998223801065741,
+      "Angle": 353.79310344827582,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 30,
+      "Name": "Thorin Newton Ball Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 49.097222222222172,
+      "LocationY": 34.678507992895312,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 31,
+      "Name": "Bilbo Ramp Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 54.652777777777722,
+      "LocationY": 25.087033747779763,
+      "Angle": 6.2068965517241175,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 32,
+      "Name": "Radagast Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 74.618055555555557,
+      "LocationY": 35.833037300177615,
+      "Angle": 24.827586206896548,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 33,
+      "Name": "Kili Orbit Arrow",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 86.423611111111214,
+      "LocationY": 35.300177619893354,
+      "Angle": 21.724137931034242,
+      "Scale": 1.0,
+      "Shape": 7
+    },
+    {
+      "Id": 34,
+      "Name": "Lower Middle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 75.312500000000156,
+      "LocationY": 13.985790408525705,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 35,
+      "Name": "Upper Right",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 77.743055555555543,
+      "LocationY": 10.255772646536418,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 36,
+      "Name": "Upper Left",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 69.583333333333456,
+      "LocationY": 11.499111900532871,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 37,
+      "Name": "Fili Orbit Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 13.159722222222225,
+      "LocationY": 37.786856127886395,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 38,
+      "Name": "Kili Orbit Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 83.819444444444628,
+      "LocationY": 39.385435168738923,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 39,
+      "Name": "Mystery",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 64.375000000000085,
+      "LocationY": 24.909413854351715,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 40,
+      "Name": "Bag End",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 70.625000000000185,
+      "LocationY": 25.353463587921887,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 41,
+      "Name": "Smaug Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 28.437499999999961,
+      "LocationY": 42.049733570159923,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 42,
+      "Name": "Gandalf Ramp Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 44.236111111111171,
+      "LocationY": 28.905861456483159,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 43,
+      "Name": "Thorin Newton Ball Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 49.270833333333314,
+      "LocationY": 38.763765541740653,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 44,
+      "Name": "Bilbo Ramp Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 53.784722222222314,
+      "LocationY": 28.728241563055093,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 45,
+      "Name": "Radagast Circle",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 71.493055555555628,
+      "LocationY": 39.563055062166967,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Id": 46,
+      "Name": "Extra Ball - Extra",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 30.868055555555507,
+      "LocationY": 44.536412078152757,
+      "Angle": 155.17241379310343,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 47,
+      "Name": "Extra Ball - Ball",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 69.236111111111256,
+      "LocationY": 41.960923623445794,
+      "Angle": 24.827586206896548,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 48,
+      "Name": "Into the Fire",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 41.678832116788293,
+      "LocationY": 77.999999999999943,
+      "Angle": 45.0,
+      "Scale": 1.1810344827586212,
+      "Shape": 4
+    },
+    {
+      "Id": 49,
+      "Name": "Barrel Escape",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 49.160583941605793,
+      "LocationY": 75.7570093457943,
+      "Angle": 45.0,
+      "Scale": 1.1810344827586212,
+      "Shape": 4
+    },
+    {
+      "Id": 50,
+      "Name": "Battle of Five Armies",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 56.824817518248189,
+      "LocationY": 77.9999999999998,
+      "Angle": 45.0,
+      "Scale": 1.1810344827586212,
+      "Shape": 4
+    },
+    {
+      "Id": 51,
+      "Name": "Lock 1",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 47.153284671532766,
+      "LocationY": 71.55140186915888,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 52,
+      "Name": "Lock 2",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 51.350364963503708,
+      "LocationY": 71.5514018691588,
+      "Angle": 90.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 53,
+      "Name": "Shoot Again",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 40.583941605839392,
+      "LocationY": 74.355140186916017,
+      "Angle": 135.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 54,
+      "Name": "Super X",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 57.919708029197096,
+      "LocationY": 74.355140186915861,
+      "Angle": 45.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 55,
+      "Name": "Key",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 49.1605839416058,
+      "LocationY": 10.149532710280365,
+      "Angle": 0.0,
+      "Scale": 0.74137931034482762,
+      "Shape": 2
+    },
+    {
+      "Id": 56,
+      "Name": "New Led 56",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 41.274509803921518,
+      "LocationY": 45.157190635451563,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 57,
+      "Name": "New Led 57",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 57.614379084967325,
+      "LocationY": 43.15050167224085,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 58,
+      "Name": "New Led 58",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 63.496732026143746,
+      "LocationY": 62.882943143812753,
+      "Angle": 158.27586206896541,
+      "Scale": 1.0,
+      "Shape": 3
+    },
+    {
+      "Id": 59,
+      "Name": "New Led 59",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 34.411764705882355,
+      "LocationY": 61.545150501672246,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
+    },
+    {
+      "Id": 60,
+      "Name": "New Led 60",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 40.947712418300632,
+      "LocationY": 42.481605351170586,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
+    },
+    {
+      "Id": 61,
+      "Name": "New Led 61",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 57.287581699346333,
+      "LocationY": 40.140468227424776,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
+    },
+    {
+      "Id": 62,
+      "Name": "New Led 62",
+      "IsSingleColor": false,
+      "SingleColor": "#FFFFFFFF",
+      "LocationX": 64.803921568627459,
+      "LocationY": 60.040133779264252,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 6
     }
   ],
   "Groups": [
     {
       "Name": "Unassigned Leds",
       "Leds": [
-        3,
-        4,
-        5,
-        6
+        30,
+        32,
+        39,
+        40,
+        43,
+        45,
+        47,
+        55
       ]
     },
     {
       "Name": "Lock Rollovers",
       "Leds": [
-        2
+        2,
+        7,
+        8,
+        9
       ]
     },
     {
       "Name": "Dwarf Drops Left",
-      "Leds": []
+      "Leds": [
+        3,
+        10,
+        11
+      ]
     },
     {
       "Name": "Dwarf Drops Right",
-      "Leds": []
+      "Leds": [
+        12,
+        13,
+        14
+      ]
     },
     {
       "Name": "Dwarf Drops Smaug",
-      "Leds": []
+      "Leds": [
+        15,
+        28,
+        41,
+        46,
+        16,
+        17,
+        18,
+        19
+      ]
     },
     {
       "Name": "Orbit",
-      "Leds": []
+      "Leds": [
+        5,
+        37,
+        33,
+        38
+      ]
     },
     {
       "Name": "Ramps",
-      "Leds": []
+      "Leds": [
+        29,
+        42,
+        31,
+        44
+      ]
     },
     {
       "Name": "Lanes",
-      "Leds": []
+      "Leds": [
+        20,
+        4,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ]
     },
     {
       "Name": "Pop Bumpers",
-      "Leds": []
+      "Leds": [
+        36,
+        35,
+        34
+      ]
+    },
+    {
+      "Name": "Status",
+      "Leds": [
+        50,
+        49,
+        48,
+        54,
+        53,
+        52,
+        51
+      ]
+    },
+    {
+      "Name": "Popup Targets",
+      "Leds": [
+        6,
+        59,
+        56,
+        60,
+        57,
+        61,
+        62,
+        58
+      ]
     }
   ]
 }

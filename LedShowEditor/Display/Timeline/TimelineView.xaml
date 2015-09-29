@@ -167,39 +167,59 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                            <!-- Template for an Individual Event-->
+                                                <!-- Template for an Individual Event-->
                                                 <Rectangle
-                                                Height="25"
-                                                Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
-                                                Fill="{Binding EventBrush}"   
-                                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
->
-                                                    <Rectangle.Effect                           
-                                                >
-                                                    <DropShadowEffect
-                                                       
-                                    ShadowDepth="0" 
-                                    Color="{DynamicResource AccentColor}" 
-                                    BlurRadius="20"
-                                />
-                                                </Rectangle.Effect>
-                                            </Rectangle>
-                                            <Rectangle
+                                                    Height="25"
+                                                    Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
+                                                    Fill="{Binding EventBrush}"
+                                                    Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                    Stroke="{DynamicResource AccentColorBrush}"
+                                                    StrokeThickness="2"
+                                                    Margin="1"
+                                                    >
+                                                    <Rectangle.Effect>
+                                                        <DropShadowEffect
+                                                            ShadowDepth="0"
+                                                            Color="{DynamicResource AccentColor}"
+                                                            BlurRadius="20" />
+                                                    </Rectangle.Effect>
+                                                </Rectangle>
+                                                <Rectangle
 
-                                                Fill="{Binding EventBrush}"
-                                                Height="25"
-                                                Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
-                                                Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}">
-                                                <Rectangle.ContextMenu>
-                                                    <ContextMenu>
-                                                        <MenuItem
-                                                            Header="Delete"
-                                                            cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
-                                                            cal:Message.Attach="DeleteEvent($dataContext)" />
-                                                    </ContextMenu>
-                                                </Rectangle.ContextMenu>
-                                               
-                                            </Rectangle>
+                                                    Fill="{Binding EventBrush}"
+                                                    Height="25"
+                                                    Width="{Binding EventLength, Converter={StaticResource MathConverter}, ConverterParameter=x*5}"
+                                                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}">
+                                                    <Rectangle.ContextMenu>
+                                                        <ContextMenu>
+                                                            <MenuItem
+                                                                Header="Delete"
+                                                                cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                                                cal:Message.Attach="DeleteEvent($dataContext)" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="30"/>
+                                                                    <RowDefinition Height="30"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="5"/>
+                                                                    <ColumnDefinition MinWidth="100"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock 
+                                                                    Grid.Column="0"
+                                                                    Grid.ColumnSpan="2"
+                                                                    Grid.Row="0"
+                                                                    Text="Shift"
+                                                                    />
+                                                                <TextBox 
+                                                                    Grid.Column="1"
+                                                                    Grid.Row="1"
+                                                                    Text="{Binding ShiftAmount}"
+                                                                    />
+                                                            </Grid>
+                                                        </ContextMenu>
+                                                    </Rectangle.ContextMenu>
+                                                </Rectangle>
                                             </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -214,10 +234,7 @@
                 <Canvas
                     Grid.Column="1"
                     Grid.Row="0"
-                    x:Name="TickCanvas"
-                    >
-                  
-                </Canvas>
+                    x:Name="TickCanvas" />
 
 
                 <!-- Current Frame Marker -->
@@ -336,7 +353,7 @@
                 </Rectangle>
             </Button>
             <Button
-                x:Name="LastFrame"
+                x:Name="LastFrameOfLastEvent"
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="30"
                 Width="30"

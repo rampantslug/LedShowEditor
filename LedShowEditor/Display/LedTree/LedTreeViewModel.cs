@@ -14,7 +14,7 @@ namespace LedShowEditor.Display.LedTree
         private readonly IEventAggregator _eventAggregator;
         public ILeds LedsVm { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         [ImportingConstructor]

@@ -115,6 +115,7 @@
     <Compile Include="Display\Properties\PropertiesViewModel.cs" />
     <Compile Include="Display\ShowsList\IShowsList.cs" />
     <Compile Include="Display\ShowsList\ShowsListViewModel.cs" />
+    <Compile Include="Display\Dialogs\LedSelectorDialog.cs" />
     <Compile Include="Display\Timeline\ScrollSynchronizer.cs" />
     <Compile Include="Helpers\GetColorAtPointOnGradientBrush.cs" />
     <Compile Include="ViewModels\Events\ShowSelectedEvent.cs" />
@@ -205,6 +206,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Display\ShowsList\ShowsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Dialogs\LedSelectorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
