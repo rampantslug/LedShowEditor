@@ -1,14 +1,640 @@
 {
-  "Frames": 64,
+  "Frames": 112,
   "Leds": [
     {
-      "LinkedLed": 5,
+      "LinkedLed": 29,
       "Events": [
         {
-          "StartFrame": 12,
+          "StartFrame": 2,
+          "EndFrame": 20,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 20,
+          "EndFrame": 36,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 36,
+          "EndFrame": 68,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFB22222"
+        },
+        {
+          "StartFrame": 68,
+          "EndFrame": 84,
+          "StartColor": "#FFB22222",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 42,
+      "Events": [
+        {
+          "StartFrame": 2,
+          "EndFrame": 20,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 20,
+          "EndFrame": 36,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 36,
+          "EndFrame": 68,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFB22222"
+        },
+        {
+          "StartFrame": 68,
+          "EndFrame": 84,
+          "StartColor": "#FFB22222",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 31,
+      "Events": [
+        {
+          "StartFrame": 6,
+          "EndFrame": 24,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 24,
+          "EndFrame": 40,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 40,
+          "EndFrame": 56,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 56,
+          "EndFrame": 72,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 72,
+          "EndFrame": 88,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        },
+        {
+          "StartFrame": 15,
+          "EndFrame": 24,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 24,
+          "EndFrame": 40,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 40,
+          "EndFrame": 56,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 56,
+          "EndFrame": 72,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 72,
+          "EndFrame": 88,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 44,
+      "Events": [
+        {
+          "StartFrame": 6,
+          "EndFrame": 24,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 24,
+          "EndFrame": 40,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 40,
+          "EndFrame": 72,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFB22222"
+        },
+        {
+          "StartFrame": 72,
+          "EndFrame": 88,
+          "StartColor": "#FFB22222",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 19,
+      "Events": [
+        {
+          "StartFrame": 0,
+          "EndFrame": 16,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 16,
+          "EndFrame": 32,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 32,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFB22222"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 80,
+          "StartColor": "#FFB22222",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 18,
+      "Events": [
+        {
+          "StartFrame": 0,
+          "EndFrame": 16,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 16,
+          "EndFrame": 32,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 32,
+          "EndFrame": 48,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 48,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 80,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 30,
+      "Events": [
+        {
+          "StartFrame": 8,
+          "EndFrame": 24,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 24,
+          "EndFrame": 40,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 40,
+          "EndFrame": 56,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 56,
+          "EndFrame": 72,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 72,
+          "EndFrame": 88,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 43,
+      "Events": [
+        {
+          "StartFrame": 10,
+          "EndFrame": 26,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 26,
           "EndFrame": 44,
-          "StartColor": "#FF0000FF",
-          "EndColor": "#FFFF0000"
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 44,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 76,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 76,
+          "EndFrame": 92,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 32,
+      "Events": [
+        {
+          "StartFrame": 22,
+          "EndFrame": 38,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 38,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 76,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 76,
+          "EndFrame": 92,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 92,
+          "EndFrame": 108,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        },
+        {
+          "StartFrame": 44,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 76,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 76,
+          "EndFrame": 92,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 92,
+          "EndFrame": 108,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 45,
+      "Events": [
+        {
+          "StartFrame": 22,
+          "EndFrame": 38,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 38,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 76,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 76,
+          "EndFrame": 92,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 92,
+          "EndFrame": 108,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        },
+        {
+          "StartFrame": 44,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 76,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 76,
+          "EndFrame": 92,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 92,
+          "EndFrame": 108,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 47,
+      "Events": [
+        {
+          "StartFrame": 22,
+          "EndFrame": 38,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 38,
+          "EndFrame": 60,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 60,
+          "EndFrame": 92,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 92,
+          "EndFrame": 108,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 33,
+      "Events": [
+        {
+          "StartFrame": 26,
+          "EndFrame": 42,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 42,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 96,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 96,
+          "EndFrame": 112,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 38,
+      "Events": [
+        {
+          "StartFrame": 26,
+          "EndFrame": 42,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 42,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 96,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 96,
+          "EndFrame": 112,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 57,
+      "Events": [
+        {
+          "StartFrame": 16,
+          "EndFrame": 32,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 32,
+          "EndFrame": 52,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 52,
+          "EndFrame": 84,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 84,
+          "EndFrame": 100,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 61,
+      "Events": [
+        {
+          "StartFrame": 10,
+          "EndFrame": 26,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 48,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 80,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 80,
+          "EndFrame": 96,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        },
+        {
+          "StartFrame": 26,
+          "EndFrame": 48,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 48,
+          "EndFrame": 64,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 64,
+          "EndFrame": 80,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 80,
+          "EndFrame": 96,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 39,
+      "Events": [
+        {
+          "StartFrame": 10,
+          "EndFrame": 26,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 26,
+          "EndFrame": 48,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFFC7A03"
+        },
+        {
+          "StartFrame": 48,
+          "EndFrame": 80,
+          "StartColor": "#FFFC7A03",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 80,
+          "EndFrame": 96,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
+        }
+      ]
+    },
+    {
+      "LinkedLed": 40,
+      "Events": [
+        {
+          "StartFrame": 16,
+          "EndFrame": 32,
+          "StartColor": "#00FFFFFF",
+          "EndColor": "#FFFF8C00"
+        },
+        {
+          "StartFrame": 32,
+          "EndFrame": 52,
+          "StartColor": "#FFFF8C00",
+          "EndColor": "#FFFF8C00"
+        },
+        {
+          "StartFrame": 52,
+          "EndFrame": 68,
+          "StartColor": "#FFFF8C00",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 68,
+          "EndFrame": 84,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#FFDAA520"
+        },
+        {
+          "StartFrame": 84,
+          "EndFrame": 100,
+          "StartColor": "#FFDAA520",
+          "EndColor": "#00FFFFFF"
         }
       ]
     }
