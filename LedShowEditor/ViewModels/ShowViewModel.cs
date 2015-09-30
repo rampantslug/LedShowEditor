@@ -96,6 +96,7 @@ namespace LedShowEditor.ViewModels
         {
             var metroWindow = (Application.Current.MainWindow as MetroWindow);
             var ledNames = Leds.Select(led => led.LinkedLed.Name).ToList();
+            ledNames.Remove(dataContext.LinkedLed.Name); // Remove source led from list
 
             var dialog = new LedSelectorDialog(ledNames, metroWindow);
             await metroWindow.ShowMetroDialogAsync(dialog);
