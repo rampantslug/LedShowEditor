@@ -188,3 +188,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /LedShowEditor/HobbitExample/LedShows
+/.vs/config/applicationhost.config
+/.vs/LedShowEditor/v16/Server/sqlite3/db.lock
+/.vs/LedShowEditor/v16/Server/sqlite3/storage.ide
